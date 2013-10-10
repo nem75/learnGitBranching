@@ -27,9 +27,9 @@ module.exports = function(grunt) {
 
   grunt.registerTask('lintStrings', 'Find if an INTL string doesnt exist', function() {
     var child_process = require('child_process');
-    var output = child_process.exec('node src/js/intl/checkStrings', function(err, output) {
-      grunt.log.writeln(output);
-    });
+    // var output = child_process.exec('node src/js/intl/checkStrings', function(err, output) {
+    //   grunt.log.writeln(output);
+    // });
   });
 
   grunt.registerTask('buildIndex', 'stick in hashed resources', function() {
