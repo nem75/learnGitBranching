@@ -19768,6 +19768,9 @@ exports.levelSequences = {
     require('./rebase/manyRebases').level,
     require('./advanced/multipleParents').level,
     require('./rebase/selectiveRebase').level
+  ],
+  pixumMT: [
+    require('./pixum/mt1').level
   ]
 };
 
@@ -19883,6 +19886,14 @@ exports.sequenceInfo = {
       'en_US': 'For the truly brave!',
       'fr_FR': 'Pour les plus courageux !',
       'zh_CN': '只为真正的勇士！'
+    }
+  },
+  pixumMT: {
+    displayName: {
+      'en_US': 'Pixum MT'
+    },
+    about: {
+      'en_US': 'Workflows für Maintenance'
     }
   }
 };
@@ -23258,6 +23269,77 @@ require.define("/src/levels/rebase/selectiveRebase.js",function(require,module,e
   }
 };
 
+});
+
+require.define("/src/levels/pixum/mt1.js",function(require,module,exports,__dirname,__filename,process,global){exports.level = {
+  "goalTreeString": "{\"branches\":{\"master\":{\"target\":\"C2\",\"id\":\"master\",\"remoteTrackingBranchID\":\"o/master\"},\"o/master\":{\"target\":\"C2\",\"id\":\"o/master\",\"remoteTrackingBranchID\":null},\"issue\":{\"target\":\"C3\",\"id\":\"issue\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C2\"],\"id\":\"C3\"}},\"HEAD\":{\"target\":\"issue\",\"id\":\"HEAD\"},\"originTree\":{\"branches\":{\"master\":{\"target\":\"C2\",\"id\":\"master\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"}}}",
+  "solutionCommand": "git pull;git branch issue;git checkout issue;git commit ",
+  "compareOnlyMasterHashAgnostic": false,
+  "disabledMap": {},
+  "startTree": "{\"branches\":{\"master\":{\"target\":\"C1\",\"id\":\"master\",\"remoteTrackingBranchID\":\"o/master\"},\"o/master\":{\"target\":\"C1\",\"id\":\"o/master\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"},\"originTree\":{\"branches\":{\"master\":{\"target\":\"C2\",\"id\":\"master\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"}}}",
+  "name": {
+    "en_US": "MT1: Issue-Branch anlegen"
+  },
+  "hint": {
+    "en_US": "Aktualisiere den `master`, leg einen neuen Branch `issue` an und committe dort eine Änderung."
+  },
+  "startDialog": {
+    "en_US": {
+      "childViews": [
+        {
+          "type": "ModalAlert",
+          "options": {
+            "markdowns": [
+              "## MT1: Issue-Branch anlegen",
+              "",
+              "Die Arbeit in Maintenance findet üblicherweise in lokalen Branches statt, einem pro MT-Issue. Nach Abschluss eines Issues wird der entsprechende Branch in den Master integriert und zwecks Deploy auf den Server gepusht.",
+              "",
+              "",
+              ""
+            ]
+          }
+        },
+        {
+          "type": "GitDemonstrationView",
+          "options": {
+            "beforeMarkdowns": [
+              "## Und los",
+              "",
+              "Erster Schritt sollte also das Aktualisieren des `master` sein.",
+              ""
+            ],
+            "afterMarkdowns": [
+              "Falls das Issue schnell gelöst ist, ist durch diesen Schritt möglicherweise gar kein `pull` vor dem Pushen des reintegrierten Branches nötig.",
+              "",
+              "Der Branch `o/master` heißt in einer echten Git-Umgebung üblicherweise `origin/master`. Er enthält alle Commits des Branches `master` auf dem Server `origin` seit dem letzten `pull` (oder `fetch`)."
+            ],
+            "command": "git pull",
+            "beforeCommand": "git clone; git fakeTeamwork"
+          }
+        },
+        {
+          "type": "ModalAlert",
+          "options": {
+            "markdowns": [
+              "## Das eigentliche Branchen",
+              "",
+              "Wenn der `master` aktualisiert ist, muss lediglich noch der Branch für das Issue angelegt und ausgecheckt werden, um darin zu arbeiten.",
+              "",
+              "### Ziel",
+              "",
+              "* den `master` per `git pull` aktualisieren,",
+              "* einen Branch `issue` anlegen und auschecken,",
+              "* dort einen Commit machen mit `git commit` (in unserer Übungsumgebung muss man nicht wirklich Dateien ändern und Änderungen stagen).",
+              "",
+              "",
+              ""
+            ]
+          }
+        }
+      ]
+    }
+  }
+};
 });
 
 require.define("/src/levels/remote/clone.js",function(require,module,exports,__dirname,__filename,process,global){exports.level = {
@@ -39589,6 +39671,9 @@ exports.levelSequences = {
     require('./rebase/manyRebases').level,
     require('./advanced/multipleParents').level,
     require('./rebase/selectiveRebase').level
+  ],
+  pixumMT: [
+    require('./pixum/mt1').level
   ]
 };
 
@@ -39704,6 +39789,14 @@ exports.sequenceInfo = {
       'en_US': 'For the truly brave!',
       'fr_FR': 'Pour les plus courageux !',
       'zh_CN': '只为真正的勇士！'
+    }
+  },
+  pixumMT: {
+    displayName: {
+      'en_US': 'Pixum MT'
+    },
+    about: {
+      'en_US': 'Workflows für Maintenance'
     }
   }
 };
@@ -41706,6 +41799,78 @@ require.define("/src/levels/mixed/jugglingCommits2.js",function(require,module,e
 
 });
 require("/src/levels/mixed/jugglingCommits2.js");
+
+require.define("/src/levels/pixum/mt1.js",function(require,module,exports,__dirname,__filename,process,global){exports.level = {
+  "goalTreeString": "{\"branches\":{\"master\":{\"target\":\"C2\",\"id\":\"master\",\"remoteTrackingBranchID\":\"o/master\"},\"o/master\":{\"target\":\"C2\",\"id\":\"o/master\",\"remoteTrackingBranchID\":null},\"issue\":{\"target\":\"C3\",\"id\":\"issue\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C2\"],\"id\":\"C3\"}},\"HEAD\":{\"target\":\"issue\",\"id\":\"HEAD\"},\"originTree\":{\"branches\":{\"master\":{\"target\":\"C2\",\"id\":\"master\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"}}}",
+  "solutionCommand": "git pull;git branch issue;git checkout issue;git commit ",
+  "compareOnlyMasterHashAgnostic": false,
+  "disabledMap": {},
+  "startTree": "{\"branches\":{\"master\":{\"target\":\"C1\",\"id\":\"master\",\"remoteTrackingBranchID\":\"o/master\"},\"o/master\":{\"target\":\"C1\",\"id\":\"o/master\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"},\"originTree\":{\"branches\":{\"master\":{\"target\":\"C2\",\"id\":\"master\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"}}}",
+  "name": {
+    "en_US": "MT1: Issue-Branch anlegen"
+  },
+  "hint": {
+    "en_US": "Aktualisiere den `master`, leg einen neuen Branch `issue` an und committe dort eine Änderung."
+  },
+  "startDialog": {
+    "en_US": {
+      "childViews": [
+        {
+          "type": "ModalAlert",
+          "options": {
+            "markdowns": [
+              "## MT1: Issue-Branch anlegen",
+              "",
+              "Die Arbeit in Maintenance findet üblicherweise in lokalen Branches statt, einem pro MT-Issue. Nach Abschluss eines Issues wird der entsprechende Branch in den Master integriert und zwecks Deploy auf den Server gepusht.",
+              "",
+              "",
+              ""
+            ]
+          }
+        },
+        {
+          "type": "GitDemonstrationView",
+          "options": {
+            "beforeMarkdowns": [
+              "## Und los",
+              "",
+              "Erster Schritt sollte also das Aktualisieren des `master` sein.",
+              ""
+            ],
+            "afterMarkdowns": [
+              "Falls das Issue schnell gelöst ist, ist durch diesen Schritt möglicherweise gar kein `pull` vor dem Pushen des reintegrierten Branches nötig.",
+              "",
+              "Der Branch `o/master` heißt in einer echten Git-Umgebung üblicherweise `origin/master`. Er enthält alle Commits des Branches `master` auf dem Server `origin` seit dem letzten `pull` (oder `fetch`)."
+            ],
+            "command": "git pull",
+            "beforeCommand": "git clone; git fakeTeamwork"
+          }
+        },
+        {
+          "type": "ModalAlert",
+          "options": {
+            "markdowns": [
+              "## Das eigentliche Branchen",
+              "",
+              "Wenn der `master` aktualisiert ist, muss lediglich noch der Branch für das Issue angelegt und ausgecheckt werden, um darin zu arbeiten.",
+              "",
+              "### Ziel",
+              "",
+              "* den `master` per `git pull` aktualisieren,",
+              "* einen Branch `issue` anlegen und auschecken,",
+              "* dort einen Commit machen mit `git commit` (in unserer Übungsumgebung muss man nicht wirklich Dateien ändern und Änderungen stagen).",
+              "",
+              "",
+              ""
+            ]
+          }
+        }
+      ]
+    }
+  }
+};
+});
+require("/src/levels/pixum/mt1.js");
 
 require.define("/src/levels/rampup/cherryPick.js",function(require,module,exports,__dirname,__filename,process,global){exports.level = {
   "goalTreeString": "%7B%22branches%22%3A%7B%22master%22%3A%7B%22target%22%3A%22C7%27%22%2C%22id%22%3A%22master%22%7D%2C%22bugFix%22%3A%7B%22target%22%3A%22C3%22%2C%22id%22%3A%22bugFix%22%7D%2C%22side%22%3A%7B%22target%22%3A%22C5%22%2C%22id%22%3A%22side%22%7D%2C%22another%22%3A%7B%22target%22%3A%22C7%22%2C%22id%22%3A%22another%22%7D%7D%2C%22commits%22%3A%7B%22C0%22%3A%7B%22parents%22%3A%5B%5D%2C%22id%22%3A%22C0%22%2C%22rootCommit%22%3Atrue%7D%2C%22C1%22%3A%7B%22parents%22%3A%5B%22C0%22%5D%2C%22id%22%3A%22C1%22%7D%2C%22C2%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C2%22%7D%2C%22C3%22%3A%7B%22parents%22%3A%5B%22C2%22%5D%2C%22id%22%3A%22C3%22%7D%2C%22C4%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C4%22%7D%2C%22C5%22%3A%7B%22parents%22%3A%5B%22C4%22%5D%2C%22id%22%3A%22C5%22%7D%2C%22C6%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C6%22%7D%2C%22C7%22%3A%7B%22parents%22%3A%5B%22C6%22%5D%2C%22id%22%3A%22C7%22%7D%2C%22C3%27%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C3%27%22%7D%2C%22C4%27%22%3A%7B%22parents%22%3A%5B%22C3%27%22%5D%2C%22id%22%3A%22C4%27%22%7D%2C%22C7%27%22%3A%7B%22parents%22%3A%5B%22C4%27%22%5D%2C%22id%22%3A%22C7%27%22%7D%7D%2C%22HEAD%22%3A%7B%22target%22%3A%22master%22%2C%22id%22%3A%22HEAD%22%7D%7D",

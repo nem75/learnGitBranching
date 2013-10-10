@@ -26,6 +26,9 @@ exports.levelSequences = {
     require('./rebase/manyRebases').level,
     require('./advanced/multipleParents').level,
     require('./rebase/selectiveRebase').level
+  ],
+  pixumMT: [
+    require('./pixum/mt1').level
   ]
 };
 
@@ -141,6 +144,14 @@ exports.sequenceInfo = {
       'en_US': 'For the truly brave!',
       'fr_FR': 'Pour les plus courageux !',
       'zh_CN': '只为真正的勇士！'
+    }
+  },
+  pixumMT: {
+    displayName: {
+      'en_US': 'Pixum MT'
+    },
+    about: {
+      'en_US': 'Workflows für Maintenance'
     }
   }
 };
