@@ -28,7 +28,8 @@ exports.levelSequences = {
     require('./rebase/selectiveRebase').level
   ],
   pixumMT: [
-    require('./pixum/mt1').level
+    require('./pixum/mt1').level,
+    require('./pixum/mt2').level
   ]
 };
 
@@ -151,7 +152,7 @@ exports.sequenceInfo = {
       'en_US': 'Pixum MT'
     },
     about: {
-      'en_US': 'Workflows für Maintenance'
+      'en_US': 'Workflows für Maintenance und alle anderen'
     }
   }
 };

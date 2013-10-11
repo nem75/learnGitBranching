@@ -19770,7 +19770,8 @@ exports.levelSequences = {
     require('./rebase/selectiveRebase').level
   ],
   pixumMT: [
-    require('./pixum/mt1').level
+    require('./pixum/mt1').level,
+    require('./pixum/mt2').level
   ]
 };
 
@@ -19893,7 +19894,7 @@ exports.sequenceInfo = {
       'en_US': 'Pixum MT'
     },
     about: {
-      'en_US': 'Workflows für Maintenance'
+      'en_US': 'Workflows für Maintenance und alle anderen'
     }
   }
 };
@@ -23281,7 +23282,7 @@ require.define("/src/levels/pixum/mt1.js",function(require,module,exports,__dirn
     "en_US": "MT1: Issue-Branch anlegen"
   },
   "hint": {
-    "en_US": "Aktualisiere den `master`, leg einen neuen Branch `issue` an und committe dort eine Änderung."
+    "en_US": "Aktualisiere den `master`, lege einen neuen Branch `issue` an und committe dort eine Änderung."
   },
   "startDialog": {
     "en_US": {
@@ -23330,6 +23331,81 @@ require.define("/src/levels/pixum/mt1.js",function(require,module,exports,__dirn
               "* den `master` per `git pull` aktualisieren,",
               "* einen Branch `issue` anlegen und auschecken,",
               "* dort einen Commit machen mit `git commit` (in unserer Übungsumgebung muss man nicht wirklich Dateien ändern und Änderungen stagen).",
+              "",
+              "",
+              ""
+            ]
+          }
+        }
+      ]
+    }
+  }
+};
+});
+
+require.define("/src/levels/pixum/mt2.js",function(require,module,exports,__dirname,__filename,process,global){exports.level = {
+  "goalTreeString": "{\"branches\":{\"master\":{\"target\":\"C6\",\"id\":\"master\",\"remoteTrackingBranchID\":\"o/master\"},\"o/master\":{\"target\":\"C6\",\"id\":\"o/master\",\"remoteTrackingBranchID\":null},\"issue\":{\"target\":\"C4\",\"id\":\"issue\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C2\"],\"id\":\"C3\"},\"C4\":{\"parents\":[\"C3\"],\"id\":\"C4\"},\"C5\":{\"parents\":[\"C2\"],\"id\":\"C5\"},\"C6\":{\"parents\":[\"C4\",\"C5\"],\"id\":\"C6\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"},\"originTree\":{\"branches\":{\"master\":{\"target\":\"C6\",\"id\":\"master\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C5\":{\"parents\":[\"C2\"],\"id\":\"C5\"},\"C3\":{\"parents\":[\"C2\"],\"id\":\"C3\"},\"C4\":{\"parents\":[\"C3\"],\"id\":\"C4\"},\"C6\":{\"parents\":[\"C4\",\"C5\"],\"id\":\"C6\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"}}}",
+  "solutionCommand": "git checkout master;git pull;git merge issue --no-ff;git push",
+  "compareOnlyMasterHashAgnostic": false,
+  "disabledMap": {},
+  "name": {
+    "en_US": "MT2: Issue-Branch reintegrieren"
+  },
+  "startTree": "{\"branches\":{\"master\":{\"target\":\"C2\",\"id\":\"master\",\"remoteTrackingBranchID\":\"o/master\"},\"o/master\":{\"target\":\"C2\",\"id\":\"o/master\",\"remoteTrackingBranchID\":null},\"issue\":{\"target\":\"C4\",\"id\":\"issue\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C2\"],\"id\":\"C3\"},\"C4\":{\"parents\":[\"C3\"],\"id\":\"C4\"}},\"HEAD\":{\"target\":\"issue\",\"id\":\"HEAD\"},\"originTree\":{\"branches\":{\"master\":{\"target\":\"C5\",\"id\":\"master\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C5\":{\"parents\":[\"C2\"],\"id\":\"C5\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"}}}",
+  "hint": {
+    "en_US": "Nicht vergessen: Optionen müssen ans Ende des Kommandos, also `git merge issue --no-ff` und nicht `git merge --no-ff issue`. Echtem Git ist das egal!"
+  },
+  "startDialog": {
+    "en_US": {
+      "childViews": [
+        {
+          "type": "ModalAlert",
+          "options": {
+            "markdowns": [
+              "## MT2: Issue-Branch reintegrieren",
+              "",
+              "Ist ein Issue fertig bearbeitet, wird sein Branch in den `master` reintegriert und gepusht. Danach ist der Deploy möglich.",
+              "",
+              "Um Problemen beim `push` weitgehend vorzubeugen muss vorher ein `pull` auf dem `master` ausgeführt werden, um eventuelle Team-Änderungen vom Server zu holen.",
+              "",
+              "Wenn man einfach nur irgendwie solange `pull` ausführt bis man seinen Kram auf den Server gepusht bekommt, kommt es sonst zu unnötig unübersichtlichen Auswüchsen, die allen Kollegen den Tag vermiesen.",
+              "",
+              ""
+            ]
+          }
+        },
+        {
+          "type": "GitDemonstrationView",
+          "options": {
+            "beforeMarkdowns": [
+              "## Die History auf dem Server sauber halten",
+              "",
+              "In diesem Beispiel ist ein Issue-Branch in den `master` gemergt worden, obwohl auf dem Server bereits ein neuer Commit im `master` war.",
+              "",
+              "Ein `push` ist jetzt nicht mehr möglich, Git warnt entsprechend. Wenn man jetzt einfach nur `pull` ausführt und dann pusht ..."
+            ],
+            "afterMarkdowns": [
+              "Hatten sie die Spaghetti bestellt? Na denn guten Appetit.",
+              "",
+              "Nur: hier müssen alle Kollegen mitessen. Schönen Dank auch dafür."
+            ],
+            "command": "git pull; git push",
+            "beforeCommand": "git clone; git co -b issue; git ci; git fakeTeamwork; git co master; git merge issue --no-ff"
+          }
+        },
+        {
+          "type": "ModalAlert",
+          "options": {
+            "markdowns": [
+              "## Dann lieber richtig",
+              "",
+              "So also nicht. Deshalb bitte in diesem Level (und in Echt auch)",
+              "",
+              "* erst mal den `master` aktualisieren,",
+              "* dann `issue` in `master` mergen (`--no-ff` nicht vergessen; die Optionen müssen in dieser Lernumgebung immer ans Ende, es wäre also z.B. `git merge issue --no-ff`),",
+              "* und erst dann `pushen`.",
+              "",
+              "Das Ergebnis wird ersichtlich übersichtlicher. Der Rest der Firma dankt's.",
               "",
               "",
               ""
@@ -39673,7 +39749,8 @@ exports.levelSequences = {
     require('./rebase/selectiveRebase').level
   ],
   pixumMT: [
-    require('./pixum/mt1').level
+    require('./pixum/mt1').level,
+    require('./pixum/mt2').level
   ]
 };
 
@@ -39796,7 +39873,7 @@ exports.sequenceInfo = {
       'en_US': 'Pixum MT'
     },
     about: {
-      'en_US': 'Workflows für Maintenance'
+      'en_US': 'Workflows für Maintenance und alle anderen'
     }
   }
 };
@@ -41810,7 +41887,7 @@ require.define("/src/levels/pixum/mt1.js",function(require,module,exports,__dirn
     "en_US": "MT1: Issue-Branch anlegen"
   },
   "hint": {
-    "en_US": "Aktualisiere den `master`, leg einen neuen Branch `issue` an und committe dort eine Änderung."
+    "en_US": "Aktualisiere den `master`, lege einen neuen Branch `issue` an und committe dort eine Änderung."
   },
   "startDialog": {
     "en_US": {
@@ -41871,6 +41948,82 @@ require.define("/src/levels/pixum/mt1.js",function(require,module,exports,__dirn
 };
 });
 require("/src/levels/pixum/mt1.js");
+
+require.define("/src/levels/pixum/mt2.js",function(require,module,exports,__dirname,__filename,process,global){exports.level = {
+  "goalTreeString": "{\"branches\":{\"master\":{\"target\":\"C6\",\"id\":\"master\",\"remoteTrackingBranchID\":\"o/master\"},\"o/master\":{\"target\":\"C6\",\"id\":\"o/master\",\"remoteTrackingBranchID\":null},\"issue\":{\"target\":\"C4\",\"id\":\"issue\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C2\"],\"id\":\"C3\"},\"C4\":{\"parents\":[\"C3\"],\"id\":\"C4\"},\"C5\":{\"parents\":[\"C2\"],\"id\":\"C5\"},\"C6\":{\"parents\":[\"C4\",\"C5\"],\"id\":\"C6\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"},\"originTree\":{\"branches\":{\"master\":{\"target\":\"C6\",\"id\":\"master\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C5\":{\"parents\":[\"C2\"],\"id\":\"C5\"},\"C3\":{\"parents\":[\"C2\"],\"id\":\"C3\"},\"C4\":{\"parents\":[\"C3\"],\"id\":\"C4\"},\"C6\":{\"parents\":[\"C4\",\"C5\"],\"id\":\"C6\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"}}}",
+  "solutionCommand": "git checkout master;git pull;git merge issue --no-ff;git push",
+  "compareOnlyMasterHashAgnostic": false,
+  "disabledMap": {},
+  "name": {
+    "en_US": "MT2: Issue-Branch reintegrieren"
+  },
+  "startTree": "{\"branches\":{\"master\":{\"target\":\"C2\",\"id\":\"master\",\"remoteTrackingBranchID\":\"o/master\"},\"o/master\":{\"target\":\"C2\",\"id\":\"o/master\",\"remoteTrackingBranchID\":null},\"issue\":{\"target\":\"C4\",\"id\":\"issue\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C2\"],\"id\":\"C3\"},\"C4\":{\"parents\":[\"C3\"],\"id\":\"C4\"}},\"HEAD\":{\"target\":\"issue\",\"id\":\"HEAD\"},\"originTree\":{\"branches\":{\"master\":{\"target\":\"C5\",\"id\":\"master\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C5\":{\"parents\":[\"C2\"],\"id\":\"C5\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"}}}",
+  "hint": {
+    "en_US": "Nicht vergessen: Optionen müssen ans Ende des Kommandos, also `git merge issue --no-ff` und nicht `git merge --no-ff issue`. Echtem Git ist das egal!"
+  },
+  "startDialog": {
+    "en_US": {
+      "childViews": [
+        {
+          "type": "ModalAlert",
+          "options": {
+            "markdowns": [
+              "## MT2: Issue-Branch reintegrieren",
+              "",
+              "Ist ein Issue fertig bearbeitet, wird sein Branch in den `master` reintegriert und gepusht. Danach ist der Deploy möglich.",
+              "",
+              "Um Problemen beim `push` weitgehend vorzubeugen muss vorher ein `pull` auf dem `master` ausgeführt werden, um eventuelle Team-Änderungen vom Server zu holen.",
+              "",
+              "Wenn man einfach nur irgendwie solange `pull` ausführt bis man seinen Kram auf den Server gepusht bekommt, kommt es sonst zu unnötig unübersichtlichen Auswüchsen, die allen Kollegen den Tag vermiesen.",
+              "",
+              ""
+            ]
+          }
+        },
+        {
+          "type": "GitDemonstrationView",
+          "options": {
+            "beforeMarkdowns": [
+              "## Die History auf dem Server sauber halten",
+              "",
+              "In diesem Beispiel ist ein Issue-Branch in den `master` gemergt worden, obwohl auf dem Server bereits ein neuer Commit im `master` war.",
+              "",
+              "Ein `push` ist jetzt nicht mehr möglich, Git warnt entsprechend. Wenn man jetzt einfach nur `pull` ausführt und dann pusht ..."
+            ],
+            "afterMarkdowns": [
+              "Hatten sie die Spaghetti bestellt? Na denn guten Appetit.",
+              "",
+              "Nur: hier müssen alle Kollegen mitessen. Schönen Dank auch dafür."
+            ],
+            "command": "git pull; git push",
+            "beforeCommand": "git clone; git co -b issue; git ci; git fakeTeamwork; git co master; git merge issue --no-ff"
+          }
+        },
+        {
+          "type": "ModalAlert",
+          "options": {
+            "markdowns": [
+              "## Dann lieber richtig",
+              "",
+              "So also nicht. Deshalb bitte in diesem Level (und in Echt auch)",
+              "",
+              "* erst mal den `master` aktualisieren,",
+              "* dann `issue` in `master` mergen (`--no-ff` nicht vergessen; die Optionen müssen in dieser Lernumgebung immer ans Ende, es wäre also z.B. `git merge issue --no-ff`),",
+              "* und erst dann `pushen`.",
+              "",
+              "Das Ergebnis wird ersichtlich übersichtlicher. Der Rest der Firma dankt's.",
+              "",
+              "",
+              ""
+            ]
+          }
+        }
+      ]
+    }
+  }
+};
+});
+require("/src/levels/pixum/mt2.js");
 
 require.define("/src/levels/rampup/cherryPick.js",function(require,module,exports,__dirname,__filename,process,global){exports.level = {
   "goalTreeString": "%7B%22branches%22%3A%7B%22master%22%3A%7B%22target%22%3A%22C7%27%22%2C%22id%22%3A%22master%22%7D%2C%22bugFix%22%3A%7B%22target%22%3A%22C3%22%2C%22id%22%3A%22bugFix%22%7D%2C%22side%22%3A%7B%22target%22%3A%22C5%22%2C%22id%22%3A%22side%22%7D%2C%22another%22%3A%7B%22target%22%3A%22C7%22%2C%22id%22%3A%22another%22%7D%7D%2C%22commits%22%3A%7B%22C0%22%3A%7B%22parents%22%3A%5B%5D%2C%22id%22%3A%22C0%22%2C%22rootCommit%22%3Atrue%7D%2C%22C1%22%3A%7B%22parents%22%3A%5B%22C0%22%5D%2C%22id%22%3A%22C1%22%7D%2C%22C2%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C2%22%7D%2C%22C3%22%3A%7B%22parents%22%3A%5B%22C2%22%5D%2C%22id%22%3A%22C3%22%7D%2C%22C4%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C4%22%7D%2C%22C5%22%3A%7B%22parents%22%3A%5B%22C4%22%5D%2C%22id%22%3A%22C5%22%7D%2C%22C6%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C6%22%7D%2C%22C7%22%3A%7B%22parents%22%3A%5B%22C6%22%5D%2C%22id%22%3A%22C7%22%7D%2C%22C3%27%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C3%27%22%7D%2C%22C4%27%22%3A%7B%22parents%22%3A%5B%22C3%27%22%5D%2C%22id%22%3A%22C4%27%22%7D%2C%22C7%27%22%3A%7B%22parents%22%3A%5B%22C4%27%22%5D%2C%22id%22%3A%22C7%27%22%7D%7D%2C%22HEAD%22%3A%7B%22target%22%3A%22master%22%2C%22id%22%3A%22HEAD%22%7D%7D",

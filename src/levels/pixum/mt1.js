@@ -8,7 +8,7 @@ exports.level = {
     "en_US": "MT1: Issue-Branch anlegen"
   },
   "hint": {
-    "en_US": "Aktualisiere den `master`, leg einen neuen Branch `issue` an und committe dort eine Änderung."
+    "en_US": "Aktualisiere den `master`, lege einen neuen Branch `issue` an und committe dort eine Änderung."
   },
   "startDialog": {
     "en_US": {
