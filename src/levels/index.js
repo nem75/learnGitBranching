@@ -30,7 +30,8 @@ exports.levelSequences = {
   pixumMT: [
     require('./pixum/mt1').level,
     require('./pixum/mt2').level,
-    require('./pixum/mt3').level
+    require('./pixum/mt3').level,
+    require('./pixum/mt4').level
   ]
 };
 
