@@ -1,14 +1,14 @@
 exports.level = {
-  "goalTreeString": "{\"branches\":{\"master\":{\"target\":\"C7\",\"id\":\"master\",\"remoteTrackingBranchID\":\"o/master\"},\"o/master\":{\"target\":\"C7\",\"id\":\"o/master\",\"remoteTrackingBranchID\":null},\"issue\":{\"target\":\"C7\",\"id\":\"issue\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C5\":{\"parents\":[\"C1\"],\"id\":\"C5\"},\"C6\":{\"parents\":[\"C5\"],\"id\":\"C6\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C2\"],\"id\":\"C3\"},\"C4\":{\"parents\":[\"C3\"],\"id\":\"C4\"},\"C7\":{\"parents\":[\"C4\",\"C6\"],\"id\":\"C7\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"},\"originTree\":{\"branches\":{\"master\":{\"target\":\"C7\",\"id\":\"master\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C2\"],\"id\":\"C3\"},\"C4\":{\"parents\":[\"C3\"],\"id\":\"C4\"},\"C5\":{\"parents\":[\"C1\"],\"id\":\"C5\"},\"C6\":{\"parents\":[\"C5\"],\"id\":\"C6\"},\"C7\":{\"parents\":[\"C4\",\"C6\"],\"id\":\"C7\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"}}}",
-  "solutionCommand": "git pull;git checkout issue;git merge master;git checkout master;git merge issue;git push",
-  "startTree": "{\"branches\":{\"master\":{\"target\":\"C1\",\"id\":\"master\",\"remoteTrackingBranchID\":\"o/master\"},\"o/master\":{\"target\":\"C1\",\"id\":\"o/master\",\"remoteTrackingBranchID\":null},\"issue\":{\"target\":\"C6\",\"id\":\"issue\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C5\":{\"parents\":[\"C1\"],\"id\":\"C5\"},\"C6\":{\"parents\":[\"C5\"],\"id\":\"C6\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"},\"originTree\":{\"branches\":{\"master\":{\"target\":\"C4\",\"id\":\"master\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C2\"],\"id\":\"C3\"},\"C4\":{\"parents\":[\"C3\"],\"id\":\"C4\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"}}}",
+  "goalTreeString": "{\"branches\":{\"master\":{\"target\":\"C2\",\"id\":\"master\",\"remoteTrackingBranchID\":\"o/master\"},\"o/master\":{\"target\":\"C2\",\"id\":\"o/master\",\"remoteTrackingBranchID\":null},\"issue\":{\"target\":\"C2\",\"id\":\"issue\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"},\"originTree\":{\"branches\":{\"master\":{\"target\":\"C2\",\"id\":\"master\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"}}}",
+  "solutionCommand": "git checkout master;git merge issue;git push",
+  "startTree": "{\"branches\":{\"master\":{\"target\":\"C1\",\"id\":\"master\",\"remoteTrackingBranchID\":\"o/master\"},\"o/master\":{\"target\":\"C1\",\"id\":\"o/master\",\"remoteTrackingBranchID\":null},\"issue\":{\"target\":\"C2\",\"id\":\"issue\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"}},\"HEAD\":{\"target\":\"issue\",\"id\":\"HEAD\"},\"originTree\":{\"branches\":{\"master\":{\"target\":\"C1\",\"id\":\"master\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"}}}",
   "compareOnlyMasterHashAgnostic": false,
   "disabledMap": {"git rebase": true},
-  "name": {
-    "en_US": "MT3: Issue-Branch aktualisieren per Merge"
-  },
   "hint": {
-    "en_US": "`git merge` erzeugt automatisch einen Commit wenn keine Konflikte auftreten."
+    "en_US": "Wenn es zwischenzeitlich Änderungen auf dem Server im `master` gab, ergibt sich auch ohne `--no-ff` ein Merge Commit, weil `issue` und `master` divergieren."
+  },
+  "name": {
+    "en_US": "MT3: Issue-Branch reintegrieren ohne Merge Commit"
   },
   "startDialog": {
     "en_US": {
@@ -17,14 +17,11 @@ exports.level = {
           "type": "ModalAlert",
           "options": {
             "markdowns": [
-              "## MT3: Issue-Branch aktualisieren per Merge",
+              "## MT3: Issue-Branch reintegrieren ohne Merge Commit",
               "",
-              "Falls während der Arbeit an einem Issue-Branch sehr viele Änderungen auf den `master` gepusht worden sind, kann es sinnvoll sein diese in den Branch zu holen bevor man ihn reintegriert. Auf diese Weise lassen sich eventuelle Konflikte vor der Reintegration aufdecken und lösen.",
+              "In aller Regel benutzen wir beim Reintegrieren in den Master ein `git merge --no-ff`. Das `--no-ff` verhindert einen sogenannten \"fast forward\" und erzwingt einen Merge Commit.",
               "",
-              "Eine Möglichkeit das zu tun, ist den `master` in den Branch zu mergen",
-              "",
-              "",
-              ""
+              "Das ist sinnvoll solange dein Branch mehr als einen Commit enthält. Falls durch deinen Branch nämlich fehlerhafter Code deployt wird, muss nur `git revert <hash des Merge Commits>` ausgeführt werden, um deine Reintegration zurück zu nehmen."
             ]
           }
         },
@@ -32,11 +29,13 @@ exports.level = {
           "type": "ModalAlert",
           "options": {
             "markdowns": [
-              "Dieser Level startet mit einem Issue-Branch und einem `master`, auf dem seit Erstellen des Branches drei Commits gemacht wurden.",
+              "## Keine Regel ohne Ausnahme",
               "",
-              "Bitte merge den `master` in den Branch, bevor du diesen in den `master` reintegrierst und pushst.",
+              "Wenn dein Branch allerdings eh nur einen Commit enthält, ist das `--no-ff` überflüssig. Es wegzulassen sorgt in dem Fall für eine lineare und übersichtlichere History.",
               "",
-              "*WICHTIG:* da durch den Merge von `master` in `issue` bereits ein Merge Commit entsteht, ist es in diesem Fall nicht nötig den Branch mit `--no-ff` in den `master` zu mergen. Es schadet zwar auch nicht, führt aber in diesem Level nicht zur Lösung. Probier aus wie das Ergebnis aussieht wenn man beim letzten Merge mit und ohne `--no-ff` arbeitet. Du kannst Arbeitsschritte mit `undo` zurücknehmen.",
+              "Reintegriere in diesem Level den Branch `issue` ohne `--no-ff` in den `master`.",
+              "",
+              "Das Ergebnis ist ein \"fast forward\", das heißt der `master` wird mit `issue` \"gleichgesetzt\", ohne dass ein Merge Commit entsteht. Das ist möglich, da `issue` nur Änderungen enthält, die auf den neuesten Stand von `master` aufbauen. Hätte es zwischenzeitlich in `master` auch Änderungen gegeben (oder kämen diese zum Beispiel durch ein `git pull` herein) so wäre kein fast forward möglich und es würde wieder ein Merge Commit entstehen (obwohl `issue` nach wie vor nur einen Commit enthält).",
               ""
             ]
           }

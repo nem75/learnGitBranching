@@ -3,10 +3,14 @@ MT levels:
 
 MT1 --> done
 MT2 reintegrate issue --> done
-MT3 reintegrate multiple and single commit branches
-MT4 reintegrate single commit branch diverged from master --> done
-MT5 reintegrate with merge from master - (saved as MT3) --> rename MT3 to MT5!
-MT6 reintegrate with teamwork after merge
+MT3 reintegrate multiple and single commit branches --> done
+MT4 reintegrate with merge from master --> done
+MT5 reintegrate with teamwork after merge --> done
 MT7 revert pushed commit
 MT8 revert revert
 MT9 cleanup issue branch
+
+Local branch levels:
+--------------------
+
+LB1 reintegrate single commit branch diverged from master - rebase
