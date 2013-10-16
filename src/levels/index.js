@@ -13,20 +13,20 @@ exports.levelSequences = {
     require('./rampup/relativeRefs2').level,
     require('./rampup/reversingChanges').level
   ],
-  move: [
-    require('./rampup/cherryPick').level,
-    require('./rampup/interactiveRebase').level
-  ],
-  mixed: [
-    require('./mixed/grabbingOneCommit').level,
-    require('./mixed/jugglingCommits').level,
-    require('./mixed/jugglingCommits2').level
-  ],
-  advanced: [
-    require('./rebase/manyRebases').level,
-    require('./advanced/multipleParents').level,
-    require('./rebase/selectiveRebase').level
-  ],
+  // move: [
+  //   require('./rampup/cherryPick').level,
+  //   require('./rampup/interactiveRebase').level
+  // ],
+  // mixed: [
+  //   require('./mixed/grabbingOneCommit').level,
+  //   require('./mixed/jugglingCommits').level,
+  //   require('./mixed/jugglingCommits2').level
+  // ],
+  // advanced: [
+  //   require('./rebase/manyRebases').level,
+  //   require('./advanced/multipleParents').level,
+  //   require('./rebase/selectiveRebase').level
+  // ],
   pixumMT: [
     require('./pixum/mt1').level,
     require('./pixum/mt2').level,
@@ -60,14 +60,14 @@ if (typeof window !== 'undefined' && window.location &&
 exports.sequenceInfo = {
   intro: {
     displayName: {
-      'en_US': 'Introduction Sequence',
+      'en_US': 'Einführung',
       'ja': 'まずはここから',
       'fr_FR': 'Séquence d\'introduction',
       'zh_CN': '基础篇',
       'ko': '기본 명령어'
     },
     about: {
-      'en_US': 'A nicely paced introduction to the majority of git commands',
+      'en_US': 'Commit, Branch, Merge und Rebase',
       'ja': 'gitの基本的なコマンド群をほどよいペースで学ぶ',
       'fr_FR': 'Une introduction en douceur à la majorité des commandes git',
       'zh_CN': '循序渐进介绍git主要命令',
@@ -76,13 +76,13 @@ exports.sequenceInfo = {
   },
   rampup: {
     displayName: {
-      'en_US': 'Ramping Up',
+      'en_US': 'Fortgeschritten',
       'ja': '次のレベルに進もう',
       'fr_FR': 'Montée en puissance',
       'zh_CN': '进阶篇'
     },
     about: {
-      'en_US': 'The next serving of 100% git awesomes-ness. Hope you\'re hungry',
+      'en_US': 'Detached HEAD, Refs, Rückgängigmachen von Änderungen',
       'ja': '更にgitの素晴らしさを堪能しよう',
       'fr_FR' : 'Le prochain service git 100% excellence. J\'espère que vous êtes affamés',
       'zh_CN': '接下来是git的超赞特性。迫不及待了吧！'
@@ -152,10 +152,10 @@ exports.sequenceInfo = {
   },
   pixumMT: {
     displayName: {
-      'en_US': 'Pixum MT'
+      'en_US': 'Workflows Lokale Branches / MT'
     },
     about: {
-      'en_US': 'Workflows für Maintenance und alle anderen'
+      'en_US': 'Workflows für die Arbeit mit lokalen Branches'
     }
   }
 };
