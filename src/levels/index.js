@@ -22,17 +22,18 @@ exports.levelSequences = {
   //   require('./mixed/jugglingCommits').level,
   //   require('./mixed/jugglingCommits2').level
   // ],
-  // advanced: [
-  //   require('./rebase/manyRebases').level,
-  //   require('./advanced/multipleParents').level,
-  //   require('./rebase/selectiveRebase').level
-  // ],
+  advanced: [
+    require('./rebase/manyRebases').level,
+    require('./advanced/multipleParents').level,
+    require('./rebase/selectiveRebase').level
+  ],
   pixumMT: [
     require('./pixum/mt1').level,
     require('./pixum/mt2').level,
     require('./pixum/mt3').level,
     require('./pixum/mt4').level,
-    require('./pixum/mt5').level
+    require('./pixum/mt5').level,
+    require('./pixum/mt6').level
   ]
 };
 
@@ -76,13 +77,13 @@ exports.sequenceInfo = {
   },
   rampup: {
     displayName: {
-      'en_US': 'Fortgeschritten',
+      'en_US': 'Navigation',
       'ja': '次のレベルに進もう',
       'fr_FR': 'Montée en puissance',
       'zh_CN': '进阶篇'
     },
     about: {
-      'en_US': 'Detached HEAD, Refs, Rückgängigmachen von Änderungen',
+      'en_US': 'Sich im Graph bewegen mit Detached HEAD, Refs, Rückgängigmachen von Änderungen',
       'ja': '更にgitの素晴らしさを堪能しよう',
       'fr_FR' : 'Le prochain service git 100% excellence. J\'espère que vous êtes affamés',
       'zh_CN': '接下来是git的超赞特性。迫不及待了吧！'
@@ -140,12 +141,12 @@ exports.sequenceInfo = {
   },
   advanced: {
     displayName: {
-      'en_US': 'Advanced Topics',
+      'en_US': 'Fortgeschritten',
       'fr_FR': 'Sujets Avancés',
       'zh_CN': '高级主题'
     },
     about: {
-      'en_US': 'For the truly brave!',
+      'en_US': 'Mehrere Rebases, mehrere Parents, selektives Rebasen',
       'fr_FR': 'Pour les plus courageux !',
       'zh_CN': '只为真正的勇士！'
     }

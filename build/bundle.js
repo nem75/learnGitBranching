@@ -19764,17 +19764,18 @@ exports.levelSequences = {
   //   require('./mixed/jugglingCommits').level,
   //   require('./mixed/jugglingCommits2').level
   // ],
-  // advanced: [
-  //   require('./rebase/manyRebases').level,
-  //   require('./advanced/multipleParents').level,
-  //   require('./rebase/selectiveRebase').level
-  // ],
+  advanced: [
+    require('./rebase/manyRebases').level,
+    require('./advanced/multipleParents').level,
+    require('./rebase/selectiveRebase').level
+  ],
   pixumMT: [
     require('./pixum/mt1').level,
     require('./pixum/mt2').level,
     require('./pixum/mt3').level,
     require('./pixum/mt4').level,
-    require('./pixum/mt5').level
+    require('./pixum/mt5').level,
+    require('./pixum/mt6').level
   ]
 };
 
@@ -19818,13 +19819,13 @@ exports.sequenceInfo = {
   },
   rampup: {
     displayName: {
-      'en_US': 'Fortgeschritten',
+      'en_US': 'Navigation',
       'ja': '次のレベルに進もう',
       'fr_FR': 'Montée en puissance',
       'zh_CN': '进阶篇'
     },
     about: {
-      'en_US': 'Detached HEAD, Refs, Rückgängigmachen von Änderungen',
+      'en_US': 'Sich im Graph bewegen mit Detached HEAD, Refs, Rückgängigmachen von Änderungen',
       'ja': '更にgitの素晴らしさを堪能しよう',
       'fr_FR' : 'Le prochain service git 100% excellence. J\'espère que vous êtes affamés',
       'zh_CN': '接下来是git的超赞特性。迫不及待了吧！'
@@ -19882,12 +19883,12 @@ exports.sequenceInfo = {
   },
   advanced: {
     displayName: {
-      'en_US': 'Advanced Topics',
+      'en_US': 'Fortgeschritten',
       'fr_FR': 'Sujets Avancés',
       'zh_CN': '高级主题'
     },
     about: {
-      'en_US': 'For the truly brave!',
+      'en_US': 'Mehrere Rebases, mehrere Parents, selektives Rebasen',
       'fr_FR': 'Pour les plus courageux !',
       'zh_CN': '只为真正的勇士！'
     }
@@ -22123,6 +22124,403 @@ require.define("/src/levels/rampup/reversingChanges.js",function(require,module,
 
 });
 
+require.define("/src/levels/rebase/manyRebases.js",function(require,module,exports,__dirname,__filename,process,global){exports.level = {
+  "compareOnlyMasterHashAgnostic": true,
+  "disabledMap": {
+    "git revert": true,
+    "git cherry-pick": true
+  },
+  "goalTreeString": "%7B%22branches%22%3A%7B%22master%22%3A%7B%22target%22%3A%22C7%27%22%2C%22id%22%3A%22master%22%7D%2C%22bugFix%22%3A%7B%22target%22%3A%22C3%27%22%2C%22id%22%3A%22bugFix%22%7D%2C%22side%22%3A%7B%22target%22%3A%22C6%27%22%2C%22id%22%3A%22side%22%7D%2C%22another%22%3A%7B%22target%22%3A%22C7%27%22%2C%22id%22%3A%22another%22%7D%7D%2C%22commits%22%3A%7B%22C0%22%3A%7B%22parents%22%3A%5B%5D%2C%22id%22%3A%22C0%22%2C%22rootCommit%22%3Atrue%7D%2C%22C1%22%3A%7B%22parents%22%3A%5B%22C0%22%5D%2C%22id%22%3A%22C1%22%7D%2C%22C2%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C2%22%7D%2C%22C3%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C3%22%7D%2C%22C4%22%3A%7B%22parents%22%3A%5B%22C0%22%5D%2C%22id%22%3A%22C4%22%7D%2C%22C5%22%3A%7B%22parents%22%3A%5B%22C4%22%5D%2C%22id%22%3A%22C5%22%7D%2C%22C6%22%3A%7B%22parents%22%3A%5B%22C5%22%5D%2C%22id%22%3A%22C6%22%7D%2C%22C7%22%3A%7B%22parents%22%3A%5B%22C5%22%5D%2C%22id%22%3A%22C7%22%7D%2C%22C3%27%22%3A%7B%22parents%22%3A%5B%22C2%22%5D%2C%22id%22%3A%22C3%27%22%7D%2C%22C4%27%22%3A%7B%22parents%22%3A%5B%22C3%27%22%5D%2C%22id%22%3A%22C4%27%22%7D%2C%22C5%27%22%3A%7B%22parents%22%3A%5B%22C4%27%22%5D%2C%22id%22%3A%22C5%27%22%7D%2C%22C6%27%22%3A%7B%22parents%22%3A%5B%22C5%27%22%5D%2C%22id%22%3A%22C6%27%22%7D%2C%22C7%27%22%3A%7B%22parents%22%3A%5B%22C6%27%22%5D%2C%22id%22%3A%22C7%27%22%7D%7D%2C%22HEAD%22%3A%7B%22target%22%3A%22master%22%2C%22id%22%3A%22HEAD%22%7D%7D",
+  "solutionCommand": "git checkout bugFix;git rebase master;git checkout side;git rebase bugFix;git checkout another;git rebase side;git rebase another master",
+  "startTree": "{\"branches\":{\"master\":{\"target\":\"C2\",\"id\":\"master\"},\"bugFix\":{\"target\":\"C3\",\"id\":\"bugFix\"},\"side\":{\"target\":\"C6\",\"id\":\"side\"},\"another\":{\"target\":\"C7\",\"id\":\"another\"}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C1\"],\"id\":\"C3\"},\"C4\":{\"parents\":[\"C0\"],\"id\":\"C4\"},\"C5\":{\"parents\":[\"C4\"],\"id\":\"C5\"},\"C6\":{\"parents\":[\"C5\"],\"id\":\"C6\"},\"C7\":{\"parents\":[\"C5\"],\"id\":\"C7\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"}}",
+  "name": {
+    "en_US": "Rebasing over 9000 times",
+    "ko": "9천번이 넘는 리베이스",
+    "ja": "Rebasing over 9000 times",
+    "zh_CN": "N次Rebase"
+  },
+  "hint": {
+    "en_US": "Remember, the most efficient way might be to only update master at the end...",
+    "ja": "最も効率的なやり方はmasterを最後に更新するだけかもしれない・・・",
+    "ko": "아마도 master를 마지막에 업데이트하는 것이 가장 효율적인 방법일 것입니다...",
+    "zh_CN": "记住，最后更新master分支可能是最高效的方法。"
+  },
+  "startDialog": {
+    "en_US": {
+      "childViews": [
+        {
+          "type": "ModalAlert",
+          "options": {
+            "markdowns": [
+              "### Rebasing Multiple Branches",
+              "",
+              "Man, we have a lot of branches going on here! Let's rebase all the work from these branches onto master.",
+              "",
+              "Upper management is making this a bit trickier though -- they want the commits to all be in sequential order. So this means that our final tree should have `C7'` at the bottom, `C6'` above that, etc etc, etc all in order.",
+              "",
+              "If you mess up along the way, feel free to use `reset` to start over again. Be sure to check out our solution and see if you can do it in fewer commands!"
+            ]
+          }
+        }
+      ]
+    },
+    "ja": {
+      "childViews": [
+        {
+          "type": "ModalAlert",
+          "options": {
+            "markdowns": [
+              "### 複数のブランチをリベースする",
+              "",
+              "さあ、いくつものブランチが出てきます。このブランチたち全てをmasterブランチにリベースしましょう。",
+              "",
+              "おエライさん方が今回の仕事を少しトリッキーにしてくれました ― コミットはすべて一列のシーケンシャルな状態にしてほしいそうです。つまり私たちが作るリポジトリの最終的なツリーの状態は、`C7'`が最後に来て、`C6'`がその一つ上に来て、、と順に積み重なるイメージです。",
+              "",
+              "試行錯誤してツリーが汚くなってきたら、`reset`コマンドを使ってツリーの状態を初期化してください。模範解答をチェックして、それよりも簡単なコマンドで済ませられるかどうか、を考えるのも忘れずに！"
+            ]
+          }
+        }
+      ]
+    },
+    "zh_CN": {
+      "childViews": [
+        {
+          "type": "ModalAlert",
+          "options": {
+            "markdowns": [
+              "### 多分支衍合",
+              "",
+              "呐，现在我们有很多分支啦！让我们rebase这些分支的工作到 master 分支上吧。",
+              "",
+              "但是你的头头找了点麻烦 —— 他们希望得到有序的提交历史，也就是我们最终的结果是 `C7'` 在最底部，`C6'` 在它上面，以此类推。",
+              "",
+              "假如你搞砸了，没所谓的（虽然我不会告诉你用 `reset` 可以重新开始）。记得看看我们提供的答案，看你能否使用更少的命令完成任务！"
+            ]
+          }
+        }
+      ]
+    },
+    "ko": {
+      "childViews": [
+        {
+          "type": "ModalAlert",
+          "options": {
+            "markdowns": [
+              "### 여러 브랜치를 리베이스(rebase)하기 ",
+              "",
+              "음, 여기 꽤 여러개의 브랜치가 있습니다! 이 브랜치들의 모든 작업내역을 master에 리베이스 해볼까요?",
+              "",
+              "윗선에서 일을 복잡하게 만드네요 -- 그 분들이 이 모든 커밋들을 순서에 맞게 정렬하라고 합니다. 그럼 결국 우리의 최종 목표 트리는 제일 아래에 `C7'` 커밋, 그 위에 `C6'` 커밋, 또 그 위에 순서대로 보여합니다.",
+              "",
+              "만일 작업중에 내용이 꼬인다면, `reset`이라고 쳐서 처음부터 다시 시작할 수 있습니다. 모범 답안을 확인해 보시고, 혹시 더 적은 수의 커맨드로 해결할 수 있는지 알아보세요!"
+            ]
+          }
+        }
+      ]
+    }
+  }
+};
+
+});
+
+require.define("/src/levels/advanced/multipleParents.js",function(require,module,exports,__dirname,__filename,process,global){exports.level = {
+  "goalTreeString": "{\"branches\":{\"master\":{\"target\":\"C7\",\"id\":\"master\"},\"bugWork\":{\"target\":\"C2\",\"id\":\"bugWork\"}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C1\"],\"id\":\"C3\"},\"C4\":{\"parents\":[\"C3\"],\"id\":\"C4\"},\"C5\":{\"parents\":[\"C2\"],\"id\":\"C5\"},\"C6\":{\"parents\":[\"C4\",\"C5\"],\"id\":\"C6\"},\"C7\":{\"parents\":[\"C6\"],\"id\":\"C7\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"}}",
+  "solutionCommand": "git branch bugWork master^^2^",
+  "startTree": "{\"branches\":{\"master\":{\"target\":\"C7\",\"id\":\"master\"}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C1\"],\"id\":\"C3\"},\"C4\":{\"parents\":[\"C3\"],\"id\":\"C4\"},\"C5\":{\"parents\":[\"C2\"],\"id\":\"C5\"},\"C6\":{\"parents\":[\"C4\",\"C5\"],\"id\":\"C6\"},\"C7\":{\"parents\":[\"C6\"],\"id\":\"C7\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"}}",
+  "name": {
+    "en_US": "Multiple parents",
+    "zh_CN": "多个父提交记录"
+  },
+  "hint": {
+    "en_US": "Use `git branch bugWork` with a target commit to create the missing reference.",
+    "zh_CN": "使用`git branch bugWork`加上一个目标提交记录来创建消失的引用。"
+  },
+  "startDialog": {
+    "en_US": {
+      "childViews": [
+        {
+          "type": "ModalAlert",
+          "options": {
+            "markdowns": [
+              "### Specifying Parents",
+              "",
+              "Like the `~` modifier, the `^` modifier also accepts an optional number after it.",
+              "",
+              "Rather than specifying the number of generations to go back (what `~` takes), the modifier on `^` specifies which parent reference to follow from a merge commit. Remember that merge commits have multiple parents, so the path to choose is ambiguous.",
+              "",
+              "Git will normally follow the \"first\" parent upwards from a merge commit, but specifying a number with `^` changes this default behavior.",
+              "",
+              "Enough talking, let's see it in action.",
+              ""
+            ]
+          }
+        },
+        {
+          "type": "GitDemonstrationView",
+          "options": {
+            "beforeMarkdowns": [
+              "Here we have a merge commit. If we checkout `master^` without the modifier, we will follow the first parent after the merge commit. ",
+              "",
+              "(*In our visuals, the first parent is positioned directly above the merge commit.*)"
+            ],
+            "afterMarkdowns": [
+              "Easy -- this is what we are all used to."
+            ],
+            "command": "git checkout master^",
+            "beforeCommand": "git checkout HEAD^; git commit; git checkout master; git merge C2"
+          }
+        },
+        {
+          "type": "GitDemonstrationView",
+          "options": {
+            "beforeMarkdowns": [
+              "Now let's try specifying the second parent instead..."
+            ],
+            "afterMarkdowns": [
+              "See? We followed the other parent upwards."
+            ],
+            "command": "git checkout master^2",
+            "beforeCommand": "git checkout HEAD^; git commit; git checkout master; git merge C2"
+          }
+        },
+        {
+          "type": "GitDemonstrationView",
+          "options": {
+            "beforeMarkdowns": [
+              "The `^` and `~` modifiers can make moving around a commit tree very powerful:"
+            ],
+            "afterMarkdowns": [
+              "Lightning fast!"
+            ],
+            "command": "git checkout HEAD~; git checkout HEAD^2; git checkout HEAD~2",
+            "beforeCommand": "git commit; git checkout C0; git commit; git commit; git commit; git checkout master; git merge C5; git commit"
+          }
+        },
+        {
+          "type": "GitDemonstrationView",
+          "options": {
+            "beforeMarkdowns": [
+              "Even crazier, these modifiers can be chained together! Check this out:"
+            ],
+            "afterMarkdowns": [
+              "The same movement as before, but all in one command."
+            ],
+            "command": "git checkout HEAD~^2~2",
+            "beforeCommand": "git commit; git checkout C0; git commit; git commit; git commit; git checkout master; git merge C5; git commit"
+          }
+        },
+        {
+          "type": "ModalAlert",
+          "options": {
+            "markdowns": [
+              "### Put it to practice",
+              "",
+              "To complete this level, create a new branch at the specified destination.",
+              "",
+              "Obviously it would be easy to specify the commit directly (with something like `C6`), but I challenge you to use the modifiers we talked about instead!"
+            ]
+          }
+        }
+      ]
+    },
+    "zh_CN": {
+      "childViews": [
+        {
+          "type": "ModalAlert",
+          "options": {
+            "markdowns": [
+              "### 选择父提交",
+              "",
+              "和`~`修改符一样，`^`修改符之后也可以跟一个（可选的）数字。",
+              "",
+              "这不是用来指定向上返回几代（`~`的作用），`^`后的数字指定跟随合并提交记录的哪一个父提交。还记得一个合并提交有多个父提交吧，所有选择哪条路径不是那么清晰。",
+              "",
+              "Git默认选择跟随合并提交的\"第一个\"父提交，使用`^`后跟一个数字来改变这一默认行为。",
+              "",
+              "废话不多说，举个例子。",
+              ""
+            ]
+          }
+        },
+        {
+          "type": "GitDemonstrationView",
+          "options": {
+            "beforeMarkdowns": [
+              "这里有一个合并提交。如果不加数字修改符直接切换到`master^`，会回到第一个父提交。",
+              "",
+              "(*在我们的图示中，第一个父提交是指合并提交正上方的那个父提交。*)"
+            ],
+            "afterMarkdowns": [
+              "OK--这恰好是我们想要的。"
+            ],
+            "command": "git checkout master^",
+            "beforeCommand": "git checkout HEAD^; git commit; git checkout master; git merge C2"
+          }
+        },
+        {
+          "type": "GitDemonstrationView",
+          "options": {
+            "beforeMarkdowns": [
+              "现在来试试选择第二个父提交……"
+            ],
+            "afterMarkdowns": [
+              "看见了吧？我们回到了第二个父提交。"
+            ],
+            "command": "git checkout master^2",
+            "beforeCommand": "git checkout HEAD^; git commit; git checkout master; git merge C2"
+          }
+        },
+        {
+          "type": "GitDemonstrationView",
+          "options": {
+            "beforeMarkdowns": [
+              "使用`^`和`~`可以自由在在提交树中移动："
+            ],
+            "afterMarkdowns": [
+              "快若闪电！"
+            ],
+            "command": "git checkout HEAD~; git checkout HEAD^2; git checkout HEAD~2",
+            "beforeCommand": "git commit; git checkout C0; git commit; git commit; git commit; git checkout master; git merge C5; git commit"
+          }
+        },
+        {
+          "type": "GitDemonstrationView",
+          "options": {
+            "beforeMarkdowns": [
+              "再疯狂点，这些修改符支持链式操作！试一下这个："
+            ],
+            "afterMarkdowns": [
+              "和前面的结果一样，但只用了一条命令。"
+            ],
+            "command": "git checkout HEAD~^2~2",
+            "beforeCommand": "git commit; git checkout C0; git commit; git commit; git commit; git checkout master; git merge C5; git commit"
+          }
+        },
+        {
+          "type": "ModalAlert",
+          "options": {
+            "markdowns": [
+              "### 实践一下",
+              "",
+              "要完成此关，在指定的目标位置创建一个新的分支。",
+              "",
+              "很明显可以简单的直接使用提交记录的hash值（比如`C6`），但我要求你使用刚刚讲到的相对引用修饰符！"
+            ]
+          }
+        }
+      ]
+    }
+  }
+};
+
+});
+
+require.define("/src/levels/rebase/selectiveRebase.js",function(require,module,exports,__dirname,__filename,process,global){exports.level = {
+  "compareAllBranchesHashAgnostic": true,
+  "disabledMap": {
+    "git revert": true
+  },
+  "goalTreeString": "%7B%22branches%22%3A%7B%22master%22%3A%7B%22target%22%3A%22C5%22%2C%22id%22%3A%22master%22%7D%2C%22one%22%3A%7B%22target%22%3A%22C2%27%22%2C%22id%22%3A%22one%22%7D%2C%22two%22%3A%7B%22target%22%3A%22C2%27%27%22%2C%22id%22%3A%22two%22%7D%2C%22three%22%3A%7B%22target%22%3A%22C2%22%2C%22id%22%3A%22three%22%7D%7D%2C%22commits%22%3A%7B%22C0%22%3A%7B%22parents%22%3A%5B%5D%2C%22id%22%3A%22C0%22%2C%22rootCommit%22%3Atrue%7D%2C%22C1%22%3A%7B%22parents%22%3A%5B%22C0%22%5D%2C%22id%22%3A%22C1%22%7D%2C%22C2%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C2%22%7D%2C%22C3%22%3A%7B%22parents%22%3A%5B%22C2%22%5D%2C%22id%22%3A%22C3%22%7D%2C%22C4%22%3A%7B%22parents%22%3A%5B%22C3%22%5D%2C%22id%22%3A%22C4%22%7D%2C%22C5%22%3A%7B%22parents%22%3A%5B%22C4%22%5D%2C%22id%22%3A%22C5%22%7D%2C%22C4%27%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C4%27%22%7D%2C%22C3%27%22%3A%7B%22parents%22%3A%5B%22C4%27%22%5D%2C%22id%22%3A%22C3%27%22%7D%2C%22C2%27%22%3A%7B%22parents%22%3A%5B%22C3%27%22%5D%2C%22id%22%3A%22C2%27%22%7D%2C%22C5%27%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C5%27%22%7D%2C%22C4%27%27%22%3A%7B%22parents%22%3A%5B%22C5%27%22%5D%2C%22id%22%3A%22C4%27%27%22%7D%2C%22C3%27%27%22%3A%7B%22parents%22%3A%5B%22C4%27%27%22%5D%2C%22id%22%3A%22C3%27%27%22%7D%2C%22C2%27%27%22%3A%7B%22parents%22%3A%5B%22C3%27%27%22%5D%2C%22id%22%3A%22C2%27%27%22%7D%7D%2C%22HEAD%22%3A%7B%22target%22%3A%22two%22%2C%22id%22%3A%22HEAD%22%7D%7D",
+  "solutionCommand": "git checkout one; git cherry-pick C4 C3 C2; git checkout two; git cherry-pick C5 C4 C3 C2; git branch -f three C2",
+  "startTree": "{\"branches\":{\"master\":{\"target\":\"C5\",\"id\":\"master\"},\"one\":{\"target\":\"C1\",\"id\":\"one\"},\"two\":{\"target\":\"C1\",\"id\":\"two\"},\"three\":{\"target\":\"C1\",\"id\":\"three\"}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C2\"],\"id\":\"C3\"},\"C4\":{\"parents\":[\"C3\"],\"id\":\"C4\"},\"C5\":{\"parents\":[\"C4\"],\"id\":\"C5\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"}}",
+  "name": {
+    "ko": "브랜치 스파게티",
+    "en_US": "Branch Spaghetti",
+    "ja": "ブランチスパゲッティ",
+    "zh_CN": "分支浆糊"
+  },
+  "hint": {
+    "en_US": "Make sure to do everything in the proper order! Branch one first, then two, then three",
+    "ja": "全て正しい順番で処理すること！oneが最初で、次がtwo、最後にthreeを片付ける。",
+    "ko": "이 문제를 해결하는 방법은 여러가지가 있습니다! 체리픽(cherry-pick)이 가장 쉽지만 오래걸리는 방법이고, 리베이스(rebase -i)가 빠른 방법입니다",
+    "zh_CN": "确保你是按照正确的顺序来操作！先操作分支 `one`, 然后 `two`, 最后才是 `three`"
+  },
+  "startDialog": {
+    "en_US": {
+      "childViews": [
+        {
+          "type": "ModalAlert",
+          "options": {
+            "markdowns": [
+              "## Branch Spaghetti",
+              "",
+              "WOAHHHhhh Nelly! We have quite the goal to reach in this level.",
+              "",
+              "Here we have `master` that is a few commits ahead of branches `one` `two` and `three`. For whatever reason, we need to update these three other branches with modified versions of the last few commits on master.",
+              "",
+              "Branch `one` needs a re-ordering and a deletion of `C5`. `two` needs pure reordering, and `three` only needs one commit!",
+              "",
+              "We will let you figure out how to solve this one -- make sure to check out our solution afterwards with `show solution`. "
+            ]
+          }
+        }
+      ]
+    },
+    "ja": {
+      "childViews": [
+        {
+          "type": "ModalAlert",
+          "options": {
+            "markdowns": [
+              "## ブランチスパゲッティ",
+              "",
+              "なんということでしょう。今回のレベルクリアのために、やることがたくさんあります。",
+              "",
+              "いま`master`が指しているコミットの数個前のコミットに、ブランチ`one`、`two`それから`three`があります。何か事情があって、これらの3つのブランチをmasterが指している最新の状態に更新したいケースを考えます。",
+              "",
+              "ブランチ`one`に対しては、順序の変更と`C5`の削除が必要です。`two`では順序の変更のみ、`three`に対しては1回だけコミットすればOKです。",
+              "",
+              "`show solution`コマンドで模範解答を確認できますから、こちらも利用してください。 "
+            ]
+          }
+        }
+      ]
+    },
+    "zh_CN": {
+      "childViews": [
+        {
+          "type": "ModalAlert",
+          "options": {
+            "markdowns": [
+              "## Branch Spaghetti",
+              "",
+              "哇塞大神！这关我们要来点不同的！",
+              "",
+              "现在我们的 `master` 分支是比 `one` `two` 和 `three` 要多几个提交。出于某种原因，我们需要把其他三个分支更新到 master 分支上新近的几个不同提交上。（update these three other brances with modified versions of the last few commits on master）",
+              "",
+              "分支 `one` 需要重新排序和撤销， `two` 需要完全重排，而 `three` 只需要提交一次。",
+              "",
+              "慢慢摸索会找到答案的 —— 你完事记得用 `show solution` 看看我们的答案哦。"
+            ]
+          }
+        }
+      ]
+    },
+    "ko": {
+      "childViews": [
+        {
+          "type": "ModalAlert",
+          "options": {
+            "markdowns": [
+              "## 브랜치 스파게티",
+              "",
+              "음, 이번에는 만만치 않습니다!",
+              "",
+              "여기 `master` 브랜치의 몇 번 이전 커밋에 `one`, `two`,`three` 총 3개의 브랜치가 있습니다. 어떤 이유인지는 몰라도, master의 최근 커밋 몇 개를 나머지 세 개의 브랜치에 반영하려고 합니다.",
+              "",
+              "`one` 브랜치는 순서를 바꾸고 `C5`커밋을 삭제하고, `two`브랜치는 순서만 바꾸며, `three`브랜치는 하나의 커밋만 가져옵시다!",
+              "",
+              "자유롭게 이 문제를 풀어보시고 나서 `show solution`명령어로 모범 답안을 확인해보세요."
+            ]
+          }
+        }
+      ]
+    }
+  }
+};
+
+});
+
 require.define("/src/levels/pixum/mt1.js",function(require,module,exports,__dirname,__filename,process,global){exports.level = {
   "goalTreeString": "{\"branches\":{\"master\":{\"target\":\"C2\",\"id\":\"master\",\"remoteTrackingBranchID\":\"o/master\"},\"o/master\":{\"target\":\"C2\",\"id\":\"o/master\",\"remoteTrackingBranchID\":null},\"issue\":{\"target\":\"C3\",\"id\":\"issue\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C2\"],\"id\":\"C3\"}},\"HEAD\":{\"target\":\"issue\",\"id\":\"HEAD\"},\"originTree\":{\"branches\":{\"master\":{\"target\":\"C2\",\"id\":\"master\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"}}}",
   "solutionCommand": "git pull;git branch issue;git checkout issue;git commit ",
@@ -22433,6 +22831,94 @@ require.define("/src/levels/pixum/mt5.js",function(require,module,exports,__dirn
               "Das steht für: setze im aktuellen Branch den Zeiger `HEAD` (der zeigt auf den letzten Commit im aktuellen Branch) auf den Commit vor seiner aktuellen Position und verwerfe alle Änderungen, die dadurch verloren gehen (der Merge-Commit).",
               "",
               "Probier's aus!"
+            ]
+          }
+        }
+      ]
+    }
+  }
+};
+
+});
+
+require.define("/src/levels/pixum/mt6.js",function(require,module,exports,__dirname,__filename,process,global){exports.level = {
+  "goalTreeString": "%7B%22branches%22%3A%7B%22master%22%3A%7B%22target%22%3A%22C2%27%22%2C%22id%22%3A%22master%22%2C%22remoteTrackingBranchID%22%3A%22o/master%22%7D%2C%22o/master%22%3A%7B%22target%22%3A%22C2%27%22%2C%22id%22%3A%22o/master%22%2C%22remoteTrackingBranchID%22%3Anull%7D%2C%22issue%22%3A%7B%22target%22%3A%22C2%27%22%2C%22id%22%3A%22issue%22%2C%22remoteTrackingBranchID%22%3Anull%7D%7D%2C%22commits%22%3A%7B%22C0%22%3A%7B%22parents%22%3A%5B%5D%2C%22id%22%3A%22C0%22%2C%22rootCommit%22%3Atrue%7D%2C%22C1%22%3A%7B%22parents%22%3A%5B%22C0%22%5D%2C%22id%22%3A%22C1%22%7D%2C%22C2%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C2%22%7D%2C%22C3%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C3%22%7D%2C%22C2%27%22%3A%7B%22parents%22%3A%5B%22C3%22%5D%2C%22id%22%3A%22C2%27%22%7D%7D%2C%22HEAD%22%3A%7B%22target%22%3A%22master%22%2C%22id%22%3A%22HEAD%22%7D%2C%22originTree%22%3A%7B%22branches%22%3A%7B%22master%22%3A%7B%22target%22%3A%22C2%27%22%2C%22id%22%3A%22master%22%2C%22remoteTrackingBranchID%22%3Anull%7D%7D%2C%22commits%22%3A%7B%22C0%22%3A%7B%22parents%22%3A%5B%5D%2C%22id%22%3A%22C0%22%2C%22rootCommit%22%3Atrue%7D%2C%22C1%22%3A%7B%22parents%22%3A%5B%22C0%22%5D%2C%22id%22%3A%22C1%22%7D%2C%22C3%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C3%22%7D%2C%22C2%27%22%3A%7B%22parents%22%3A%5B%22C3%22%5D%2C%22id%22%3A%22C2%27%22%7D%7D%2C%22HEAD%22%3A%7B%22target%22%3A%22master%22%2C%22id%22%3A%22HEAD%22%7D%7D%7D",
+  "solutionCommand": "git checkout master;git pull;git checkout issue;git rebase master;git checkout master;git merge issue;git push",
+  "startTree": "{\"branches\":{\"master\":{\"target\":\"C1\",\"id\":\"master\",\"remoteTrackingBranchID\":\"o/master\"},\"o/master\":{\"target\":\"C1\",\"id\":\"o/master\",\"remoteTrackingBranchID\":null},\"issue\":{\"target\":\"C2\",\"id\":\"issue\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"}},\"HEAD\":{\"target\":\"issue\",\"id\":\"HEAD\"},\"originTree\":{\"branches\":{\"master\":{\"target\":\"C3\",\"id\":\"master\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C3\":{\"parents\":[\"C1\"],\"id\":\"C3\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"}}}",
+  "compareOnlyMasterHashAgnostic": false,
+  "disabledMap": {},
+  "name": {
+    "en_US": "MT6: Weniger Merge, mehr Rebase!"
+  },
+  "hint": {
+    "en_US": "Wenn der Branch nur einen Commit hat oder die letzte Aktion ein Merge des master in den Branch war, braucht man kein `--no-ff` zu setzen."
+  },
+  "startDialog": {
+    "en_US": {
+      "childViews": [
+        {
+          "type": "ModalAlert",
+          "options": {
+            "markdowns": [
+              "## MT6: Weniger Merge, mehr Rebase!",
+              "",
+              "Merge Commits sind gut, aber zuviel davon machen die History unübersichtlich. Dieser Grundsatz zog sich durch die bisherigen Level und gilt auch weiter.",
+              "",
+              "Eine weitere Möglichkeit, Merge Commits zu vermeiden, bietet sich bei der Arbeit mit lokalen Branches wie sie zum Beispiel bei MT an der Tagesordnung sind: Aktualisieren des Branches per `git rebase`.",
+              "",
+              "",
+              ""
+            ]
+          }
+        },
+        {
+          "type": "GitDemonstrationView",
+          "options": {
+            "beforeMarkdowns": [
+              "## Merge merge",
+              "",
+              "Selbst wenn man korrekt merged und reintegriert - falls ein Branch mal längere Zeit lebt und der `master` öfter in den Branch gemerged wird, entsteht trotzdem jedes mal ein Commit."
+            ],
+            "afterMarkdowns": [
+              "... und so weiter. Mit `git rebase` geht das schöner."
+            ],
+            "command": "git pull; git co issue; git merge master; git fakeTeamwork; git co master; git pull; git co issue; git merge master",
+            "beforeCommand": "git clone; git co -b issue; git ci; git fakeTeamwork; git co master"
+          }
+        },
+        {
+          "type": "GitDemonstrationView",
+          "options": {
+            "beforeMarkdowns": [
+              "## Rebase rebase",
+              "",
+              "Durch den Rebase werden die _Inhalte_ der Commits im Branch genommen und auf die Commits im Master aufgespielt."
+            ],
+            "afterMarkdowns": [
+              "Der Unterschied ist ziemlich offensichtlich.",
+              "",
+              "",
+              ""
+            ],
+            "command": "git pull; git co issue; git rebase master; git fakeTeamwork; git co master; git pull; git co issue; git rebase master",
+            "beforeCommand": "git clone; git co -b issue; git ci; git fakeTeamwork; git co master"
+          }
+        },
+        {
+          "type": "ModalAlert",
+          "options": {
+            "markdowns": [
+              "## Rebase: auch bei Eintags-Branches sinnvoll",
+              "",
+              "Das eben gezeigte Beispiel ist ein Anwendungsfall für `git rebase`. Es verhindert mehrere Merge Commits im Branch, am Ende gibt es dann nur einen sauberen `merge --no-ff` bei der Reintegration des Issue in den `master`.",
+              "",
+              "Aber auch bei einem 1-Commit-Branch wie in diesem Level kann ein Rebase sinnvoll sein:",
+              "",
+              "Du hast einen Branch `issue` in dem du einen Commit gemacht hast, der also gerne ohne `--no-ff` in den `master` gemerged werden darf.",
+              "",
+              "Nur: auf dem Server wurde derweil etwas in den `master` committet. Hoarr.",
+              "",
+              "Hole die Änderungen in dein lokales Repository, rebase deinen Branch auf den `master` und merge ihn danach sauber in den `master`."
             ]
           }
         }
@@ -38768,17 +39254,18 @@ exports.levelSequences = {
   //   require('./mixed/jugglingCommits').level,
   //   require('./mixed/jugglingCommits2').level
   // ],
-  // advanced: [
-  //   require('./rebase/manyRebases').level,
-  //   require('./advanced/multipleParents').level,
-  //   require('./rebase/selectiveRebase').level
-  // ],
+  advanced: [
+    require('./rebase/manyRebases').level,
+    require('./advanced/multipleParents').level,
+    require('./rebase/selectiveRebase').level
+  ],
   pixumMT: [
     require('./pixum/mt1').level,
     require('./pixum/mt2').level,
     require('./pixum/mt3').level,
     require('./pixum/mt4').level,
-    require('./pixum/mt5').level
+    require('./pixum/mt5').level,
+    require('./pixum/mt6').level
   ]
 };
 
@@ -38822,13 +39309,13 @@ exports.sequenceInfo = {
   },
   rampup: {
     displayName: {
-      'en_US': 'Fortgeschritten',
+      'en_US': 'Navigation',
       'ja': '次のレベルに進もう',
       'fr_FR': 'Montée en puissance',
       'zh_CN': '进阶篇'
     },
     about: {
-      'en_US': 'Detached HEAD, Refs, Rückgängigmachen von Änderungen',
+      'en_US': 'Sich im Graph bewegen mit Detached HEAD, Refs, Rückgängigmachen von Änderungen',
       'ja': '更にgitの素晴らしさを堪能しよう',
       'fr_FR' : 'Le prochain service git 100% excellence. J\'espère que vous êtes affamés',
       'zh_CN': '接下来是git的超赞特性。迫不及待了吧！'
@@ -38886,12 +39373,12 @@ exports.sequenceInfo = {
   },
   advanced: {
     displayName: {
-      'en_US': 'Advanced Topics',
+      'en_US': 'Fortgeschritten',
       'fr_FR': 'Sujets Avancés',
       'zh_CN': '高级主题'
     },
     about: {
-      'en_US': 'For the truly brave!',
+      'en_US': 'Mehrere Rebases, mehrere Parents, selektives Rebasen',
       'fr_FR': 'Pour les plus courageux !',
       'zh_CN': '只为真正的勇士！'
     }
@@ -41229,6 +41716,95 @@ require.define("/src/levels/pixum/mt5.js",function(require,module,exports,__dirn
 
 });
 require("/src/levels/pixum/mt5.js");
+
+require.define("/src/levels/pixum/mt6.js",function(require,module,exports,__dirname,__filename,process,global){exports.level = {
+  "goalTreeString": "%7B%22branches%22%3A%7B%22master%22%3A%7B%22target%22%3A%22C2%27%22%2C%22id%22%3A%22master%22%2C%22remoteTrackingBranchID%22%3A%22o/master%22%7D%2C%22o/master%22%3A%7B%22target%22%3A%22C2%27%22%2C%22id%22%3A%22o/master%22%2C%22remoteTrackingBranchID%22%3Anull%7D%2C%22issue%22%3A%7B%22target%22%3A%22C2%27%22%2C%22id%22%3A%22issue%22%2C%22remoteTrackingBranchID%22%3Anull%7D%7D%2C%22commits%22%3A%7B%22C0%22%3A%7B%22parents%22%3A%5B%5D%2C%22id%22%3A%22C0%22%2C%22rootCommit%22%3Atrue%7D%2C%22C1%22%3A%7B%22parents%22%3A%5B%22C0%22%5D%2C%22id%22%3A%22C1%22%7D%2C%22C2%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C2%22%7D%2C%22C3%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C3%22%7D%2C%22C2%27%22%3A%7B%22parents%22%3A%5B%22C3%22%5D%2C%22id%22%3A%22C2%27%22%7D%7D%2C%22HEAD%22%3A%7B%22target%22%3A%22master%22%2C%22id%22%3A%22HEAD%22%7D%2C%22originTree%22%3A%7B%22branches%22%3A%7B%22master%22%3A%7B%22target%22%3A%22C2%27%22%2C%22id%22%3A%22master%22%2C%22remoteTrackingBranchID%22%3Anull%7D%7D%2C%22commits%22%3A%7B%22C0%22%3A%7B%22parents%22%3A%5B%5D%2C%22id%22%3A%22C0%22%2C%22rootCommit%22%3Atrue%7D%2C%22C1%22%3A%7B%22parents%22%3A%5B%22C0%22%5D%2C%22id%22%3A%22C1%22%7D%2C%22C3%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C3%22%7D%2C%22C2%27%22%3A%7B%22parents%22%3A%5B%22C3%22%5D%2C%22id%22%3A%22C2%27%22%7D%7D%2C%22HEAD%22%3A%7B%22target%22%3A%22master%22%2C%22id%22%3A%22HEAD%22%7D%7D%7D",
+  "solutionCommand": "git checkout master;git pull;git checkout issue;git rebase master;git checkout master;git merge issue;git push",
+  "startTree": "{\"branches\":{\"master\":{\"target\":\"C1\",\"id\":\"master\",\"remoteTrackingBranchID\":\"o/master\"},\"o/master\":{\"target\":\"C1\",\"id\":\"o/master\",\"remoteTrackingBranchID\":null},\"issue\":{\"target\":\"C2\",\"id\":\"issue\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"}},\"HEAD\":{\"target\":\"issue\",\"id\":\"HEAD\"},\"originTree\":{\"branches\":{\"master\":{\"target\":\"C3\",\"id\":\"master\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C3\":{\"parents\":[\"C1\"],\"id\":\"C3\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"}}}",
+  "compareOnlyMasterHashAgnostic": false,
+  "disabledMap": {},
+  "name": {
+    "en_US": "MT6: Weniger Merge, mehr Rebase!"
+  },
+  "hint": {
+    "en_US": "Wenn der Branch nur einen Commit hat oder die letzte Aktion ein Merge des master in den Branch war, braucht man kein `--no-ff` zu setzen."
+  },
+  "startDialog": {
+    "en_US": {
+      "childViews": [
+        {
+          "type": "ModalAlert",
+          "options": {
+            "markdowns": [
+              "## MT6: Weniger Merge, mehr Rebase!",
+              "",
+              "Merge Commits sind gut, aber zuviel davon machen die History unübersichtlich. Dieser Grundsatz zog sich durch die bisherigen Level und gilt auch weiter.",
+              "",
+              "Eine weitere Möglichkeit, Merge Commits zu vermeiden, bietet sich bei der Arbeit mit lokalen Branches wie sie zum Beispiel bei MT an der Tagesordnung sind: Aktualisieren des Branches per `git rebase`.",
+              "",
+              "",
+              ""
+            ]
+          }
+        },
+        {
+          "type": "GitDemonstrationView",
+          "options": {
+            "beforeMarkdowns": [
+              "## Merge merge",
+              "",
+              "Selbst wenn man korrekt merged und reintegriert - falls ein Branch mal längere Zeit lebt und der `master` öfter in den Branch gemerged wird, entsteht trotzdem jedes mal ein Commit."
+            ],
+            "afterMarkdowns": [
+              "... und so weiter. Mit `git rebase` geht das schöner."
+            ],
+            "command": "git pull; git co issue; git merge master; git fakeTeamwork; git co master; git pull; git co issue; git merge master",
+            "beforeCommand": "git clone; git co -b issue; git ci; git fakeTeamwork; git co master"
+          }
+        },
+        {
+          "type": "GitDemonstrationView",
+          "options": {
+            "beforeMarkdowns": [
+              "## Rebase rebase",
+              "",
+              "Durch den Rebase werden die _Inhalte_ der Commits im Branch genommen und auf die Commits im Master aufgespielt."
+            ],
+            "afterMarkdowns": [
+              "Der Unterschied ist ziemlich offensichtlich.",
+              "",
+              "",
+              ""
+            ],
+            "command": "git pull; git co issue; git rebase master; git fakeTeamwork; git co master; git pull; git co issue; git rebase master",
+            "beforeCommand": "git clone; git co -b issue; git ci; git fakeTeamwork; git co master"
+          }
+        },
+        {
+          "type": "ModalAlert",
+          "options": {
+            "markdowns": [
+              "## Rebase: auch bei Eintags-Branches sinnvoll",
+              "",
+              "Das eben gezeigte Beispiel ist ein Anwendungsfall für `git rebase`. Es verhindert mehrere Merge Commits im Branch, am Ende gibt es dann nur einen sauberen `merge --no-ff` bei der Reintegration des Issue in den `master`.",
+              "",
+              "Aber auch bei einem 1-Commit-Branch wie in diesem Level kann ein Rebase sinnvoll sein:",
+              "",
+              "Du hast einen Branch `issue` in dem du einen Commit gemacht hast, der also gerne ohne `--no-ff` in den `master` gemerged werden darf.",
+              "",
+              "Nur: auf dem Server wurde derweil etwas in den `master` committet. Hoarr.",
+              "",
+              "Hole die Änderungen in dein lokales Repository, rebase deinen Branch auf den `master` und merge ihn danach sauber in den `master`."
+            ]
+          }
+        }
+      ]
+    }
+  }
+};
+
+});
+require("/src/levels/pixum/mt6.js");
 
 require.define("/src/levels/rampup/cherryPick.js",function(require,module,exports,__dirname,__filename,process,global){exports.level = {
   "goalTreeString": "%7B%22branches%22%3A%7B%22master%22%3A%7B%22target%22%3A%22C7%27%22%2C%22id%22%3A%22master%22%7D%2C%22bugFix%22%3A%7B%22target%22%3A%22C3%22%2C%22id%22%3A%22bugFix%22%7D%2C%22side%22%3A%7B%22target%22%3A%22C5%22%2C%22id%22%3A%22side%22%7D%2C%22another%22%3A%7B%22target%22%3A%22C7%22%2C%22id%22%3A%22another%22%7D%7D%2C%22commits%22%3A%7B%22C0%22%3A%7B%22parents%22%3A%5B%5D%2C%22id%22%3A%22C0%22%2C%22rootCommit%22%3Atrue%7D%2C%22C1%22%3A%7B%22parents%22%3A%5B%22C0%22%5D%2C%22id%22%3A%22C1%22%7D%2C%22C2%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C2%22%7D%2C%22C3%22%3A%7B%22parents%22%3A%5B%22C2%22%5D%2C%22id%22%3A%22C3%22%7D%2C%22C4%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C4%22%7D%2C%22C5%22%3A%7B%22parents%22%3A%5B%22C4%22%5D%2C%22id%22%3A%22C5%22%7D%2C%22C6%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C6%22%7D%2C%22C7%22%3A%7B%22parents%22%3A%5B%22C6%22%5D%2C%22id%22%3A%22C7%22%7D%2C%22C3%27%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C3%27%22%7D%2C%22C4%27%22%3A%7B%22parents%22%3A%5B%22C3%27%22%5D%2C%22id%22%3A%22C4%27%22%7D%2C%22C7%27%22%3A%7B%22parents%22%3A%5B%22C4%27%22%5D%2C%22id%22%3A%22C7%27%22%7D%7D%2C%22HEAD%22%3A%7B%22target%22%3A%22master%22%2C%22id%22%3A%22HEAD%22%7D%7D",
