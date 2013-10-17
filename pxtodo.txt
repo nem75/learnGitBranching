@@ -6,9 +6,14 @@ MT2 reintegrate issue --> done
 MT3 reintegrate multiple and single commit branches --> done
 MT4 reintegrate with merge from master --> done
 MT5 reintegrate with teamwork after merge --> done
-MT7 revert pushed commit
-MT8 revert revert
-MT9 cleanup issue branch
+MT6 update issue branch by rebase --> done
+
+Undo & Cleanup:
+---------------
+UC1 reset --> done
+UC2 revert pushed commit
+UC3 revert revert
+UC4 cleanup issue branch
 
 Local branch levels:
 --------------------

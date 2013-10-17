@@ -34,6 +34,9 @@ exports.levelSequences = {
     require('./pixum/mt4').level,
     require('./pixum/mt5').level,
     require('./pixum/mt6').level
+  ],
+  pixumUC: [
+    require('./pixum/uc1').level
   ]
 };
 
@@ -157,6 +160,14 @@ exports.sequenceInfo = {
     },
     about: {
       'en_US': 'Workflows für die Arbeit mit lokalen Branches'
+    }
+  },
+  pixumUC: {
+    displayName: {
+      'en_US': 'Undo und Cleanup'
+    },
+    about: {
+      'en_US': 'Workflows zum Rückgängigmachen und Aufräumen'
     }
   }
 };
