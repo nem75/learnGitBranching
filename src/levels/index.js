@@ -13,15 +13,17 @@ exports.levelSequences = {
     require('./rampup/relativeRefs2').level,
     require('./rampup/reversingChanges').level
   ],
-  // move: [
-  //   require('./rampup/cherryPick').level,
-  //   require('./rampup/interactiveRebase').level
-  // ],
-  // mixed: [
-  //   require('./mixed/grabbingOneCommit').level,
-  //   require('./mixed/jugglingCommits').level,
-  //   require('./mixed/jugglingCommits2').level
-  // ],
+  move: [
+    require('./rampup/cherryPick').level,
+    require('./rampup/interactiveRebase').level
+  ],
+  mixed: [
+    require('./mixed/grabbingOneCommit').level,
+    require('./mixed/jugglingCommits').level,
+    require('./mixed/jugglingCommits2').level,
+    require('./mixed/tags').level,
+    require('./mixed/describe').level
+  ],
   advanced: [
     require('./rebase/manyRebases').level,
     require('./advanced/multipleParents').level,
@@ -63,14 +65,16 @@ exports.levelSequences = {
 var sequenceInfo = exports.sequenceInfo = {
   intro: {
     displayName: {
-      'en_US': 'Einführung',
+      'en_US': 'Introduction Sequence',
+      'de_DE': 'Einführung',
       'ja': 'まずはここから',
       'fr_FR': 'Séquence d\'introduction',
       'zh_CN': '基础篇',
       'ko': '기본 명령어'
     },
     about: {
-      'en_US': 'Commit, Branch, Merge und Rebase',
+      'en_US': 'A nicely paced introduction to the majority of git commands',
+      'de_DE': 'Commit, Branch, Merge und Rebase',
       'ja': 'gitの基本的なコマンド群をほどよいペースで学ぶ',
       'fr_FR': 'Une introduction en douceur à la majorité des commandes git',
       'zh_CN': '循序渐进介绍git主要命令',
@@ -79,13 +83,15 @@ var sequenceInfo = exports.sequenceInfo = {
   },
   rampup: {
     displayName: {
-      'en_US': 'Navigation',
+      'en_US': 'Ramping Up',
+      'de_DE': 'Navigation',
       'ja': '次のレベルに進もう',
       'fr_FR': 'Montée en puissance',
       'zh_CN': '进阶篇'
     },
     about: {
-      'en_US': 'Sich im Graph bewegen mit Detached HEAD, Refs, Rückgängigmachen von Änderungen',
+      'en_US': 'The next serving of 100% git awesomes-ness. Hope you\'re hungry',
+      'de_DE': 'Sich im Graph bewegen mit Detached HEAD, Refs, Rückgängigmachen von Änderungen',
       'ja': '更にgitの素晴らしさを堪能しよう',
       'fr_FR' : 'Le prochain service git 100% excellence. J\'espère que vous êtes affamés',
       'zh_CN': '接下来是git的超赞特性。迫不及待了吧！'
@@ -145,17 +151,20 @@ var sequenceInfo = exports.sequenceInfo = {
   },
   advanced: {
     displayName: {
-      'en_US': 'Fortgeschritten',
+      'en_US': 'Advanced Topics',
+      'de_DE': 'Für Fortgeschrittene',
       'fr_FR': 'Sujets Avancés',
       'zh_CN': '高级主题'
     },
     about: {
-      'en_US': 'Mehrere Rebases, mehrere Parents, selektives Rebasen',
+      'en_US': 'For the truly brave!',
+      'de_DE': 'Mehrere Rebases, mehrere Parents, selektives Rebasen',
       'fr_FR': 'Pour les plus courageux !',
       'zh_CN': '只为真正的勇士！'
     }
   },
   pixumMT: {
+    tab: 'pixum',
     displayName: {
       'en_US': 'Workflows Lokale Branches / MT'
     },
@@ -164,6 +173,7 @@ var sequenceInfo = exports.sequenceInfo = {
     }
   },
   pixumUC: {
+    tab: 'pixum',
     displayName: {
       'en_US': 'Undo und Cleanup'
     },

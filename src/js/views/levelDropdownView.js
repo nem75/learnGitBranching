@@ -36,6 +36,9 @@ var LevelDropdownView = ContainedBase.extend({
       }, {
         id: 'remote',
         name: intl.todo('Remote')
+      }, {
+        id: 'pixum',
+        name: intl.todo('Pixum')
       }]
     };
 
