@@ -125,6 +125,12 @@ var initDemo = function(sandbox) {
   // being the smart programmer I am (not), I dont include a true value on demo, so
   // I have to check if the key exists here
   var commands;
+  if (/(iPhone|iPod|iPad).*AppleWebKit/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)) {
+    sandbox.mainVis.customEvents.on('gitEngineReady', function() {
+      eventBaton.trigger('commandSubmitted', 'mobile alert');
+    });
+  }
+
   if (params.hasOwnProperty('demo')) {
     commands = [
       "git commit; git checkout -b bugFix C1; git commit; git merge master; git checkout master; git commit; git rebase bugFix;",
@@ -159,14 +165,21 @@ var initDemo = function(sandbox) {
       'hg rebase -d master'
     ];
     commands = commands.join(';#').split('#'); // hax
-  } else if (params.hasOwnProperty('hgdemo3')) {
+  } else if (params.hasOwnProperty('remoteDemo')) {
     commands = [
-      'importTreeNow {"branches":{"master":{"target":"C1","id":"master"},"trunk":{"target":"C2","id":"trunk"},"feature":{"target":"C5","id":"feature"},"debug":{"target":"C4","id":"debug"}},"commits":{"C0":{"parents":[],"id":"C0","rootCommit":true},"C1":{"parents":["C0"],"id":"C1"},"C2":{"parents":["C1"],"id":"C2"},"C3":{"parents":["C1"],"id":"C3"},"C4":{"parents":["C3"],"id":"C4"},"C5":{"parents":["C3"],"id":"C5"}},"HEAD":{"target":"feature","id":"HEAD"}}',
-      'hg book',
-      'delay 2000',
-      'hg rebase -d trunk'
+      'git clone',
+      'git commit',
+      'git fakeTeamwork',
+      'git pull',
+      'git push',
+      'git commit',
+      'git fakeTeamwork',
+      'git pull --rebase',
+      'git push',
+      'levels'
     ];
     commands = commands.join(';#').split('#'); // hax
+
   } else if (!params.hasOwnProperty('NODEMO')) {
     commands = [
       "git help;",
@@ -193,11 +206,6 @@ var initDemo = function(sandbox) {
     });
   }
 
-  if (/(iPhone|iPod|iPad).*AppleWebKit/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)) {
-    sandbox.mainVis.customEvents.on('gitEngineReady', function() {
-      eventBaton.trigger('commandSubmitted', 'mobile alert');
-    });
-  }
 };
 
 if (require('../util').isBrowser()) {

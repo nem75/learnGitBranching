@@ -92,7 +92,7 @@ exports.strings = {
   },
   'git-error-origin-fetch-no-ff': {
     '__desc__': 'One of the error messages for git',
-    'en_US': 'Your origin branch is out of sync with the remote branch and fetch cannot be performed. try using --force',
+    'en_US': 'Your origin branch is out of sync with the remote branch and fetch cannot be performed',
     'fr_FR': 'Votre branche origin n\'est plus synchronisée avec la branche distante et fetch ne peut pas être appliqué. Essayez avec l\'option --force'
   },
   'git-error-origin-push-no-ff': {
@@ -288,6 +288,11 @@ exports.strings = {
     'fr_FR': 'Ce nom de branche "{branch}" n\'est pas autorisé'
   },
   ///////////////////////////////////////////////////////////////////////////
+  'bad-tag-name': {
+    '__desc__': 'When the user enters a tag name thats not ok',
+    'en_US': 'That tag name "{tag}" is not allowed!'
+  },
+  ///////////////////////////////////////////////////////////////////////////
   'option-not-supported': {
     '__desc__': 'When the user specifies an option that is not supported by our demo',
     'en_US': 'The option "{option}" is not supported!',
@@ -371,7 +376,7 @@ exports.strings = {
   },
   'mobile-alert': {
     '__desc__': 'When someone comes to the site on a mobile device, they can not input commands so this is a nasty alert to tell them',
-    'en_US': 'Can\'t bring up the keyboard on mobile / tablet :( try visiting on desktop! :D',
+    'en_US': 'LGB can\'t receive input on mobile, visit on desktop! it\'s worth it :D',
     'zh_CN': '无法在移动设备/平板上调出键盘 :( 请试试桌面版 :D',
     'fr_FR': 'Impossible de faire apparaître le clavier sur mobile / tablette :( Essayez de passer sur un ordinateur de bureau :D'
   },

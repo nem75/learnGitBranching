@@ -1,7 +1,13 @@
 node_modules/
+build/*
+build/bundle.js
+build/bundle.*.js
+build/main.*.css
 screens
+.DS_STORE
 search_replace.sh
 FontAwesome-Vectors.pdf
+index.html
 *.sw*
 
 .python-version

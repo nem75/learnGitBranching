@@ -37,31 +37,30 @@ exports.levelSequences = {
   ],
   pixumUC: [
     require('./pixum/uc1').level
+  ],
+  remote: [
+    require('./remote/clone').level,
+    require('./remote/remoteBranches').level,
+    require('./remote/fetch').level,
+    require('./remote/pull').level,
+    require('./remote/fakeTeamwork').level,
+    require('./remote/push').level,
+    require('./remote/fetchRebase').level
+  ],
+  remoteAdvanced: [
+    require('./remote/pushManyFeatures').level,
+    require('./remote/mergeManyFeatures').level,
+    require('./remote/tracking').level,
+    require('./remote/pushArgs').level,
+    require('./remote/pushArgs2').level,
+    require('./remote/fetchArgs').level,
+    require('./remote/sourceNothing').level,
+    require('./remote/pullArgs').level
   ]
 };
 
-if (typeof window !== 'undefined' && window.location &&
-    window.location.href.indexOf('showRemote') !== -1) {
-  exports.levelSequences = {
-    remote: [
-      require('./remote/clone').level,
-      require('./remote/remoteBranches').level,
-      require('./remote/fetch').level,
-      require('./remote/pull').level,
-      require('./remote/fakeTeamwork').level,
-      require('./remote/push').level,
-      require('./remote/fetchRebase').level
-    ],
-    remoteAdvanced: [
-      require('./remote/specify').level,
-      require('./remote/pushManyFeatures').level,
-      require('./remote/mergeManyFeatures').level
-    ]
-  };
-}
-
 // there are also cute names and such for sequences
-exports.sequenceInfo = {
+var sequenceInfo = exports.sequenceInfo = {
   intro: {
     displayName: {
       'en_US': 'Einführung',
@@ -93,6 +92,7 @@ exports.sequenceInfo = {
     }
   },
   remote: {
+    tab: 'remote',
     displayName: {
       'en_US': 'Push & Pull -- Git Remotes!'
     },
@@ -101,6 +101,7 @@ exports.sequenceInfo = {
     }
   },
   remoteAdvanced: {
+    tab: 'remote',
     displayName: {
       'en_US': 'To Origin And Beyond -- Advanced Git Remotes!'
     },
@@ -170,5 +171,12 @@ exports.sequenceInfo = {
       'en_US': 'Workflows zum Rückgängigmachen und Aufräumen'
     }
   }
+};
+
+exports.getTabForSequence = function(sequenceName) {
+  var info = sequenceInfo[sequenceName];
+  return (info.tab) ?
+    info.tab :
+    'main';
 };
 

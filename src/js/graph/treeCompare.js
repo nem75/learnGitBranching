@@ -79,7 +79,10 @@ TreeCompare.compareAllBranchesWithinTreesAndHEAD = function(treeA, treeB) {
   treeA = this.convertTreeSafe(treeA);
   treeB = this.convertTreeSafe(treeB);
 
-  return treeA.HEAD.target == treeB.HEAD.target && this.compareAllBranchesWithinTrees(treeA, treeB);
+  // also compare tags!! for just one level
+  return treeA.HEAD.target == treeB.HEAD.target &&
+    this.compareAllBranchesWithinTrees(treeA, treeB) &&
+    this.compareAllTagsWithinTrees(treeA, treeB);
 };
 
 TreeCompare.compareAllBranchesWithinTrees = function(treeA, treeB) {
@@ -97,6 +100,14 @@ TreeCompare.compareAllBranchesWithinTrees = function(treeA, treeB) {
     result = result && this.compareBranchWithinTrees(treeA, treeB, branch);
   }, this);
   return result;
+};
+
+TreeCompare.compareAllTagsWithinTrees = function(treeA, treeB) {
+  treeA = this.convertTreeSafe(treeA);
+  treeB = this.convertTreeSafe(treeB);
+  this.reduceTreeFields([treeA, treeB]);
+
+  return _.isEqual(treeA.tags, treeB.tags);
 };
 
 TreeCompare.compareBranchesWithinTrees = function(treeA, treeB, branches) {
@@ -321,16 +332,33 @@ TreeCompare.reduceTreeFields = function(trees) {
     'id',
     'rootCommit'
   ];
-  var commitSortFields = ['children', 'parents'];
   var branchSaveFields = [
     'target',
     'id',
     'remoteTrackingBranchID'
   ];
+  var tagSaveFields = [
+    'target',
+    'id'
+  ];
+
+  var commitSortFields = ['children', 'parents'];
   // for backwards compatibility, fill in some fields if missing
   var defaults = {
     remoteTrackingBranchID: null
   };
+  // also fill tree-level defaults
+  var treeDefaults = {
+    tags: {}
+  };
+
+  _.each(trees, function(tree) {
+    _.each(treeDefaults, function(val, key) {
+      if (tree[key] === undefined) {
+        tree[key] = val;
+      }
+    });
+  });
 
   // this function saves only the specified fields of a tree
   var saveOnly = function(tree, treeKey, saveFields, sortFields) {
@@ -360,6 +388,7 @@ TreeCompare.reduceTreeFields = function(trees) {
   _.each(trees, function(tree) {
     saveOnly(tree, 'commits', commitSaveFields, commitSortFields);
     saveOnly(tree, 'branches', branchSaveFields);
+    saveOnly(tree, 'tags', tagSaveFields);
 
     tree.HEAD = {
       target: tree.HEAD.target,
@@ -382,5 +411,4 @@ TreeCompare.compareTrees = function(treeA, treeB) {
   return _.isEqual(treeA, treeB);
 };
 
-exports.TreeCompare = TreeCompare;
-
+module.exports = TreeCompare;

@@ -5,12 +5,13 @@ var Q = require('q');
 var GitEngine = require('../git').GitEngine;
 var AnimationFactory = require('../visuals/animation/animationFactory').AnimationFactory;
 var GitVisuals = require('../visuals').GitVisuals;
-var TreeCompare = require('../git/treeCompare').TreeCompare;
+var TreeCompare = require('../graph/treeCompare');
 var EventBaton = require('../util/eventBaton').EventBaton;
 
 var Collections = require('../models/collections');
 var CommitCollection = Collections.CommitCollection;
 var BranchCollection = Collections.BranchCollection;
+var TagCollection = Collections.TagCollection;
 var Command = require('../models/commandModel').Command;
 
 var mock = require('../util/mock').mock;
@@ -70,6 +71,7 @@ var HeadlessGit = function() {
 HeadlessGit.prototype.init = function() {
   this.commitCollection = new CommitCollection();
   this.branchCollection = new BranchCollection();
+  this.tagCollection = new TagCollection();
 
   // here we mock visuals and animation factory so the git engine
   // is headless
@@ -84,6 +86,7 @@ HeadlessGit.prototype.init = function() {
   this.gitEngine = new GitEngine({
     collection: this.commitCollection,
     branches: this.branchCollection,
+    tags: this.tagCollection,
     gitVisuals: gitVisuals,
     animationFactory: animationFactory,
     eventBaton: new EventBaton()
@@ -121,10 +124,16 @@ HeadlessGit.prototype.sendCommand = function(value, entireCommandPromise) {
 
   chain.then(function() {
     var nowTime = new Date().getTime();
-    // .log('done with command "' + value + '", took ', nowTime - startTime);
     if (entireCommandPromise) {
       entireCommandPromise.resolve();
     }
+  });
+
+  chain.fail(function(err) {
+    console.log('!!!!!!!! error !!!!!!!');
+    console.log(err);
+    console.log(err.stack);
+    console.log('!!!!!!!!!!!!!!!!!!!!!!');
   });
   deferred.resolve();
 };

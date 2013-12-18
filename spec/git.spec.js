@@ -155,5 +155,56 @@ describe('Git', function() {
       '{"branches":{"master":{"target":"C4","id":"master","remoteTrackingBranchID":null},"feature":{"target":"C3","id":"feature","remoteTrackingBranchID":null}},"commits":{"C0":{"parents":[],"id":"C0","rootCommit":true},"C1":{"parents":["C0"],"id":"C1"},"C2":{"parents":["C1"],"id":"C2"},"C3":{"parents":["C2"],"id":"C3"},"C4":{"parents":["C1","C3"],"id":"C4"}},"HEAD":{"target":"master","id":"HEAD"}}'
     );
   });
+
+  it('if no-ff is specified, will always make a merge commit', function() {
+    expectTreeAsync(
+      'git commit; go -b side HEAD~1; git commit; git merge master; go master; git merge side --no-ff',
+      '{"branches":{"master":{"target":"C5","id":"master","remoteTrackingBranchID":null},"side":{"target":"C4","id":"side","remoteTrackingBranchID":null}},"commits":{"C0":{"parents":[],"id":"C0","rootCommit":true},"C1":{"parents":["C0"],"id":"C1"},"C2":{"parents":["C1"],"id":"C2"},"C3":{"parents":["C1"],"id":"C3"},"C4":{"parents":["C2","C3"],"id":"C4"},"C5":{"parents":["C2","C4"],"id":"C5"}},"HEAD":{"target":"master","id":"HEAD"}}'
+    );
+  });
+
+	it('makes a tag', function() {
+		expectTreeAsync(
+			'git tag v1',
+			'{"branches":{"master":{"target":"C1","id":"master","remoteTrackingBranchID":null}},"commits":{"C0":{"parents":[],"id":"C0","rootCommit":true},"C1":{"parents":["C0"],"id":"C1"}},"tags":{"v1":{"target":"C1","id":"v1","type":"tag"}},"HEAD":{"target":"master","id":"HEAD"}}'
+		);
+	});
+
+	it('makes a tag on another ref', function() {
+		expectTreeAsync(
+			'git tag v1 C0',
+			'{"branches":{"master":{"target":"C1","id":"master","remoteTrackingBranchID":null}},"commits":{"C0":{"parents":[],"id":"C0","rootCommit":true},"C1":{"parents":["C0"],"id":"C1"}},"tags":{"v1":{"target":"C0","id":"v1","type":"tag"}},"HEAD":{"target":"master","id":"HEAD"}}'
+		);
+	});
+
+	it('doesnt make a tag if ref doesnt resolve', function() {
+		expectTreeAsync(
+			'git tag v1 foo',
+			'{"branches":{"master":{"target":"C1","id":"master","remoteTrackingBranchID":null}},"commits":{"C0":{"parents":[],"id":"C0","rootCommit":true},"C1":{"parents":["C0"],"id":"C1"}},"tags":{},"HEAD":{"target":"master","id":"HEAD"}}'
+		);
+	});
+
+	it('makes tag with relative ref and etc', function() {
+		expectTreeAsync(
+			'git tag v1 HEAD~1',
+			'{"branches":{"master":{"target":"C1","id":"master","remoteTrackingBranchID":null}},"commits":{"C0":{"parents":[],"id":"C0","rootCommit":true},"C1":{"parents":["C0"],"id":"C1"}},"tags":{"v1":{"target":"C0","id":"v1","type":"tag"}},"HEAD":{"target":"master","id":"HEAD"}}'
+		);
+	});
+
+	it('makes tag with 3 letters', function() {
+		expectTreeAsync(
+			'git tag foo',
+			'{"branches":{"master":{"target":"C1","id":"master","remoteTrackingBranchID":null}},"commits":{"C0":{"parents":[],"id":"C0","rootCommit":true},"C1":{"parents":["C0"],"id":"C1"}},"tags":{"foo":{"target":"C1","id":"foo","type":"tag"}},"HEAD":{"target":"master","id":"HEAD"}}'
+		);
+	});
+
+	it('does not make tag if ref does not resolve', function() {
+		expectTreeAsync(
+			'git tag foo banana',
+			'{"branches":{"master":{"target":"C1","id":"master","remoteTrackingBranchID":null}},"commits":{"C0":{"parents":[],"id":"C0","rootCommit":true},"C1":{"parents":["C0"],"id":"C1"}},"tags":{},"HEAD":{"target":"master","id":"HEAD"}}'
+		);
+	});
+
+
 });
 
