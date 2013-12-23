@@ -29,7 +29,7 @@ var LevelDropdownView = ContainedBase.extend({
       window.location.href
     );
     this.JSON = {
-      selectedTab: queryParams.defaultTab || 'main',
+      selectedTab: queryParams.defaultTab || 'pixum',
       tabs: [{
         id: 'main',
         name: intl.todo('Main')
