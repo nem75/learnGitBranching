@@ -65,13 +65,9 @@ exports.dialog = {
         '',
         '# Demo!',
         '',
-        'Falls du die Demonstration noch nicht gesehen hast, schau sie dir hier an:',
+        'Falls du die Demonstration noch nicht gesehen hast, [schau sie dir hier an.](?demo)',
         '',
-        '[http://pcottle.github.io/learnGitBranching/?demo](http://pcottle.github.io/learnGitBranching/?demo)',
-        '',
-        'Genervt von diesem Fenster? Häng `?NODEMO` an die URL um es los zu werden, so wie hier:',
-        '',
-        '[http://pcottle.github.io/learnGitBranching/?NODEMO](?NODEMO)'
+        'Genervt von diesem Fenster? Häng `?NODEMO` an die URL um es los zu werden, [so wie hier.](?NODEMO)'
       ]
     }
   }, {
