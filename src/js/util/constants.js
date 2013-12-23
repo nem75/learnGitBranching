@@ -7,7 +7,8 @@ var TIME = {
 
 // useful for locks, etc
 var GLOBAL = {
-  isAnimating: false
+  isAnimating: false,
+  locale: 'de_DE'
 };
 
 var VIEWPORT = {
