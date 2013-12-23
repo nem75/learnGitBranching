@@ -5,13 +5,13 @@ exports.level = {
   "compareOnlyMasterHashAgnostic": false,
   "disabledMap": {"git rebase": true},
   "hint": {
-    "en_US": "`--hard` ist NICHT der Default bei einem `git reset` sondern `--mixed`, auch wenn diese Lernumgebung anderes behauptet."
+    "de_DE": "`--hard` ist NICHT der Default bei einem `git reset` sondern `--mixed`, auch wenn diese Lernumgebung anderes behauptet."
   },
   "name": {
-    "en_US": "MT5: Wenn das Team dreimal pusht"
+    "de_DE": "MT5: Wenn das Team dreimal pusht"
   },
   "startDialog": {
-    "en_US": {
+    "de_DE": {
       "childViews": [
         {
           "type": "ModalAlert",

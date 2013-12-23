@@ -5,13 +5,13 @@ exports.level = {
   "compareOnlyMasterHashAgnostic": false,
   "disabledMap": {"git rebase": true},
   "hint": {
-    "en_US": "Wenn es zwischenzeitlich Änderungen auf dem Server im `master` gab, ergibt sich auch ohne `--no-ff` ein Merge Commit, weil `issue` und `master` divergieren."
+    "de_DE": "Wenn es zwischenzeitlich Änderungen auf dem Server im `master` gab, ergibt sich auch ohne `--no-ff` ein Merge Commit, weil `issue` und `master` divergieren."
   },
   "name": {
-    "en_US": "MT3: Issue-Branch reintegrieren ohne Merge Commit"
+    "de_DE": "MT3: Issue-Branch reintegrieren ohne Merge Commit"
   },
   "startDialog": {
-    "en_US": {
+    "de_DE": {
       "childViews": [
         {
           "type": "ModalAlert",

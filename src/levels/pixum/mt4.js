@@ -5,13 +5,13 @@ exports.level = {
   "compareOnlyMasterHashAgnostic": false,
   "disabledMap": {"git rebase": true},
   "name": {
-    "en_US": "MT4: Issue-Branch aktualisieren per Merge"
+    "de_DE": "MT4: Issue-Branch aktualisieren per Merge"
   },
   "hint": {
-    "en_US": "`git merge` erzeugt automatisch einen Commit wenn keine Konflikte auftreten."
+    "de_DE": "`git merge` erzeugt automatisch einen Commit wenn keine Konflikte auftreten."
   },
   "startDialog": {
-    "en_US": {
+    "de_DE": {
       "childViews": [
         {
           "type": "ModalAlert",

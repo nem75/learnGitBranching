@@ -5,13 +5,13 @@ exports.level = {
   "compareOnlyMasterHashAgnostic": false,
   "disabledMap": {},
   "name": {
-    "en_US": "MT6: Weniger Merge, mehr Rebase!"
+    "de_DE": "MT6: Weniger Merge, mehr Rebase!"
   },
   "hint": {
-    "en_US": "Wenn der Branch nur einen Commit hat oder die letzte Aktion ein Merge des master in den Branch war, braucht man kein `--no-ff` zu setzen."
+    "de_DE": "Wenn der Branch nur einen Commit hat oder die letzte Aktion ein Merge des master in den Branch war, braucht man kein `--no-ff` zu setzen."
   },
   "startDialog": {
-    "en_US": {
+    "de_DE": {
       "childViews": [
         {
           "type": "ModalAlert",

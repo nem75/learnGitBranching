@@ -174,19 +174,19 @@ var sequenceInfo = exports.sequenceInfo = {
   pixumMT: {
     tab: 'pixum',
     displayName: {
-      'en_US': 'Workflows Lokale Branches / MT'
+      'de_DE': 'Workflows Lokale Branches / MT'
     },
     about: {
-      'en_US': 'Workflows für die Arbeit mit lokalen Branches'
+      'de_DE': 'Workflows für die Arbeit mit lokalen Branches'
     }
   },
   pixumUC: {
     tab: 'pixum',
     displayName: {
-      'en_US': 'Undo und Cleanup'
+      'de_DE': 'Undo und Cleanup'
     },
     about: {
-      'en_US': 'Workflows zum Rückgängigmachen und Aufräumen'
+      'de_DE': 'Workflows zum Rückgängigmachen und Aufräumen'
     }
   }
 };

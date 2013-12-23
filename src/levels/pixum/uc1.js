@@ -5,13 +5,13 @@ exports.level = {
   "compareOnlyMasterHashAgnostic": false,
   "disabledMap": {},
   "name": {
-    "en_US": "UC1: Reset - das Undo für Lokales"
+    "de_DE": "UC1: Reset - das Undo für Lokales"
   },
   "hint": {
-    "en_US": "Probier mal nach dem Push den Merge zu resetten, neue Änderungen zu machen, und das zu pushen."
+    "de_DE": "Probier mal nach dem Push den Merge zu resetten, neue Änderungen zu machen, und das zu pushen."
   },
   "startDialog": {
-    "en_US": {
+    "de_DE": {
       "childViews": [
         {
           "type": "ModalAlert",

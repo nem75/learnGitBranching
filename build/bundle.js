@@ -23824,19 +23824,19 @@ var sequenceInfo = exports.sequenceInfo = {
   pixumMT: {
     tab: 'pixum',
     displayName: {
-      'en_US': 'Workflows Lokale Branches / MT'
+      'de_DE': 'Workflows Lokale Branches / MT'
     },
     about: {
-      'en_US': 'Workflows für die Arbeit mit lokalen Branches'
+      'de_DE': 'Workflows für die Arbeit mit lokalen Branches'
     }
   },
   pixumUC: {
     tab: 'pixum',
     displayName: {
-      'en_US': 'Undo und Cleanup'
+      'de_DE': 'Undo und Cleanup'
     },
     about: {
-      'en_US': 'Workflows zum Rückgängigmachen und Aufräumen'
+      'de_DE': 'Workflows zum Rückgängigmachen und Aufräumen'
     }
   }
 };
@@ -26489,13 +26489,13 @@ exports.level = {
   "disabledMap": {},
   "startTree": "{\"branches\":{\"master\":{\"target\":\"C1\",\"id\":\"master\",\"remoteTrackingBranchID\":\"o/master\"},\"o/master\":{\"target\":\"C1\",\"id\":\"o/master\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"},\"originTree\":{\"branches\":{\"master\":{\"target\":\"C2\",\"id\":\"master\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"}}}",
   "name": {
-    "en_US": "MT1: Issue-Branch anlegen"
+    "de_DE": "MT1: Issue-Branch anlegen"
   },
   "hint": {
-    "en_US": "Aktualisiere den `master`, lege einen neuen Branch `issue` an und committe dort eine Änderung."
+    "de_DE": "Aktualisiere den `master`, lege einen neuen Branch `issue` an und committe dort eine Änderung."
   },
   "startDialog": {
-    "en_US": {
+    "de_DE": {
       "childViews": [
         {
           "type": "ModalAlert",
@@ -26558,14 +26558,14 @@ exports.level = {
   "compareOnlyMasterHashAgnostic": false,
   "disabledMap": {},
   "name": {
-    "en_US": "MT2: Issue-Branch reintegrieren"
+    "de_DE": "MT2: Issue-Branch reintegrieren"
   },
   "startTree": "{\"branches\":{\"master\":{\"target\":\"C2\",\"id\":\"master\",\"remoteTrackingBranchID\":\"o/master\"},\"o/master\":{\"target\":\"C2\",\"id\":\"o/master\",\"remoteTrackingBranchID\":null},\"issue\":{\"target\":\"C4\",\"id\":\"issue\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C2\"],\"id\":\"C3\"},\"C4\":{\"parents\":[\"C3\"],\"id\":\"C4\"}},\"HEAD\":{\"target\":\"issue\",\"id\":\"HEAD\"},\"originTree\":{\"branches\":{\"master\":{\"target\":\"C5\",\"id\":\"master\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C5\":{\"parents\":[\"C2\"],\"id\":\"C5\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"}}}",
   "hint": {
-    "en_US": "Nicht vergessen: Optionen müssen ans Ende des Kommandos, also `git merge issue --no-ff` und nicht `git merge --no-ff issue`. Echtem Git ist das egal!"
+    "de_DE": "Nicht vergessen: Optionen müssen ans Ende des Kommandos, also `git merge issue --no-ff` und nicht `git merge --no-ff issue`. Echtem Git ist das egal!"
   },
   "startDialog": {
-    "en_US": {
+    "de_DE": {
       "childViews": [
         {
           "type": "ModalAlert",
@@ -26633,13 +26633,13 @@ exports.level = {
   "compareOnlyMasterHashAgnostic": false,
   "disabledMap": {"git rebase": true},
   "hint": {
-    "en_US": "Wenn es zwischenzeitlich Änderungen auf dem Server im `master` gab, ergibt sich auch ohne `--no-ff` ein Merge Commit, weil `issue` und `master` divergieren."
+    "de_DE": "Wenn es zwischenzeitlich Änderungen auf dem Server im `master` gab, ergibt sich auch ohne `--no-ff` ein Merge Commit, weil `issue` und `master` divergieren."
   },
   "name": {
-    "en_US": "MT3: Issue-Branch reintegrieren ohne Merge Commit"
+    "de_DE": "MT3: Issue-Branch reintegrieren ohne Merge Commit"
   },
   "startDialog": {
-    "en_US": {
+    "de_DE": {
       "childViews": [
         {
           "type": "ModalAlert",
@@ -26681,13 +26681,13 @@ exports.level = {
   "compareOnlyMasterHashAgnostic": false,
   "disabledMap": {"git rebase": true},
   "name": {
-    "en_US": "MT4: Issue-Branch aktualisieren per Merge"
+    "de_DE": "MT4: Issue-Branch aktualisieren per Merge"
   },
   "hint": {
-    "en_US": "`git merge` erzeugt automatisch einen Commit wenn keine Konflikte auftreten."
+    "de_DE": "`git merge` erzeugt automatisch einen Commit wenn keine Konflikte auftreten."
   },
   "startDialog": {
-    "en_US": {
+    "de_DE": {
       "childViews": [
         {
           "type": "ModalAlert",
@@ -26729,13 +26729,13 @@ exports.level = {
   "compareOnlyMasterHashAgnostic": false,
   "disabledMap": {"git rebase": true},
   "hint": {
-    "en_US": "`--hard` ist NICHT der Default bei einem `git reset` sondern `--mixed`, auch wenn diese Lernumgebung anderes behauptet."
+    "de_DE": "`--hard` ist NICHT der Default bei einem `git reset` sondern `--mixed`, auch wenn diese Lernumgebung anderes behauptet."
   },
   "name": {
-    "en_US": "MT5: Wenn das Team dreimal pusht"
+    "de_DE": "MT5: Wenn das Team dreimal pusht"
   },
   "startDialog": {
-    "en_US": {
+    "de_DE": {
       "childViews": [
         {
           "type": "ModalAlert",
@@ -26804,13 +26804,13 @@ exports.level = {
   "compareOnlyMasterHashAgnostic": false,
   "disabledMap": {},
   "name": {
-    "en_US": "MT6: Weniger Merge, mehr Rebase!"
+    "de_DE": "MT6: Weniger Merge, mehr Rebase!"
   },
   "hint": {
-    "en_US": "Wenn der Branch nur einen Commit hat oder die letzte Aktion ein Merge des master in den Branch war, braucht man kein `--no-ff` zu setzen."
+    "de_DE": "Wenn der Branch nur einen Commit hat oder die letzte Aktion ein Merge des master in den Branch war, braucht man kein `--no-ff` zu setzen."
   },
   "startDialog": {
-    "en_US": {
+    "de_DE": {
       "childViews": [
         {
           "type": "ModalAlert",
@@ -26891,13 +26891,13 @@ exports.level = {
   "compareOnlyMasterHashAgnostic": false,
   "disabledMap": {},
   "name": {
-    "en_US": "UC1: Reset - das Undo für Lokales"
+    "de_DE": "UC1: Reset - das Undo für Lokales"
   },
   "hint": {
-    "en_US": "Probier mal nach dem Push den Merge zu resetten, neue Änderungen zu machen, und das zu pushen."
+    "de_DE": "Probier mal nach dem Push den Merge zu resetten, neue Änderungen zu machen, und das zu pushen."
   },
   "startDialog": {
-    "en_US": {
+    "de_DE": {
       "childViews": [
         {
           "type": "ModalAlert",
@@ -31041,4 +31041,4 @@ exports.level = {
   }
 };
 
-},{}]},{},[12,13,15,14,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103])
+},{}]},{},[12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103])
