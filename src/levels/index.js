@@ -30,14 +30,13 @@ exports.levelSequences = {
     require('./rebase/selectiveRebase').level
   ],
   pixumLocal: [
-    require('./pixum/mt1').level,
-    require('./pixum/mt1a').level,
-    require('./pixum/mt1b').level,
-    require('./pixum/mt2').level,
-    require('./pixum/mt1c').level,
-    require('./pixum/mt4').level,
-    require('./pixum/mt5').level,
-    require('./pixum/mt6').level
+    require('./pixum/create_local_branch').level,
+    require('./pixum/reintegrate_multi_commit').level,
+    require('./pixum/reintegrate_single_commit').level,
+    require('./pixum/reintegrate_local_branch').level,
+    require('./pixum/single_commit_rebase_push').level,
+    require('./pixum/keep_local_branch_current').level,
+    require('./pixum/reset_pull_push').level
   ],
   pixumRemote: [
     require('./pixum/uc1').level
