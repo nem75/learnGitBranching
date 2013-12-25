@@ -29,15 +29,17 @@ exports.levelSequences = {
     require('./advanced/multipleParents').level,
     require('./rebase/selectiveRebase').level
   ],
-  pixumMT: [
+  pixumLocal: [
     require('./pixum/mt1').level,
+    require('./pixum/mt1a').level,
+    require('./pixum/mt1b').level,
     require('./pixum/mt2').level,
-    require('./pixum/mt3').level,
+    require('./pixum/mt1c').level,
     require('./pixum/mt4').level,
     require('./pixum/mt5').level,
     require('./pixum/mt6').level
   ],
-  pixumUC: [
+  pixumRemote: [
     require('./pixum/uc1').level
   ],
   remote: [
@@ -171,7 +173,7 @@ var sequenceInfo = exports.sequenceInfo = {
       'zh_CN': '只为真正的勇士！'
     }
   },
-  pixumMT: {
+  pixumLocal: {
     tab: 'pixum',
     displayName: {
       'de_DE': 'Workflows Lokale Branches / MT'
@@ -180,7 +182,7 @@ var sequenceInfo = exports.sequenceInfo = {
       'de_DE': 'Workflows für die Arbeit mit lokalen Branches'
     }
   },
-  pixumUC: {
+  pixumRemote: {
     tab: 'pixum',
     displayName: {
       'de_DE': 'Undo und Cleanup'
