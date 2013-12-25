@@ -8606,13 +8606,9 @@ exports.dialog = {
         '',
         '# Demo!',
         '',
-        'Falls du die Demonstration noch nicht gesehen hast, schau sie dir hier an:',
+        'Falls du die Demonstration noch nicht gesehen hast, [schau sie dir hier an.](?demo)',
         '',
-        '[http://pcottle.github.io/learnGitBranching/?demo](http://pcottle.github.io/learnGitBranching/?demo)',
-        '',
-        'Genervt von diesem Fenster? Häng `?NODEMO` an die URL um es los zu werden, so wie hier:',
-        '',
-        '[http://pcottle.github.io/learnGitBranching/?NODEMO](?NODEMO)'
+        'Genervt von diesem Fenster? Häng `?NODEMO` an die URL um es los zu werden, [so wie hier.](?NODEMO)'
       ]
     }
   }, {
@@ -16796,7 +16792,8 @@ var TIME = {
 
 // useful for locks, etc
 var GLOBAL = {
-  isAnimating: false
+  isAnimating: false,
+  locale: 'de_DE'
 };
 
 var VIEWPORT = {
@@ -19254,7 +19251,7 @@ var LevelDropdownView = ContainedBase.extend({
       window.location.href
     );
     this.JSON = {
-      selectedTab: queryParams.defaultTab || 'main',
+      selectedTab: queryParams.defaultTab || 'pixum',
       tabs: [{
         id: 'main',
         name: intl.todo('Main')
@@ -23679,15 +23676,17 @@ exports.levelSequences = {
     require('./advanced/multipleParents').level,
     require('./rebase/selectiveRebase').level
   ],
-  pixumMT: [
+  pixumLocal: [
     require('./pixum/mt1').level,
+    require('./pixum/mt1a').level,
+    require('./pixum/mt1b').level,
     require('./pixum/mt2').level,
-    require('./pixum/mt3').level,
+    require('./pixum/mt1c').level,
     require('./pixum/mt4').level,
     require('./pixum/mt5').level,
     require('./pixum/mt6').level
   ],
-  pixumUC: [
+  pixumRemote: [
     require('./pixum/uc1').level
   ],
   remote: [
@@ -23821,7 +23820,7 @@ var sequenceInfo = exports.sequenceInfo = {
       'zh_CN': '只为真正的勇士！'
     }
   },
-  pixumMT: {
+  pixumLocal: {
     tab: 'pixum',
     displayName: {
       'de_DE': 'Workflows Lokale Branches / MT'
@@ -23830,7 +23829,7 @@ var sequenceInfo = exports.sequenceInfo = {
       'de_DE': 'Workflows für die Arbeit mit lokalen Branches'
     }
   },
-  pixumUC: {
+  pixumRemote: {
     tab: 'pixum',
     displayName: {
       'de_DE': 'Undo und Cleanup'
@@ -23849,7 +23848,7 @@ exports.getTabForSequence = function(sequenceName) {
 };
 
 
-},{"./advanced/multipleParents":63,"./intro/branching":65,"./intro/commits":66,"./intro/merging":67,"./intro/rebasing":68,"./mixed/describe":69,"./mixed/grabbingOneCommit":70,"./mixed/jugglingCommits":71,"./mixed/jugglingCommits2":72,"./mixed/tags":73,"./pixum/mt1":74,"./pixum/mt2":75,"./pixum/mt3":76,"./pixum/mt4":77,"./pixum/mt5":78,"./pixum/mt6":79,"./pixum/uc1":80,"./rampup/cherryPick":81,"./rampup/detachedHead":82,"./rampup/interactiveRebase":83,"./rampup/relativeRefs":84,"./rampup/relativeRefs2":85,"./rampup/reversingChanges":86,"./rebase/manyRebases":87,"./rebase/selectiveRebase":88,"./remote/clone":89,"./remote/fakeTeamwork":90,"./remote/fetch":91,"./remote/fetchArgs":92,"./remote/fetchRebase":93,"./remote/mergeManyFeatures":94,"./remote/pull":95,"./remote/pullArgs":96,"./remote/push":97,"./remote/pushArgs":98,"./remote/pushArgs2":99,"./remote/pushManyFeatures":100,"./remote/remoteBranches":101,"./remote/sourceNothing":102,"./remote/tracking":103}],65:[function(require,module,exports){
+},{"./advanced/multipleParents":63,"./intro/branching":65,"./intro/commits":66,"./intro/merging":67,"./intro/rebasing":68,"./mixed/describe":69,"./mixed/grabbingOneCommit":70,"./mixed/jugglingCommits":71,"./mixed/jugglingCommits2":72,"./mixed/tags":73,"./pixum/mt1":74,"./pixum/mt1a":75,"./pixum/mt1b":76,"./pixum/mt1c":77,"./pixum/mt2":78,"./pixum/mt4":79,"./pixum/mt5":80,"./pixum/mt6":81,"./pixum/uc1":82,"./rampup/cherryPick":83,"./rampup/detachedHead":84,"./rampup/interactiveRebase":85,"./rampup/relativeRefs":86,"./rampup/relativeRefs2":87,"./rampup/reversingChanges":88,"./rebase/manyRebases":89,"./rebase/selectiveRebase":90,"./remote/clone":91,"./remote/fakeTeamwork":92,"./remote/fetch":93,"./remote/fetchArgs":94,"./remote/fetchRebase":95,"./remote/mergeManyFeatures":96,"./remote/pull":97,"./remote/pullArgs":98,"./remote/push":99,"./remote/pushArgs":100,"./remote/pushArgs2":101,"./remote/pushManyFeatures":102,"./remote/remoteBranches":103,"./remote/sourceNothing":104,"./remote/tracking":105}],65:[function(require,module,exports){
 exports.level = {
   "goalTreeString": "{\"branches\":{\"master\":{\"target\":\"C1\",\"id\":\"master\"},\"bugFix\":{\"target\":\"C1\",\"id\":\"bugFix\"}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"}},\"HEAD\":{\"target\":\"bugFix\",\"id\":\"HEAD\"}}",
   "solutionCommand": "git branch bugFix;git checkout bugFix",
@@ -26489,7 +26488,7 @@ exports.level = {
   "disabledMap": {},
   "startTree": "{\"branches\":{\"master\":{\"target\":\"C1\",\"id\":\"master\",\"remoteTrackingBranchID\":\"o/master\"},\"o/master\":{\"target\":\"C1\",\"id\":\"o/master\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"},\"originTree\":{\"branches\":{\"master\":{\"target\":\"C2\",\"id\":\"master\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"}}}",
   "name": {
-    "de_DE": "MT1: Issue-Branch anlegen"
+    "de_DE": "Kleine Änderungen: Issue-Branch anlegen"
   },
   "hint": {
     "de_DE": "Aktualisiere den `master`, lege einen neuen Branch `issue` an und committe dort eine Änderung."
@@ -26501,12 +26500,30 @@ exports.level = {
           "type": "ModalAlert",
           "options": {
             "markdowns": [
-              "## MT1: Issue-Branch anlegen",
+              "## Kleine Änderungen: Issue-Branch anlegen",
               "",
-              "Die Arbeit in Maintenance findet üblicherweise in lokalen Branches statt, einem pro MT-Issue. Nach Abschluss eines Issues wird der entsprechende Branch in den Master integriert und zwecks Deploy auf den Server gepusht.",
+              "Du kennst das sicher: du willst nur eine kleine Änderung machen, ein úberschaubares Issue bearbeiten, und das Ergebnis soll dann auch zeitnah live gehen.",
               "",
+              "Dafür gibt es gibt zwei Ansätze:",
               "",
-              ""
+              "1. den Git-Weg: du erstellst einen lokalen Branch;",
+              "1. den \"Ich bin VCS gewohnt, wo Mergen doof ist (z.B. SVN) und will lieber auf dem trunk/master arbeiten\"-Weg.",
+              "",
+              "Keiner der Ansätze ist der \"richtige\" oder \"falsche\". Allerdings gibt es keinen Grund die Vorteile eines Systems (Git) von vornherein zu ignorieren, nur weil du von einem unterlegenen System (SVN) schlechte Erfahungen mitbringst. Darum beginnen wir hier mit dem ersten Weg: einen lokalen Branch erstellen."
+            ]
+          }
+        },
+        {
+          "type": "ModalAlert",
+          "options": {
+            "markdowns": [
+              "## Branchen: gratis und schnell, Merge: fast umsonst dabei",
+              "",
+              "SVN ist nicht schlecht weil das Anlegen von Branches schlimm wäre. Es ist schlecht, weil das Mergen eines Branch in was auch immer meistens kompliziert ist. Bei Git ist das nicht so. Es lohnt sich deshalb bei der Arbeit mit Git die alte \"das ist doch eine viele zu kleine Änderung, als dass sich da ein Branch lohne würde\"-Attitüde abzulegen.",
+              "",
+              "Der erste Schritt vor dem Anlegen eines neuen Branch, wenn er von einem auf `git.pixum.dev` vorhandenen Branch wie `master` abzweigt, sollte immer ein `git pull` auf dem Eltern-Branch sein. So arbeitest du auf dem neuesten Stand und minimierst das Risiko von Problemen bei der Reintegration.",
+              "",
+              "Sehen wir uns das ganze in Aktion an:"
             ]
           }
         },
@@ -26514,156 +26531,43 @@ exports.level = {
           "type": "GitDemonstrationView",
           "options": {
             "beforeMarkdowns": [
-              "## Und los",
-              "",
-              "Erster Schritt sollte also das Aktualisieren des `master` sein.",
+              "Zuerst aktualisieren wir also unseren Eltern-Branch, hier `master`:",
               ""
             ],
             "afterMarkdowns": [
-              "Falls das Issue schnell gelöst ist, ist durch diesen Schritt möglicherweise gar kein `pull` vor dem Pushen des reintegrierten Branches nötig.",
+              "Fertig. Je nach Tageszeit hat dieser Schritt auch noch den Vorteil, dass vielleicht kein `git pull` mehr nötig ist bevor wir den Branch reintegrieren und pushen.",
               "",
-              "Der Branch `o/master` heißt in einer echten Git-Umgebung üblicherweise `origin/master`. Er enthält alle Commits des Branches `master` auf dem Server `origin` seit dem letzten `pull` (oder `fetch`)."
+              "(`o/master` ist hier eine verkürzte Schreibweise, in echtem Git heißt der Remote Branch des `master` üblicherweise `origin/master`.)"
             ],
             "command": "git pull",
             "beforeCommand": "git clone; git fakeTeamwork"
           }
         },
         {
-          "type": "ModalAlert",
-          "options": {
-            "markdowns": [
-              "## Das eigentliche Branchen",
-              "",
-              "Wenn der `master` aktualisiert ist, muss lediglich noch der Branch für das Issue angelegt und ausgecheckt werden, um darin zu arbeiten.",
-              "",
-              "### Ziel",
-              "",
-              "* den `master` per `git pull` aktualisieren,",
-              "* einen Branch `issue` anlegen und auschecken,",
-              "* dort einen Commit machen mit `git commit` (in unserer Übungsumgebung muss man nicht wirklich Dateien ändern und Änderungen stagen).",
-              "",
-              "",
-              ""
-            ]
-          }
-        }
-      ]
-    }
-  }
-};
-},{}],75:[function(require,module,exports){
-exports.level = {
-  "goalTreeString": "{\"branches\":{\"master\":{\"target\":\"C6\",\"id\":\"master\",\"remoteTrackingBranchID\":\"o/master\"},\"o/master\":{\"target\":\"C6\",\"id\":\"o/master\",\"remoteTrackingBranchID\":null},\"issue\":{\"target\":\"C4\",\"id\":\"issue\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C2\"],\"id\":\"C3\"},\"C4\":{\"parents\":[\"C3\"],\"id\":\"C4\"},\"C5\":{\"parents\":[\"C2\"],\"id\":\"C5\"},\"C6\":{\"parents\":[\"C4\",\"C5\"],\"id\":\"C6\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"},\"originTree\":{\"branches\":{\"master\":{\"target\":\"C6\",\"id\":\"master\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C5\":{\"parents\":[\"C2\"],\"id\":\"C5\"},\"C3\":{\"parents\":[\"C2\"],\"id\":\"C3\"},\"C4\":{\"parents\":[\"C3\"],\"id\":\"C4\"},\"C6\":{\"parents\":[\"C4\",\"C5\"],\"id\":\"C6\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"}}}",
-  "solutionCommand": "git checkout master;git pull;git merge issue --no-ff;git push",
-  "compareOnlyMasterHashAgnostic": false,
-  "disabledMap": {},
-  "name": {
-    "de_DE": "MT2: Issue-Branch reintegrieren"
-  },
-  "startTree": "{\"branches\":{\"master\":{\"target\":\"C2\",\"id\":\"master\",\"remoteTrackingBranchID\":\"o/master\"},\"o/master\":{\"target\":\"C2\",\"id\":\"o/master\",\"remoteTrackingBranchID\":null},\"issue\":{\"target\":\"C4\",\"id\":\"issue\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C2\"],\"id\":\"C3\"},\"C4\":{\"parents\":[\"C3\"],\"id\":\"C4\"}},\"HEAD\":{\"target\":\"issue\",\"id\":\"HEAD\"},\"originTree\":{\"branches\":{\"master\":{\"target\":\"C5\",\"id\":\"master\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C5\":{\"parents\":[\"C2\"],\"id\":\"C5\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"}}}",
-  "hint": {
-    "de_DE": "Nicht vergessen: Optionen müssen ans Ende des Kommandos, also `git merge issue --no-ff` und nicht `git merge --no-ff issue`. Echtem Git ist das egal!"
-  },
-  "startDialog": {
-    "de_DE": {
-      "childViews": [
-        {
-          "type": "ModalAlert",
-          "options": {
-            "markdowns": [
-              "## MT2: Issue-Branch reintegrieren",
-              "",
-              "Ist ein Issue fertig bearbeitet, wird sein Branch in den `master` reintegriert und gepusht. Danach ist der Deploy möglich.",
-              "",
-              "Um Problemen beim `push` weitgehend vorzubeugen muss vorher ein `pull` auf dem `master` ausgeführt werden, um eventuelle Team-Änderungen vom Server zu holen.",
-              "",
-              "Wenn man einfach nur irgendwie solange `pull` ausführt bis man seinen Kram auf den Server gepusht bekommt, kommt es sonst zu unnötig unübersichtlichen Auswüchsen, die allen Kollegen den Tag vermiesen.",
-              "",
-              ""
-            ]
-          }
-        },
-        {
           "type": "GitDemonstrationView",
           "options": {
             "beforeMarkdowns": [
-              "## Die History auf dem Server sauber halten",
-              "",
-              "In diesem Beispiel ist ein Issue-Branch in den `master` gemergt worden, obwohl auf dem Server bereits ein neuer Commit im `master` war.",
-              "",
-              "Ein `push` ist jetzt nicht mehr möglich, Git warnt entsprechend. Wenn man jetzt einfach nur `pull` ausführt und dann pusht ..."
+              "Als nächstes muss der Branch für das Issue angelegt und dorthin gewechselt werden. Den normalen Weg über `git branch` und `git checkout` solltest du schon kennen, aber diese Abkürzung kennst du vielleicht nicht:",
+              ""
             ],
             "afterMarkdowns": [
-              "Hatten sie die Spaghetti bestellt? Na denn guten Appetit.",
-              "",
-              "Nur: hier müssen alle Kollegen mitessen. Schönen Dank auch dafür."
+              "Fertig und arbeitsbereit auf `issue`."
             ],
-            "command": "git pull; git push",
-            "beforeCommand": "git clone; git co -b issue; git ci; git fakeTeamwork; git co master; git merge issue --no-ff"
+            "command": "git checkout -b issue",
+            "beforeCommand": "git clone; git fakeTeamwork; git pull"
           }
         },
         {
           "type": "ModalAlert",
           "options": {
             "markdowns": [
-              "## Dann lieber richtig",
+              "Nachdem der `master` aktualisiert ist, muss lediglich noch der Branch für das Issue angelegt und ausgecheckt werden, um darin zu arbeiten.",
               "",
-              "So also nicht. Deshalb bitte in diesem Level (und in Echt auch)",
+              "### Ziel des Levels:",
               "",
-              "* erst mal den `master` aktualisieren,",
-              "* dann `issue` in `master` mergen (`--no-ff` nicht vergessen; die Optionen müssen in dieser Lernumgebung immer ans Ende, es wäre also z.B. `git merge issue --no-ff`),",
-              "* und erst dann `pushen`.",
-              "",
-              "Das Ergebnis wird ersichtlich übersichtlicher. Der Rest der Firma dankt's.",
-              "",
-              "",
-              ""
-            ]
-          }
-        }
-      ]
-    }
-  }
-};
-},{}],76:[function(require,module,exports){
-exports.level = {
-  "goalTreeString": "{\"branches\":{\"master\":{\"target\":\"C2\",\"id\":\"master\",\"remoteTrackingBranchID\":\"o/master\"},\"o/master\":{\"target\":\"C2\",\"id\":\"o/master\",\"remoteTrackingBranchID\":null},\"issue\":{\"target\":\"C2\",\"id\":\"issue\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"},\"originTree\":{\"branches\":{\"master\":{\"target\":\"C2\",\"id\":\"master\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"}}}",
-  "solutionCommand": "git checkout master;git merge issue;git push",
-  "startTree": "{\"branches\":{\"master\":{\"target\":\"C1\",\"id\":\"master\",\"remoteTrackingBranchID\":\"o/master\"},\"o/master\":{\"target\":\"C1\",\"id\":\"o/master\",\"remoteTrackingBranchID\":null},\"issue\":{\"target\":\"C2\",\"id\":\"issue\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"}},\"HEAD\":{\"target\":\"issue\",\"id\":\"HEAD\"},\"originTree\":{\"branches\":{\"master\":{\"target\":\"C1\",\"id\":\"master\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"}}}",
-  "compareOnlyMasterHashAgnostic": false,
-  "disabledMap": {"git rebase": true},
-  "hint": {
-    "de_DE": "Wenn es zwischenzeitlich Änderungen auf dem Server im `master` gab, ergibt sich auch ohne `--no-ff` ein Merge Commit, weil `issue` und `master` divergieren."
-  },
-  "name": {
-    "de_DE": "MT3: Issue-Branch reintegrieren ohne Merge Commit"
-  },
-  "startDialog": {
-    "de_DE": {
-      "childViews": [
-        {
-          "type": "ModalAlert",
-          "options": {
-            "markdowns": [
-              "## MT3: Issue-Branch reintegrieren ohne Merge Commit",
-              "",
-              "In aller Regel benutzen wir beim Reintegrieren in den Master ein `git merge --no-ff`. Das `--no-ff` verhindert einen sogenannten \"fast forward\" und erzwingt einen Merge Commit.",
-              "",
-              "Das ist sinnvoll solange dein Branch mehr als einen Commit enthält. Falls durch deinen Branch nämlich fehlerhafter Code deployt wird, muss nur `git revert <hash des Merge Commits>` ausgeführt werden, um deine Reintegration zurück zu nehmen."
-            ]
-          }
-        },
-        {
-          "type": "ModalAlert",
-          "options": {
-            "markdowns": [
-              "## Keine Regel ohne Ausnahme",
-              "",
-              "Wenn dein Branch allerdings eh nur einen Commit enthält, ist das `--no-ff` überflüssig. Es wegzulassen sorgt in dem Fall für eine lineare und übersichtlichere History.",
-              "",
-              "Reintegriere in diesem Level den Branch `issue` ohne `--no-ff` in den `master`.",
-              "",
-              "Das Ergebnis ist ein \"fast forward\", das heißt der `master` wird mit `issue` \"gleichgesetzt\", ohne dass ein Merge Commit entsteht. Das ist möglich, da `issue` nur Änderungen enthält, die auf den neuesten Stand von `master` aufbauen. Hätte es zwischenzeitlich in `master` auch Änderungen gegeben (oder kämen diese zum Beispiel durch ein `git pull` herein) so wäre kein fast forward möglich und es würde wieder ein Merge Commit entstehen (obwohl `issue` nach wie vor nur einen Commit enthält).",
+              "* den `master` per `git pull` aktualisieren,",
+              "* einen Branch `issue` anlegen und auschecken,",
+              "* dort einen Commit machen mit `git commit`.",
               ""
             ]
           }
@@ -26673,18 +26577,16 @@ exports.level = {
   }
 };
 
-},{}],77:[function(require,module,exports){
+},{}],75:[function(require,module,exports){
 exports.level = {
-  "goalTreeString": "{\"branches\":{\"master\":{\"target\":\"C7\",\"id\":\"master\",\"remoteTrackingBranchID\":\"o/master\"},\"o/master\":{\"target\":\"C7\",\"id\":\"o/master\",\"remoteTrackingBranchID\":null},\"issue\":{\"target\":\"C7\",\"id\":\"issue\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C5\":{\"parents\":[\"C1\"],\"id\":\"C5\"},\"C6\":{\"parents\":[\"C5\"],\"id\":\"C6\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C2\"],\"id\":\"C3\"},\"C4\":{\"parents\":[\"C3\"],\"id\":\"C4\"},\"C7\":{\"parents\":[\"C4\",\"C6\"],\"id\":\"C7\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"},\"originTree\":{\"branches\":{\"master\":{\"target\":\"C7\",\"id\":\"master\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C2\"],\"id\":\"C3\"},\"C4\":{\"parents\":[\"C3\"],\"id\":\"C4\"},\"C5\":{\"parents\":[\"C1\"],\"id\":\"C5\"},\"C6\":{\"parents\":[\"C5\"],\"id\":\"C6\"},\"C7\":{\"parents\":[\"C4\",\"C6\"],\"id\":\"C7\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"}}}",
-  "solutionCommand": "git pull;git checkout issue;git merge master;git checkout master;git merge issue;git push",
-  "startTree": "{\"branches\":{\"master\":{\"target\":\"C1\",\"id\":\"master\",\"remoteTrackingBranchID\":\"o/master\"},\"o/master\":{\"target\":\"C1\",\"id\":\"o/master\",\"remoteTrackingBranchID\":null},\"issue\":{\"target\":\"C6\",\"id\":\"issue\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C5\":{\"parents\":[\"C1\"],\"id\":\"C5\"},\"C6\":{\"parents\":[\"C5\"],\"id\":\"C6\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"},\"originTree\":{\"branches\":{\"master\":{\"target\":\"C4\",\"id\":\"master\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C2\"],\"id\":\"C3\"},\"C4\":{\"parents\":[\"C3\"],\"id\":\"C4\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"}}}",
-  "compareOnlyMasterHashAgnostic": false,
-  "disabledMap": {"git rebase": true},
+  "goalTreeString": "{\"branches\":{\"master\":{\"target\":\"C4\",\"id\":\"master\",\"remoteTrackingBranchID\":null},\"issue\":{\"target\":\"C3\",\"id\":\"issue\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C2\"],\"id\":\"C3\"},\"C4\":{\"parents\":[\"C1\",\"C3\"],\"id\":\"C4\"}},\"tags\":{},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"}}",
+  "solutionCommand": "git checkout master;git merge issue --no-ff",
+  "startTree": "{\"branches\":{\"master\":{\"target\":\"C1\",\"id\":\"master\",\"remoteTrackingBranchID\":null},\"issue\":{\"target\":\"C3\",\"id\":\"issue\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C2\"],\"id\":\"C3\"}},\"tags\":{},\"HEAD\":{\"target\":\"issue\",\"id\":\"HEAD\"}}",
   "name": {
-    "de_DE": "MT4: Issue-Branch aktualisieren per Merge"
+    "de_DE": "Reintegrieren: mehrere Commits"
   },
   "hint": {
-    "de_DE": "`git merge` erzeugt automatisch einen Commit wenn keine Konflikte auftreten."
+    "de_DE": "Vergiss nicht die Option `--no-ff` anzuhängen"
   },
   "startDialog": {
     "de_DE": {
@@ -26693,13 +26595,16 @@ exports.level = {
           "type": "ModalAlert",
           "options": {
             "markdowns": [
-              "## MT4: Issue-Branch aktualisieren per Merge",
+              "## Reintegration: mehrere Commits",
               "",
-              "Falls während der Arbeit an einem Issue-Branch sehr viele Änderungen auf den `master` gepusht worden sind, kann es sinnvoll sein diese in den Branch zu holen bevor man ihn reintegriert. Auf diese Weise lassen sich eventuelle Konflikte vor der Reintegration aufdecken und lösen.",
+              "Nachdem du deine Arbeit in einem lokalen Branch, zum Beispiel für ein Issue, abgeschlossen hast, kommt der große Moment wo du diese Änderungen deployen möchtest. Hört, hört!",
               "",
-              "Eine Möglichkeit das zu tun, ist den `master` in den Branch zu mergen",
+              "Dazu musst du die Änderungen",
               "",
+              "* in den lokalen `master` integrieren",
+              "* und dann auf den Server pushen.",
               "",
+              "Hier soll es zunächst um den ersten Schritt gehen.",
               ""
             ]
           }
@@ -26708,11 +26613,280 @@ exports.level = {
           "type": "ModalAlert",
           "options": {
             "markdowns": [
-              "Dieser Level startet mit einem Issue-Branch und einem `master`, auf dem seit Erstellen des Branches drei Commits gemacht wurden.",
+              "## Reintegration in master: Merge-Commit",
               "",
-              "Bitte merge den `master` in den Branch, bevor du diesen in den `master` reintegrierst und pushst.",
+              "Grundsätzlich möchte ich, dass bei Pixum bei der Reintegration von Änderungen in den `master` ein Merge-Commit erzeugt wird.",
               "",
-              "*WICHTIG:* da durch den Merge von `master` in `issue` bereits ein Merge Commit entsteht, ist es in diesem Fall nicht nötig den Branch mit `--no-ff` in den `master` zu mergen. Es schadet zwar auch nicht, führt aber in diesem Level nicht zur Lösung. Probier aus wie das Ergebnis aussieht wenn man beim letzten Merge mit und ohne `--no-ff` arbeitet. Du kannst Arbeitsschritte mit `undo` zurücknehmen.",
+              "Dadurch muss auch nur dieser Merge-Commit per `git revert` neutralisiert werden, falls die Änderungen kritische Fehler enthalten.",
+              "",
+              "Das ist deshalb wichtig zu wissen, weil Git unter Umständen keinen echten Merge macht.",
+              "",
+              "\"Ja wie jetzt?\" -- Guckst du hier:"
+            ]
+          }
+        },
+        {
+          "type": "GitDemonstrationView",
+          "options": {
+            "beforeMarkdowns": [
+              "Die Arbeit ist abgeschlossen, wir sind in den `master` gewechselt und jetzt kommt der Merge:"
+            ],
+            "afterMarkdowns": [
+              "Denkste! Git schaut beim Merge, ob das Ziel der Aktion (hier: `master`) vielleicht ein direkter Vorfahr der Quelle (hier: `issue`) ist. Wenn ja, macht es keinen Merge sondern einen sogenannten `fast-forward`. Das heißt es \"spult\" das Ziel (`master`) einfach an die Stelle der Quelle (`issue`) vor. Schöner Mist.",
+              ""
+            ],
+            "command": "git merge issue",
+            "beforeCommand": "git checkout -b issue; git ci; git ci; git co master"
+          }
+        },
+        {
+          "type": "ModalAlert",
+          "options": {
+            "markdowns": [
+              "## 20 Reverts über der Schmerzgrenze",
+              "",
+              "Ok, das ist jetzt nicht weiter schlimm, du machst damit nichts kaputt.",
+              "",
+              "Es ist nur so: wenn dein `issue` aus 21 Commits bestand und irgendeiner davon macht den Kunden das Bestellen unmöglich muss jetzt ein Kollege alle 21 Commits einzeln per `git revert` beseitigen, anstatt einfach nur einen Merge-Commit.",
+              "",
+              "Er wird sich dann sicherlich bei dir noch mal persönlich bedanken.",
+              "",
+              "Besser (und richtig) geht es so:"
+            ]
+          }
+        },
+        {
+          "type": "GitDemonstrationView",
+          "options": {
+            "beforeMarkdowns": [
+              "Gleiche Situation, leicht andere Vorgehensweise -- per Option `--no-ff` sagen wir Git ausdrücklich: \"egal was ist, mach AUFJEDENFALL einen Merge-Commit, danke\"."
+            ],
+            "afterMarkdowns": [
+              "Und das macht es auch."
+            ],
+            "command": "git merge issue --no-ff",
+            "beforeCommand": "git checkout -b issue; git ci; git ci; git co master"
+          }
+        },
+        {
+          "type": "ModalAlert",
+          "options": {
+            "markdowns": [
+              "## Ziel des Levels",
+              "",
+              "Und jetzt kommst du. Wechsel zum `master` und reintegriere `issue` dort per Merge - aber richtig.",
+              "",
+              "Viel Erfolg! :)"
+            ]
+          }
+        }
+      ]
+    }
+  }
+};
+
+},{}],76:[function(require,module,exports){
+exports.level = {
+  "goalTreeString": "{\"branches\":{\"master\":{\"target\":\"C2\",\"id\":\"master\",\"remoteTrackingBranchID\":null},\"issue\":{\"target\":\"C2\",\"id\":\"issue\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"}},\"tags\":{},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"}}",
+  "solutionCommand": "git checkout master;git merge issue",
+  "startTree": "{\"branches\":{\"master\":{\"target\":\"C1\",\"id\":\"master\",\"remoteTrackingBranchID\":null},\"issue\":{\"target\":\"C2\",\"id\":\"issue\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"}},\"tags\":{},\"HEAD\":{\"target\":\"issue\",\"id\":\"HEAD\"}}",
+  "name": {
+    "de_DE": "Reintegration: einzelner Commit"
+  },
+  "hint": {
+    "de_DE": "Du kannst dir --no-ff sparen, falls dein Branch nur eine Fortsetzung von master ist"
+  },
+  "startDialog": {
+    "de_DE": {
+      "childViews": [
+        {
+          "type": "ModalAlert",
+          "options": {
+            "markdowns": [
+              "## Reintegration: einzelner Commit",
+              "",
+              "Im vorherigen Level wurde es indirekt schon gesagt: wir wollen bei Pixum _grundsätzlich_ einen Merge-Commit erzeugen, wenn wir Änderungen in den `master` integrieren.",
+              "",
+              "Aber nicht _ausschließlich_. Es gibt eine Ausnahme: wenn wir nur einen einzelnen Commit reintegrieren wollen."
+            ]
+          }
+        },
+        {
+          "type": "ModalAlert",
+          "options": {
+            "markdowns": [
+              "## Manchmal reicht schon einer",
+              "",
+              "Es ist ja nicht unüblich: kleine Aufgaben und Issues sind oft mit einem einzigen Commit erledigt.",
+              "",
+              "Lass dich dadurch aber nicht davon abhalten, auch für diese zunächst einen lokalen Branch anzulegen. Schließlich kannst du nie sicher sein, dass nur ein Commit nötig sein wird. Und ein Branch ist immer besser als eine \"dreckige\" Arbeitskopie.",
+              "",
+              "Sollte es dann am Ende nur ein Commit gewesen sein, können wir die Reintegration ein bisschen vereinfachen.",
+              "",
+              "Schauen wir mal:"
+            ]
+          }
+        },
+        {
+          "type": "GitDemonstrationView",
+          "options": {
+            "beforeMarkdowns": [
+              "Erst mal der Standardweg: mit `--no-ff`."
+            ],
+            "afterMarkdowns": [
+              "Wie gehabt. Allerdings: nötig ist das nicht. Wir haben jetzt zwei Commits (`C2` und `C3`), die beide nur eine inhaltliche Änderung mitbringen (die aus `C2`). `C3` ist also eigentlich überflüssig."
+            ],
+            "command": "git merge issue --no-ff",
+            "beforeCommand": "git co -b issue; git ci; git co master"
+          }
+        },
+        {
+          "type": "GitDemonstrationView",
+          "options": {
+            "beforeMarkdowns": [
+              "Stattdessen können wir _ausnahmsweise_ den `--no-ff` Schalter weglassen:"
+            ],
+            "afterMarkdowns": [
+              "Das ist ok! Da wir eh nur einen Commit im Branch hatten, brauchen wir nicht noch den Merge Commit zusätzlich. Sollte ein Fehler drin sein, ist ja trotzdem nur dieser eine Commit zu reverten. Alles gut. Und übersichtlicher."
+            ],
+            "command": "git merge issue",
+            "beforeCommand": "git co -b issue; git ci; git co master"
+          }
+        },
+        {
+          "type": "ModalAlert",
+          "options": {
+            "markdowns": [
+              "## Ziel des Levels",
+              "",
+              "Wechsel in den `master` und reintegriere den Branch so, wie es sich für einen Branch mit einem einzigen Commit gehört.",
+              "",
+              "Viel Erfolg!"
+            ]
+          }
+        }
+      ]
+    }
+  }
+};
+},{}],77:[function(require,module,exports){
+exports.level = {
+  "goalTreeString": "%7B%22branches%22%3A%7B%22master%22%3A%7B%22target%22%3A%22C3%27%22%2C%22id%22%3A%22master%22%2C%22remoteTrackingBranchID%22%3A%22o/master%22%7D%2C%22o/master%22%3A%7B%22target%22%3A%22C3%27%22%2C%22id%22%3A%22o/master%22%2C%22remoteTrackingBranchID%22%3Anull%7D%2C%22issue%22%3A%7B%22target%22%3A%22C3%27%22%2C%22id%22%3A%22issue%22%2C%22remoteTrackingBranchID%22%3Anull%7D%7D%2C%22commits%22%3A%7B%22C0%22%3A%7B%22parents%22%3A%5B%5D%2C%22id%22%3A%22C0%22%2C%22rootCommit%22%3Atrue%7D%2C%22C1%22%3A%7B%22parents%22%3A%5B%22C0%22%5D%2C%22id%22%3A%22C1%22%7D%2C%22C3%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C3%22%7D%2C%22C2%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C2%22%7D%2C%22C3%27%22%3A%7B%22parents%22%3A%5B%22C2%22%5D%2C%22id%22%3A%22C3%27%22%7D%7D%2C%22tags%22%3A%7B%7D%2C%22HEAD%22%3A%7B%22target%22%3A%22master%22%2C%22id%22%3A%22HEAD%22%7D%2C%22originTree%22%3A%7B%22branches%22%3A%7B%22master%22%3A%7B%22target%22%3A%22C3%27%22%2C%22id%22%3A%22master%22%2C%22remoteTrackingBranchID%22%3Anull%7D%7D%2C%22commits%22%3A%7B%22C0%22%3A%7B%22parents%22%3A%5B%5D%2C%22id%22%3A%22C0%22%2C%22rootCommit%22%3Atrue%7D%2C%22C1%22%3A%7B%22parents%22%3A%5B%22C0%22%5D%2C%22id%22%3A%22C1%22%7D%2C%22C2%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C2%22%7D%2C%22C3%27%22%3A%7B%22parents%22%3A%5B%22C2%22%5D%2C%22id%22%3A%22C3%27%22%7D%7D%2C%22tags%22%3A%7B%7D%2C%22HEAD%22%3A%7B%22target%22%3A%22master%22%2C%22id%22%3A%22HEAD%22%7D%7D%7D",
+  "solutionCommand": "git checkout master;git pull;git rebase master issue;git checkout master;git merge issue;git push",
+  "startTree": "{\"branches\":{\"master\":{\"target\":\"C1\",\"id\":\"master\",\"remoteTrackingBranchID\":\"o/master\"},\"o/master\":{\"target\":\"C1\",\"id\":\"o/master\",\"remoteTrackingBranchID\":null},\"issue\":{\"target\":\"C3\",\"id\":\"issue\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C3\":{\"parents\":[\"C1\"],\"id\":\"C3\"}},\"tags\":{},\"HEAD\":{\"target\":\"issue\",\"id\":\"HEAD\"},\"originTree\":{\"branches\":{\"master\":{\"target\":\"C2\",\"id\":\"master\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"}},\"tags\":{},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"}}}",
+  "name": {
+    "de_DE": "Kein Merge dank Rebase"
+  },
+  "hint": {
+    "de_DE": "Du kannst auch pull --rebase machen, aber issue und master sollen am Ende auf demselben Stand sein!"
+  },
+  "startDialog": {
+    "de_DE": {
+      "childViews": [
+        {
+          "type": "ModalAlert",
+          "options": {
+            "markdowns": [
+              "## Kein Merge dank Rebase",
+              "",
+              "Nun haben wir alles durch. Du machst immer fesch Branches für deine Änderungen, du weißt wann du `--no-ff` benutzen sollst (wenn der Branch mehr als einen Commit hat) und wann nicht (wenn er nur einen hat) -- da kann doch nichts mehr kommen, oder?",
+              "",
+              "Leider arbeiten wir hier mit mehreren Leuten. Da kann immer was kommen. Und das kommt auch.",
+              "",
+              "Lass uns mal ansehen was passiert, wenn du deinen Single-Commit-Branch reintegrieren willst ohne einen Merge-Commit zu erzeugen, aber ein Kollege dir schon neue Änderungen auf den Server geschoben hat ..."
+            ]
+          }
+        },
+        {
+          "type": "GitDemonstrationView",
+          "options": {
+            "beforeMarkdowns": [
+              "Du hast soweit alles richtig gemacht: `issue` ist zurück in den `master` gemerged, es gab einen fast-forward, alles supi.",
+              "",
+              "Leider geht das `git push` nicht, weil es neue Änderungen auf dem Server gibt. Also probierst du:"
+            ],
+            "afterMarkdowns": [
+              "Tja. Den Merge beim Integrieren von `issue` hast du erfolgreich vermieden, aber das hier war jetzt nicht so berühmt. Versuchen wir's anders ..."
+            ],
+            "command": "git pull; git push",
+            "beforeCommand": "git clone; git fakeTeamwork; git co -b issue; git co issue; git ci; git co master; git merge issue"
+          }
+        },
+        {
+          "type": "GitDemonstrationView",
+          "options": {
+            "beforeMarkdowns": [
+              "Nochmal von vorn. Diesmal machst du's besser: vor dem Merge des lokalen Branches `issue` erst mal den `master` per `git pull` aktualisieren -- immer eine gute Idee."
+            ],
+            "afterMarkdowns": [
+              "Ja blöd. Vom Ansatz her besser, aber im Ergebnis immer noch unschön ... wo kommt denn der Merge schon wieder her?"
+            ],
+            "command": "git pull; git merge issue; git push",
+            "beforeCommand": "git clone; git fakeTeamwork; git co -b issue; git co issue; git ci; git co master"
+          }
+        },
+        {
+          "type": "ModalAlert",
+          "options": {
+            "markdowns": [
+              "## Divergenzen, Divergenzen",
+              "",
+              "In diesen beiden Beispielen hat es keinen fast-forward beim Mergen von `issue` in `master` gegeben. Wieso?",
+              "",
+              "Naja, weil es nicht geht. Git kann den `master` nur \"vorspulen\", wenn `master` ein Vorfahr von `issue` ist. Nach dem Pull war es das aber jeweils nicht mehr, da hatten sich die Wege von `issue` und `master` getrennt.",
+              "",
+              "Wir nennen das auch: die Branches sind divergent. Und dann ist nix mit fast-forward.",
+              "",
+              "Noch eine Bemerkung zum ersten Beispiel: was wir da gesehen haben, war wieder der \"PushPull\", der uns schon im vorherigen Level begegnet ist. Also ein \"achMenschDerPushKlapptNichtDannPullIchMalUndPushDannGleich\"-Vorgang, der _IMMER_ zu sehr unnötigen Merge Commits und zu hässlicher History auf dem Server führt. Vermeide ihn wo immer es nur geht.",
+              "",
+              "So, jetzt zum richtigen Weg:"
+            ]
+          }
+        },
+        {
+          "type": "GitDemonstrationView",
+          "options": {
+            "beforeMarkdowns": [
+              "Um den fast-forward zu bekommen, muss nach dem Pull der `master` wieder zu einem direkten Vorfahr von `issue` werden. Wie wir das hinkriegen? Mit einem Rebase!"
+            ],
+            "afterMarkdowns": [
+              "Und da ist er endlich! Wenn man jetzt pusht, haben wir eine wunderbar übersichtliche History. Aber was, wenn ausgerechnet nach dem Merge noch eine neue Änderung auf den Server kommt?"
+            ],
+            "command": "git rebase master issue; git co master; git merge issue",
+            "beforeCommand": "git clone; git fakeTeamwork; git co -b issue; git co issue; git ci; git co master; git pull"
+          }
+        },
+        {
+          "type": "GitDemonstrationView",
+          "options": {
+            "beforeMarkdowns": [
+              "Alles richtig gemacht, alles sieht super aus, und was ist? `git push` -- nänänäää. Wieder neue Änderungen auf dem Server, wieder nix. OCHMENSCHEYKEINBOCKMEHR.",
+              "",
+              "Ruhig Blut. Die Abhilfe: letzten Schritt (den Merge/Fast-Forward) zurücknehmen, und nochmal Pull + Rebase:"
+            ],
+            "afterMarkdowns": [
+              "Und schon kannst du den Merge wiederholen, mit demselben schönen Ergebnis. Dass du dann bestimmt auch endlich pushen kannst. Wenn nicht grad 10:05 ist. Dann trink erst mal 'nen Kaffee. Oder wiederhol diesen Schritt hier, bis es klappt."
+            ],
+            "command": "git reset master^ --hard; git pull; git rebase master issue",
+            "beforeCommand": "git clone; git fakeTeamwork; git co -b issue; git co issue; git ci; git co master; git pull; git rebase master issue; git co master; git merge issue; git fakeTeamwork"
+          }
+        },
+        {
+          "type": "ModalAlert",
+          "options": {
+            "markdowns": [
+              "Aber so kompliziert wie im letzten Beispiel wird's in diesem Level gar nicht.",
+              "",
+              "## Ziel des Levels",
+              "",
+              "* pullen",
+              "* `master` wieder zum Vorfahr von `issue` machen",
+              "* `issue` reintegrieren",
+              "* pushen",
+              "",
+              "Viel Erfolg!",
+              "",
+              "",
               ""
             ]
           }
@@ -26721,18 +26895,19 @@ exports.level = {
     }
   }
 };
+
 },{}],78:[function(require,module,exports){
 exports.level = {
-  "goalTreeString": "{\"branches\":{\"master\":{\"target\":\"C6\",\"id\":\"master\",\"remoteTrackingBranchID\":\"o/master\"},\"o/master\":{\"target\":\"C6\",\"id\":\"o/master\",\"remoteTrackingBranchID\":null},\"issue\":{\"target\":\"C3\",\"id\":\"issue\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C2\"],\"id\":\"C3\"},\"C4\":{\"parents\":[\"C1\",\"C3\"],\"id\":\"C4\"},\"C5\":{\"parents\":[\"C1\"],\"id\":\"C5\"},\"C6\":{\"parents\":[\"C3\",\"C5\"],\"id\":\"C6\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"},\"originTree\":{\"branches\":{\"master\":{\"target\":\"C6\",\"id\":\"master\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C5\":{\"parents\":[\"C1\"],\"id\":\"C5\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C2\"],\"id\":\"C3\"},\"C6\":{\"parents\":[\"C3\",\"C5\"],\"id\":\"C6\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"}}}",
-  "solutionCommand": "git reset --hard HEAD^;git pull;git merge issue --no-ff;git push",
-  "startTree": "{\"branches\":{\"master\":{\"target\":\"C4\",\"id\":\"master\",\"remoteTrackingBranchID\":\"o/master\"},\"o/master\":{\"target\":\"C1\",\"id\":\"o/master\",\"remoteTrackingBranchID\":null},\"issue\":{\"target\":\"C3\",\"id\":\"issue\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C2\"],\"id\":\"C3\"},\"C4\":{\"parents\":[\"C1\",\"C3\"],\"id\":\"C4\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"},\"originTree\":{\"branches\":{\"master\":{\"target\":\"C5\",\"id\":\"master\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C5\":{\"parents\":[\"C1\"],\"id\":\"C5\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"}}}",
+  "goalTreeString": "{\"branches\":{\"master\":{\"target\":\"C6\",\"id\":\"master\",\"remoteTrackingBranchID\":\"o/master\"},\"o/master\":{\"target\":\"C6\",\"id\":\"o/master\",\"remoteTrackingBranchID\":null},\"issue\":{\"target\":\"C4\",\"id\":\"issue\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C2\"],\"id\":\"C3\"},\"C4\":{\"parents\":[\"C3\"],\"id\":\"C4\"},\"C5\":{\"parents\":[\"C2\"],\"id\":\"C5\"},\"C6\":{\"parents\":[\"C4\",\"C5\"],\"id\":\"C6\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"},\"originTree\":{\"branches\":{\"master\":{\"target\":\"C6\",\"id\":\"master\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C5\":{\"parents\":[\"C2\"],\"id\":\"C5\"},\"C3\":{\"parents\":[\"C2\"],\"id\":\"C3\"},\"C4\":{\"parents\":[\"C3\"],\"id\":\"C4\"},\"C6\":{\"parents\":[\"C4\",\"C5\"],\"id\":\"C6\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"}}}",
+  "solutionCommand": "git checkout master;git pull;git merge issue --no-ff;git push",
   "compareOnlyMasterHashAgnostic": false,
-  "disabledMap": {"git rebase": true},
-  "hint": {
-    "de_DE": "`--hard` ist NICHT der Default bei einem `git reset` sondern `--mixed`, auch wenn diese Lernumgebung anderes behauptet."
-  },
+  "disabledMap": {},
   "name": {
-    "de_DE": "MT5: Wenn das Team dreimal pusht"
+    "de_DE": "Kleine Änderung: Issue-Branch reintegrieren"
+  },
+  "startTree": "{\"branches\":{\"master\":{\"target\":\"C2\",\"id\":\"master\",\"remoteTrackingBranchID\":\"o/master\"},\"o/master\":{\"target\":\"C2\",\"id\":\"o/master\",\"remoteTrackingBranchID\":null},\"issue\":{\"target\":\"C4\",\"id\":\"issue\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C2\"],\"id\":\"C3\"},\"C4\":{\"parents\":[\"C3\"],\"id\":\"C4\"}},\"HEAD\":{\"target\":\"issue\",\"id\":\"HEAD\"},\"originTree\":{\"branches\":{\"master\":{\"target\":\"C5\",\"id\":\"master\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C5\":{\"parents\":[\"C2\"],\"id\":\"C5\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"}}}",
+  "hint": {
+    "de_DE": "Nicht vergessen: Optionen müssen hier ans Ende des Kommandos, also `git merge issue --no-ff` und nicht `git merge --no-ff issue`. Echtem Git ist das egal!"
   },
   "startDialog": {
     "de_DE": {
@@ -26741,17 +26916,31 @@ exports.level = {
           "type": "ModalAlert",
           "options": {
             "markdowns": [
-              "## MT5: Wenn das Team dreimal pusht",
+              "## Kleine Änderung: Issue-Branch reintegrieren",
               "",
-              "Egal wie sorgfältig man arbeitet, natürlich passiert es einem trotzdem:",
+              "Wenn ein lokaler Branch in den `master` reintegriert ist, willst du ihn sicher auf den Server pushen. Sonst wird's mit dem Deploy schwierig. :)",
               "",
-              "* man hat brav im `master` ein `git pull` gemacht,",
-              "* erst dann seinen Branch in den `master` reintegriert",
-              "* und trotzdem schlägt `git push` fehl, weil _GERADEBENMALKURZ_ ein Kollege ebenfalls etwas auf den Server gepusht hat.",
+              "Ein Push kann nur funktionieren, wenn man in dem lokalen Branch den man pushen will alle Änderungen hat, die auch auf dem Server in diesem Branch sind. Wenn du also `master` pushen willst und bei dir lokal besteht er aus den Commits `C1`, `C2` und `C3`, auf dem Server aber aus `C1`, `C2` und `C4`, dann wird Git dich deine Änderungen nicht pushen lassen, solange `C4` nicht auch Bestandteil deines lokalen `master` ist.",
+              ""
+            ]
+          }
+        },
+        {
+          "type": "ModalAlert",
+          "options": {
+            "markdowns": [
+              "## \"Boah ist das alles kompliziert ey\"",
               "",
-              "Plöt.",
+              "Naja, geht so. Nobelpreis kriegt man dafür keinen. Und: Git _irgendwie_ benutzen ist sogar sehr, sehr einfach.",
               "",
-              "Und nun?"
+              "Interessanter wird's dann, wenn man es so benutzen will, dass z.B. die History auf dem Server übersichtlich bleibt. Aber auch da kann man vielen (kleinen) Problemen, die entstehen können, einfach vorbeugen:",
+              "",
+              "1. Den lokalen `master` immer \"sauber\" halten. Wenn dein `master` in der Regel ein Abbild des `master` auf dem Server ist (also möglichst immer gleich mit deinem `origin/master`), vereinfacht das die Arbeit mit und Reintegration von anderen lokalen Branches enorm.",
+              "",
+              "1. `git pull` frühzeitig ausführen. Also _VOR_ dem Reintegrieren eines Branches, nicht erst wenn Git dir sagt: \"Push? Haha. Nö.\"",
+              "",
+              "Trotzdem kann einem manchmal noch ein Commit von Kollegen dazwischen kommen, aber das schauen wir uns dann in den nächsten Leveln an.",
+              ""
             ]
           }
         },
@@ -26759,35 +26948,43 @@ exports.level = {
           "type": "GitDemonstrationView",
           "options": {
             "beforeMarkdowns": [
-              "## Na dann pull ich halt einfach",
+              "Lass uns mal anschauen wie man's möglichst nicht machen sollte.",
               "",
-              "Was soll da schon schief gehen?",
-              ""
+              "In diesem Beispiel hast du den Branch in den `master` gemerged, obwohl es schon einen neuen Commit auf dem Server gab. `git push` verweigert dir daher den Push, denn der Commit auf dem Server ist noch nicht Bestandteil deines `master`."
             ],
             "afterMarkdowns": [
-              "Funktionell nichts, aber schön ist anders. So bekommt man einen zusätzlichen und unnötigen Merge-Commit, den man sich auch noch in den Branch holen wird, sollte man mal den `master` in den Branch mergen.",
-              "",
-              "Bäh."
+              "Das war jetzt ein klassischer \"PushPull\". Das ist, wenn man versucht zu pushen, nicht darf, und dann einfach mal eben grad `git pull` macht. Macht nix kaputt, außer der Übersichtlichkeit, weil es _IMMER_ überflüssige (und je nach dem wie alt deine lokalen Branches sind auch sehr große) Merges verursacht."
             ],
             "command": "git pull; git push",
-            "beforeCommand": "git clone; git co -b issue; git ci; git co master; git merge issue --no-ff; git fakeTeamwork"
+            "beforeCommand": "git clone; git co -b feature; git ci; git fakeTeamwork; git ci; git co master; git merge feature --no-ff"
+          }
+        },
+        {
+          "type": "GitDemonstrationView",
+          "options": {
+            "beforeMarkdowns": [
+              "Jetzt befolgen wir stattdessen den zweiten Ratschlag: `git pull` VOR dem Merge."
+            ],
+            "afterMarkdowns": [
+              "Härrlisch. Einen Merge Commit gibt es immer noch (der Branch hat ja mehr als einen Commit -> `--no-ff` -> Merge erzwungen) aber eben nur einen, nicht zwei."
+            ],
+            "command": "git pull; git merge issue --no-ff; git push",
+            "beforeCommand": "git clone; git co -b issue; git ci; git ci; git fakeTeamwork; git co master"
           }
         },
         {
           "type": "ModalAlert",
           "options": {
             "markdowns": [
-              "## Einen Schritt zurück",
+              "Alles klar? Na denn:",
               "",
-              "Ein sehr viel ansehnlicheres Ergebnis ergibt sich, wenn man im lokalen `master` einfach den Merge-Commit zurück nimmt, pullt und dann den Merge erneut vornimmt.",
+              "## Ziel des Levels",
               "",
-              "Das Zurücknehmen geht in diesem Fall mit",
+              "* erst mal den `master` aktualisieren,",
+              "* dann `issue` in `master` mergen,",
+              "* und erst dann `pushen`.",
               "",
-              "`git reset --hard HEAD^`",
-              "",
-              "Das steht für: setze im aktuellen Branch den Zeiger `HEAD` (der zeigt auf den letzten Commit im aktuellen Branch) auf den Commit vor seiner aktuellen Position und verwerfe alle Änderungen, die dadurch verloren gehen (der Merge-Commit).",
-              "",
-              "Probier's aus!"
+              "Viel Erfolg!"
             ]
           }
         }
@@ -26797,6 +26994,177 @@ exports.level = {
 };
 
 },{}],79:[function(require,module,exports){
+exports.level = {
+"goalTreeString": "%7B%22branches%22%3A%7B%22master%22%3A%7B%22target%22%3A%22C8%22%2C%22id%22%3A%22master%22%2C%22remoteTrackingBranchID%22%3A%22o/master%22%7D%2C%22o/master%22%3A%7B%22target%22%3A%22C8%22%2C%22id%22%3A%22o/master%22%2C%22remoteTrackingBranchID%22%3Anull%7D%2C%22issue%22%3A%7B%22target%22%3A%22C7%27%22%2C%22id%22%3A%22issue%22%2C%22remoteTrackingBranchID%22%3Anull%7D%7D%2C%22commits%22%3A%7B%22C0%22%3A%7B%22parents%22%3A%5B%5D%2C%22id%22%3A%22C0%22%2C%22rootCommit%22%3Atrue%7D%2C%22C1%22%3A%7B%22parents%22%3A%5B%22C0%22%5D%2C%22id%22%3A%22C1%22%7D%2C%22C2%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C2%22%7D%2C%22C4%22%3A%7B%22parents%22%3A%5B%22C2%22%5D%2C%22id%22%3A%22C4%22%7D%2C%22C3%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C3%22%7D%2C%22C7%22%3A%7B%22parents%22%3A%5B%22C4%22%5D%2C%22id%22%3A%22C7%22%7D%2C%22C5%22%3A%7B%22parents%22%3A%5B%22C3%22%5D%2C%22id%22%3A%22C5%22%7D%2C%22C6%22%3A%7B%22parents%22%3A%5B%22C5%22%5D%2C%22id%22%3A%22C6%22%7D%2C%22C2%27%22%3A%7B%22parents%22%3A%5B%22C6%22%5D%2C%22id%22%3A%22C2%27%22%7D%2C%22C4%27%22%3A%7B%22parents%22%3A%5B%22C2%27%22%5D%2C%22id%22%3A%22C4%27%22%7D%2C%22C7%27%22%3A%7B%22parents%22%3A%5B%22C4%27%22%5D%2C%22id%22%3A%22C7%27%22%7D%2C%22C8%22%3A%7B%22parents%22%3A%5B%22C6%22%2C%22C7%27%22%5D%2C%22id%22%3A%22C8%22%7D%7D%2C%22tags%22%3A%7B%7D%2C%22HEAD%22%3A%7B%22target%22%3A%22master%22%2C%22id%22%3A%22HEAD%22%7D%2C%22originTree%22%3A%7B%22branches%22%3A%7B%22master%22%3A%7B%22target%22%3A%22C8%22%2C%22id%22%3A%22master%22%2C%22remoteTrackingBranchID%22%3Anull%7D%7D%2C%22commits%22%3A%7B%22C0%22%3A%7B%22parents%22%3A%5B%5D%2C%22id%22%3A%22C0%22%2C%22rootCommit%22%3Atrue%7D%2C%22C1%22%3A%7B%22parents%22%3A%5B%22C0%22%5D%2C%22id%22%3A%22C1%22%7D%2C%22C3%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C3%22%7D%2C%22C5%22%3A%7B%22parents%22%3A%5B%22C3%22%5D%2C%22id%22%3A%22C5%22%7D%2C%22C6%22%3A%7B%22parents%22%3A%5B%22C5%22%5D%2C%22id%22%3A%22C6%22%7D%2C%22C2%27%22%3A%7B%22parents%22%3A%5B%22C6%22%5D%2C%22id%22%3A%22C2%27%22%7D%2C%22C4%27%22%3A%7B%22parents%22%3A%5B%22C2%27%22%5D%2C%22id%22%3A%22C4%27%22%7D%2C%22C7%27%22%3A%7B%22parents%22%3A%5B%22C4%27%22%5D%2C%22id%22%3A%22C7%27%22%7D%2C%22C8%22%3A%7B%22parents%22%3A%5B%22C6%22%2C%22C7%27%22%5D%2C%22id%22%3A%22C8%22%7D%7D%2C%22tags%22%3A%7B%7D%2C%22HEAD%22%3A%7B%22target%22%3A%22master%22%2C%22id%22%3A%22HEAD%22%7D%7D%7D",
+  "solutionCommand": "git checkout master;git pull;git rebase master issue;git checkout master;git merge issue --no-ff;git push",
+  "startTree": "{\"branches\":{\"master\":{\"target\":\"C3\",\"id\":\"master\",\"remoteTrackingBranchID\":\"o/master\"},\"o/master\":{\"target\":\"C3\",\"id\":\"o/master\",\"remoteTrackingBranchID\":null},\"issue\":{\"target\":\"C7\",\"id\":\"issue\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C4\":{\"parents\":[\"C2\"],\"id\":\"C4\"},\"C3\":{\"parents\":[\"C1\"],\"id\":\"C3\"},\"C7\":{\"parents\":[\"C4\"],\"id\":\"C7\"}},\"tags\":{},\"HEAD\":{\"target\":\"issue\",\"id\":\"HEAD\"},\"originTree\":{\"branches\":{\"master\":{\"target\":\"C6\",\"id\":\"master\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C3\":{\"parents\":[\"C1\"],\"id\":\"C3\"},\"C5\":{\"parents\":[\"C3\"],\"id\":\"C5\"},\"C6\":{\"parents\":[\"C5\"],\"id\":\"C6\"}},\"tags\":{},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"}}}",
+  "compareOnlyMasterHashAgnostic": false,
+  "disabledMap": {},
+  "name": {
+    "de_DE": "Kleine Änderung wird größer: Branch aktuell halten"
+  },
+  "hint": {
+    "de_DE": "Wenn man Änderungen von übergeordneten Branches wie master in rein lokale Branches holen will, ist git rebase immer ok."
+  },
+  "startDialog": {
+    "de_DE": {
+      "childViews": [
+        {
+          "type": "ModalAlert",
+          "options": {
+            "markdowns": [
+              "## Kleine Änderung wird größer: Branch aktuell halten",
+              "",
+              "Es lässt sich nicht immer vermeiden: der Fünfminüter, den du hinter Issue XY vermutet hast, entpuppt sich als Mini-Projekt und zieht sich über zwei Wochen. Dumme Sache, aber so ist das halt.",
+              "",
+              "Während du also so an dem Issue in seinem lokalen Branch arbeitest, kommen in den `master` mehr und mehr neue Änderungen rein.",
+              "",
+              "Die solltest du immer mal wieder -- spätestens aber bevor du deinen Issue-Branch in den `master` reintegrierst! -- in den Branch holen. Das führt dazu, dass du eventuelle Konflikte frühzeitig erkennst und beheben kannst. Und es sorgt für eine schmerzfreie Reintegration in den `master`.",
+              "",
+              "Der beste Weg, um einen lokalen Branch aktuell zu halten, ist `git rebase`. Es sorgt für eine lineare History und vermeidet Merge-Commits, die nicht wirklich nötig sind. Ich demonstriere das mal gerade:"
+            ]
+          }
+        },
+        {
+          "type": "GitDemonstrationView",
+          "options": {
+            "beforeMarkdowns": [
+              "Branch `issue` hat Änderungen, der `master` auf dem Server hat einige neue. Die wollen wir auch im Branch haben:"
+            ],
+            "afterMarkdowns": [
+              "Und da sind sie. Die History von `issue` ist verändert worden (die Commits aus `master` gehören jetzt dazu und die anderen wurden kopiert), aber das ist in Ordnung. Da der Branch lokal ist und ihn außer dir niemand nutzt, kannst du da die History so oft verändern wie du willst."
+            ],
+            "command": "git co master; git pull; git rebase master issue",
+            "beforeCommand": "git clone; git co -b issue; git ci; git fakeTeamwork; git ci"
+          }
+        },
+        {
+          "type": "ModalAlert",
+          "options": {
+            "markdowns": [
+              "## History Verändering",
+              "",
+              "Kurze Zwischenbemerkung: die Befehle `git rebase` und `git reset` verändern die History eines Branches. Und zwar nicht nur in dem Sinne wie `git commit`, das einfach nur immer wieder etwas an einen Branch anhängt. Sondern _rückwirkend_, indem sie den aktuellen und die vergangenen Commits eines Branches verändern.",
+              "",
+              "Daraus ergibt sich, dass du einen Branch, der auch auf dem Server liegt, _NIE_ mit Rebase oder Reset verändern solltest. Das führt zwangsläufig dazu, dass deine History von der auf dem Server abweicht. Und das führt, wie du ja mittlerweile weißt, unweigerlich dazu, dass Git dich nicht mehr pushen lässt. Spätestens dann musst du deine Änderungen, die du durch Rebase oder Reset gemacht hast, wieder zurücknehmen.",
+              "",
+              "Oder du pullst dann einfach nochmal und pushst dann -- BITTE NICHT. Aber das zeige ich alles noch einmal ausführlich in einem späteren Level."
+            ]
+          }
+        },
+        {
+          "type": "ModalAlert",
+          "options": {
+            "markdowns": [
+              "Für jetzt reicht es dir zu merken: Änderungen von \"oben\" (z.B. `master`) nach \"unten\" in einen _lokalen_ Branch kannst du gerne per Rebase transportieren.",
+              "",
+              "## Ziel des Levels",
+              "",
+              "* `master` aktualisieren",
+              "* Änderungen in den Branch bringen",
+              "* Branch reintegrieren und pushen",
+              "",
+              "Viel Erfolg!"
+            ]
+          }
+        }
+      ]
+    }
+  }
+};
+
+},{}],80:[function(require,module,exports){
+exports.level = {
+  "goalTreeString": "{\"branches\":{\"master\":{\"target\":\"C6\",\"id\":\"master\",\"remoteTrackingBranchID\":\"o/master\"},\"o/master\":{\"target\":\"C6\",\"id\":\"o/master\",\"remoteTrackingBranchID\":null},\"issue\":{\"target\":\"C3\",\"id\":\"issue\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C2\"],\"id\":\"C3\"},\"C4\":{\"parents\":[\"C1\",\"C3\"],\"id\":\"C4\"},\"C5\":{\"parents\":[\"C1\"],\"id\":\"C5\"},\"C6\":{\"parents\":[\"C3\",\"C5\"],\"id\":\"C6\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"},\"originTree\":{\"branches\":{\"master\":{\"target\":\"C6\",\"id\":\"master\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C5\":{\"parents\":[\"C1\"],\"id\":\"C5\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C2\"],\"id\":\"C3\"},\"C6\":{\"parents\":[\"C3\",\"C5\"],\"id\":\"C6\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"}}}",
+  "solutionCommand": "git reset --hard HEAD^;git pull;git merge issue --no-ff;git push",
+  "startTree": "{\"branches\":{\"master\":{\"target\":\"C4\",\"id\":\"master\",\"remoteTrackingBranchID\":\"o/master\"},\"o/master\":{\"target\":\"C1\",\"id\":\"o/master\",\"remoteTrackingBranchID\":null},\"issue\":{\"target\":\"C3\",\"id\":\"issue\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C2\"],\"id\":\"C3\"},\"C4\":{\"parents\":[\"C1\",\"C3\"],\"id\":\"C4\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"},\"originTree\":{\"branches\":{\"master\":{\"target\":\"C5\",\"id\":\"master\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C5\":{\"parents\":[\"C1\"],\"id\":\"C5\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"}}}",
+  "compareOnlyMasterHashAgnostic": false,
+  "disabledMap": {"git rebase": true},
+  "hint": {
+    "de_DE": "Hier ist es egal, aber in echtem Git ist es ein großer Unterschied, ob du reset mit --hard oder ohne angibst."
+  },
+  "name": {
+    "de_DE": "Wenn das Team dreimal pusht"
+  },
+  "startDialog": {
+    "de_DE": {
+      "childViews": [
+        {
+          "type": "ModalAlert",
+          "options": {
+            "markdowns": [
+              "## Wenn das Team dreimal pusht",
+              "",
+              "Ich hatte diese Situation in einem vorherigen Level schon mal in einem kleinen Beispiel gezeigt. Sie ist aber wichtig genug um ihr einen eigenen Level einzuräumen:",
+              "",
+              "Du hast alles richtig gemacht, vor dem Anlegen des Branch gepullt, den Branch immer wieder mit `git rebase` aktualisiert, vor dem Reintrgrieren in den `master` wieder gepullt usw. usf. Alles super.",
+              "",
+              "Und dann: `git push`. Und dann: nix ist.",
+              "",
+              "... weil _GERADEBENMALKURZ_ ein Kollege ebenfalls etwas auf den Server gepusht hat. Gnarf!",
+              "",
+              "Und nun?"
+            ]
+          }
+        },
+        {
+          "type": "GitDemonstrationView",
+          "options": {
+            "beforeMarkdowns": [
+              "PushPull to the rescue! Was soll da schon schief gehen?"
+            ],
+            "afterMarkdowns": [
+              "Naja, kaputt geht nichts. Außer der Übersichtlichkeit. Also wer ganz dubiose Änderungen gemacht hat und das verschleiern will, der kann so vorgehen. Aber wer nichts zu verbergen hat, der macht es lieber so:"
+            ],
+            "command": "git push; git pull; git push",
+            "beforeCommand": "git clone; git co -b issue; git ci; git ci; git co master; git merge issue --no-ff; git fakeTeamwork"
+          }
+        },
+        {
+          "type": "GitDemonstrationView",
+          "options": {
+            "beforeMarkdowns": [
+              "Es gibt verschiedene Wege, wie du diese Situation sauber lösen kannst. Hier ist einer:"
+            ],
+            "afterMarkdowns": [
+              "Es sind drei simple Schritte: auf den Commit vor dem Merge zurückgehen (`git reset`), die Änderungen vom Server holen (`git pull`) und dann den Merge wiederholen."
+            ],
+            "command": "git reset master^ --hard; git pull; git merge issue --no-ff",
+            "beforeCommand": "git clone; git co -b issue; git ci; git ci; git co master; git merge issue --no-ff; git fakeTeamwork"
+          }
+        },
+        {
+          "type": "ModalAlert",
+          "options": {
+            "markdowns": [
+              "## Variationen",
+              "",
+              "Wenn `issue` nur aus einem einzigen Commit besteht, ist die ideale Lösung der Situation aus dem letzten Beispiel eine andere. Schau ein paar Level vor diesem nach, falls du sie vergessen hast.",
+              "",
+              "Eine andere Möglichkeit wäre ein `git pull --rebase` auszuführen. Aber Achtung! Falls du das tun willst, und dein Branch mehr als einen Commit hat, wie in diesem Beispiel der Fall, benutze **unbedingt** den zusätzlichen Schalter `--preserve-merges`. Sonst wird durch den Rebase der Merg-Commit \"zerstört\" und in die einzelnen Commits des Branches aufgeteilt, und das soll auf keinen Fall passieren!"
+            ]
+          }
+        },
+        {
+          "type": "ModalAlert",
+          "options": {
+            "markdowns": [
+              "## Ziel des Levels",
+              "",
+              "* den Merge-Commit rückgängig machen,",
+              "* die Änderungen vom Server holen",
+              "* den Merge wiederholen",
+              "",
+              "Viel Erfolg!"
+            ]
+          }
+        }
+      ]
+    }
+  }
+};
+
+},{}],81:[function(require,module,exports){
 exports.level = {
   "goalTreeString": "%7B%22branches%22%3A%7B%22master%22%3A%7B%22target%22%3A%22C2%27%22%2C%22id%22%3A%22master%22%2C%22remoteTrackingBranchID%22%3A%22o/master%22%7D%2C%22o/master%22%3A%7B%22target%22%3A%22C2%27%22%2C%22id%22%3A%22o/master%22%2C%22remoteTrackingBranchID%22%3Anull%7D%2C%22issue%22%3A%7B%22target%22%3A%22C2%27%22%2C%22id%22%3A%22issue%22%2C%22remoteTrackingBranchID%22%3Anull%7D%7D%2C%22commits%22%3A%7B%22C0%22%3A%7B%22parents%22%3A%5B%5D%2C%22id%22%3A%22C0%22%2C%22rootCommit%22%3Atrue%7D%2C%22C1%22%3A%7B%22parents%22%3A%5B%22C0%22%5D%2C%22id%22%3A%22C1%22%7D%2C%22C2%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C2%22%7D%2C%22C3%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C3%22%7D%2C%22C2%27%22%3A%7B%22parents%22%3A%5B%22C3%22%5D%2C%22id%22%3A%22C2%27%22%7D%7D%2C%22HEAD%22%3A%7B%22target%22%3A%22master%22%2C%22id%22%3A%22HEAD%22%7D%2C%22originTree%22%3A%7B%22branches%22%3A%7B%22master%22%3A%7B%22target%22%3A%22C2%27%22%2C%22id%22%3A%22master%22%2C%22remoteTrackingBranchID%22%3Anull%7D%7D%2C%22commits%22%3A%7B%22C0%22%3A%7B%22parents%22%3A%5B%5D%2C%22id%22%3A%22C0%22%2C%22rootCommit%22%3Atrue%7D%2C%22C1%22%3A%7B%22parents%22%3A%5B%22C0%22%5D%2C%22id%22%3A%22C1%22%7D%2C%22C3%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C3%22%7D%2C%22C2%27%22%3A%7B%22parents%22%3A%5B%22C3%22%5D%2C%22id%22%3A%22C2%27%22%7D%7D%2C%22HEAD%22%3A%7B%22target%22%3A%22master%22%2C%22id%22%3A%22HEAD%22%7D%7D%7D",
   "solutionCommand": "git checkout master;git pull;git checkout issue;git rebase master;git checkout master;git merge issue;git push",
@@ -26883,7 +27251,7 @@ exports.level = {
   }
 };
 
-},{}],80:[function(require,module,exports){
+},{}],82:[function(require,module,exports){
 exports.level = {
   "goalTreeString": "{\"branches\":{\"master\":{\"target\":\"C6\",\"id\":\"master\",\"remoteTrackingBranchID\":\"o/master\"},\"o/master\":{\"target\":\"C6\",\"id\":\"o/master\",\"remoteTrackingBranchID\":null},\"issue\":{\"target\":\"C5\",\"id\":\"issue\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C2\"],\"id\":\"C3\"},\"C4\":{\"parents\":[\"C1\",\"C3\"],\"id\":\"C4\"},\"C5\":{\"parents\":[\"C3\"],\"id\":\"C5\"},\"C6\":{\"parents\":[\"C1\",\"C5\"],\"id\":\"C6\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"},\"originTree\":{\"branches\":{\"master\":{\"target\":\"C6\",\"id\":\"master\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C2\"],\"id\":\"C3\"},\"C5\":{\"parents\":[\"C3\"],\"id\":\"C5\"},\"C6\":{\"parents\":[\"C1\",\"C5\"],\"id\":\"C6\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"}}}",
   "solutionCommand": "git checkout master;git reset HEAD^;git merge issue --no-ff;git push",
@@ -26951,7 +27319,7 @@ exports.level = {
     }
   }
 };
-},{}],81:[function(require,module,exports){
+},{}],83:[function(require,module,exports){
 exports.level = {
   "goalTreeString": "%7B%22branches%22%3A%7B%22master%22%3A%7B%22target%22%3A%22C7%27%22%2C%22id%22%3A%22master%22%7D%2C%22bugFix%22%3A%7B%22target%22%3A%22C3%22%2C%22id%22%3A%22bugFix%22%7D%2C%22side%22%3A%7B%22target%22%3A%22C5%22%2C%22id%22%3A%22side%22%7D%2C%22another%22%3A%7B%22target%22%3A%22C7%22%2C%22id%22%3A%22another%22%7D%7D%2C%22commits%22%3A%7B%22C0%22%3A%7B%22parents%22%3A%5B%5D%2C%22id%22%3A%22C0%22%2C%22rootCommit%22%3Atrue%7D%2C%22C1%22%3A%7B%22parents%22%3A%5B%22C0%22%5D%2C%22id%22%3A%22C1%22%7D%2C%22C2%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C2%22%7D%2C%22C3%22%3A%7B%22parents%22%3A%5B%22C2%22%5D%2C%22id%22%3A%22C3%22%7D%2C%22C4%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C4%22%7D%2C%22C5%22%3A%7B%22parents%22%3A%5B%22C4%22%5D%2C%22id%22%3A%22C5%22%7D%2C%22C6%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C6%22%7D%2C%22C7%22%3A%7B%22parents%22%3A%5B%22C6%22%5D%2C%22id%22%3A%22C7%22%7D%2C%22C3%27%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C3%27%22%7D%2C%22C4%27%22%3A%7B%22parents%22%3A%5B%22C3%27%22%5D%2C%22id%22%3A%22C4%27%22%7D%2C%22C7%27%22%3A%7B%22parents%22%3A%5B%22C4%27%22%5D%2C%22id%22%3A%22C7%27%22%7D%7D%2C%22HEAD%22%3A%7B%22target%22%3A%22master%22%2C%22id%22%3A%22HEAD%22%7D%7D",
   "solutionCommand": "git cherry-pick C3 C4 C7",
@@ -27086,7 +27454,7 @@ exports.level = {
   }
 };
 
-},{}],82:[function(require,module,exports){
+},{}],84:[function(require,module,exports){
 exports.level = {
   "goalTreeString": "{\"branches\":{\"master\":{\"target\":\"C2\",\"id\":\"master\"},\"bugFix\":{\"target\":\"C4\",\"id\":\"bugFix\"}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C1\"],\"id\":\"C3\"},\"C4\":{\"parents\":[\"C3\"],\"id\":\"C4\"}},\"HEAD\":{\"target\":\"C4\",\"id\":\"HEAD\"}}",
   "solutionCommand": "git checkout C4",
@@ -27339,7 +27707,7 @@ exports.level = {
   }
 };
 
-},{}],83:[function(require,module,exports){
+},{}],85:[function(require,module,exports){
 exports.level = {
   "goalTreeString": "%7B%22branches%22%3A%7B%22master%22%3A%7B%22target%22%3A%22C4%27%22%2C%22id%22%3A%22master%22%7D%2C%22overHere%22%3A%7B%22target%22%3A%22C1%22%2C%22id%22%3A%22overHere%22%7D%7D%2C%22commits%22%3A%7B%22C0%22%3A%7B%22parents%22%3A%5B%5D%2C%22id%22%3A%22C0%22%2C%22rootCommit%22%3Atrue%7D%2C%22C1%22%3A%7B%22parents%22%3A%5B%22C0%22%5D%2C%22id%22%3A%22C1%22%7D%2C%22C2%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C2%22%7D%2C%22C3%22%3A%7B%22parents%22%3A%5B%22C2%22%5D%2C%22id%22%3A%22C3%22%7D%2C%22C4%22%3A%7B%22parents%22%3A%5B%22C3%22%5D%2C%22id%22%3A%22C4%22%7D%2C%22C5%22%3A%7B%22parents%22%3A%5B%22C4%22%5D%2C%22id%22%3A%22C5%22%7D%2C%22C3%27%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C3%27%22%7D%2C%22C5%27%22%3A%7B%22parents%22%3A%5B%22C3%27%22%5D%2C%22id%22%3A%22C5%27%22%7D%2C%22C4%27%22%3A%7B%22parents%22%3A%5B%22C5%27%22%5D%2C%22id%22%3A%22C4%27%22%7D%7D%2C%22HEAD%22%3A%7B%22target%22%3A%22master%22%2C%22id%22%3A%22HEAD%22%7D%7D",
   "solutionCommand": "git rebase -i overHere",
@@ -27490,7 +27858,7 @@ exports.level = {
   }
 };
 
-},{}],84:[function(require,module,exports){
+},{}],86:[function(require,module,exports){
 exports.level = {
   "goalTreeString": "{\"branches\":{\"master\":{\"target\":\"C2\",\"id\":\"master\"},\"bugFix\":{\"target\":\"C4\",\"id\":\"bugFix\"}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C1\"],\"id\":\"C3\"},\"C4\":{\"parents\":[\"C3\"],\"id\":\"C4\"}},\"HEAD\":{\"target\":\"C3\",\"id\":\"HEAD\"}}",
   "solutionCommand": "git checkout bugFix^",
@@ -27734,7 +28102,7 @@ exports.level = {
   }
 };
 
-},{}],85:[function(require,module,exports){
+},{}],87:[function(require,module,exports){
 exports.level = {
   "goalTreeString": "{\"branches\":{\"master\":{\"target\":\"C6\",\"id\":\"master\"},\"bugFix\":{\"target\":\"C0\",\"id\":\"bugFix\"}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C1\"],\"id\":\"C3\"},\"C4\":{\"parents\":[\"C2\"],\"id\":\"C4\"},\"C5\":{\"parents\":[\"C3\"],\"id\":\"C5\"},\"C6\":{\"parents\":[\"C5\"],\"id\":\"C6\"}},\"HEAD\":{\"target\":\"C1\",\"id\":\"HEAD\"}}",
   "solutionCommand": "git branch -f master C6;git checkout HEAD~1;git branch -f bugFix HEAD~1",
@@ -27944,7 +28312,7 @@ exports.level = {
   }
 };
 
-},{}],86:[function(require,module,exports){
+},{}],88:[function(require,module,exports){
 exports.level = {
   "goalTreeString": "%7B%22branches%22%3A%7B%22master%22%3A%7B%22target%22%3A%22C1%22%2C%22id%22%3A%22master%22%7D%2C%22pushed%22%3A%7B%22target%22%3A%22C2%27%22%2C%22id%22%3A%22pushed%22%7D%2C%22local%22%3A%7B%22target%22%3A%22C1%22%2C%22id%22%3A%22local%22%7D%7D%2C%22commits%22%3A%7B%22C0%22%3A%7B%22parents%22%3A%5B%5D%2C%22id%22%3A%22C0%22%2C%22rootCommit%22%3Atrue%7D%2C%22C1%22%3A%7B%22parents%22%3A%5B%22C0%22%5D%2C%22id%22%3A%22C1%22%7D%2C%22C2%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C2%22%7D%2C%22C3%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C3%22%7D%2C%22C2%27%22%3A%7B%22parents%22%3A%5B%22C2%22%5D%2C%22id%22%3A%22C2%27%22%7D%7D%2C%22HEAD%22%3A%7B%22target%22%3A%22pushed%22%2C%22id%22%3A%22HEAD%22%7D%7D",
   "solutionCommand": "git reset HEAD~1;git checkout pushed;git revert HEAD",
@@ -28348,7 +28716,7 @@ exports.level = {
   }
 };
 
-},{}],87:[function(require,module,exports){
+},{}],89:[function(require,module,exports){
 exports.level = {
   "compareOnlyMasterHashAgnostic": true,
   "disabledMap": {
@@ -28467,7 +28835,7 @@ exports.level = {
   }
 };
 
-},{}],88:[function(require,module,exports){
+},{}],90:[function(require,module,exports){
 exports.level = {
   "compareAllBranchesHashAgnostic": true,
   "disabledMap": {
@@ -28594,7 +28962,7 @@ exports.level = {
   }
 };
 
-},{}],89:[function(require,module,exports){
+},{}],91:[function(require,module,exports){
 exports.level = {
   "goalTreeString": '{"branches":{"master":{"target":"C1","id":"master","remoteTrackingBranchID":"o/master"},"o/master":{"target":"C1","id":"o/master","remoteTrackingBranchID":null}},"commits":{"C0":{"parents":[],"id":"C0","rootCommit":true},"C1":{"parents":["C0"],"id":"C1"}},"HEAD":{"target":"master","id":"HEAD"},"originTree":{"branches":{"master":{"target":"C1","id":"master","remoteTrackingBranchID":null}},"commits":{"C0":{"parents":[],"id":"C0","rootCommit":true},"C1":{"parents":["C0"],"id":"C1"}},"HEAD":{"target":"master","id":"HEAD"}}}',
   "solutionCommand": "git clone",
@@ -28725,7 +29093,7 @@ exports.level = {
 };
 
 
-},{}],90:[function(require,module,exports){
+},{}],92:[function(require,module,exports){
 exports.level = {
   "goalTreeString": "{\"branches\":{\"master\":{\"target\":\"C5\",\"id\":\"master\",\"remoteTrackingBranchID\":\"o/master\",\"localBranchesThatTrackThis\":null},\"o/master\":{\"target\":\"C3\",\"id\":\"o/master\",\"remoteTrackingBranchID\":null,\"localBranchesThatTrackThis\":[\"master\"]}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C4\":{\"parents\":[\"C1\"],\"id\":\"C4\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C2\"],\"id\":\"C3\"},\"C5\":{\"parents\":[\"C3\",\"C4\"],\"id\":\"C5\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"},\"originTree\":{\"branches\":{\"master\":{\"target\":\"C3\",\"id\":\"master\",\"remoteTrackingBranchID\":null,\"localBranchesThatTrackThis\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C2\"],\"id\":\"C3\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"}}}",
   "solutionCommand": "git clone;git fakeTeamwork 2;git commit ;git pull",
@@ -28850,7 +29218,7 @@ exports.level = {
   }
 };
 
-},{}],91:[function(require,module,exports){
+},{}],93:[function(require,module,exports){
 exports.level = {
   "goalTreeString": "{\"branches\":{\"master\":{\"target\":\"C2\",\"id\":\"master\"},\"bugFix\":{\"target\":\"C3\",\"id\":\"bugFix\"},\"o/master\":{\"target\":\"C5\",\"id\":\"o/master\"},\"o/bugFix\":{\"target\":\"C7\",\"id\":\"o/bugFix\"}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C1\"],\"id\":\"C3\"},\"C4\":{\"parents\":[\"C2\"],\"id\":\"C4\"},\"C6\":{\"parents\":[\"C3\"],\"id\":\"C6\"},\"C5\":{\"parents\":[\"C4\"],\"id\":\"C5\"},\"C7\":{\"parents\":[\"C6\"],\"id\":\"C7\"}},\"HEAD\":{\"target\":\"bugFix\",\"id\":\"HEAD\"},\"originTree\":{\"branches\":{\"master\":{\"target\":\"C5\",\"id\":\"master\"},\"bugFix\":{\"target\":\"C7\",\"id\":\"bugFix\"}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C1\"],\"id\":\"C3\"},\"C4\":{\"parents\":[\"C2\"],\"id\":\"C4\"},\"C5\":{\"parents\":[\"C4\"],\"id\":\"C5\"},\"C6\":{\"parents\":[\"C3\"],\"id\":\"C6\"},\"C7\":{\"parents\":[\"C6\"],\"id\":\"C7\"}},\"HEAD\":{\"target\":\"bugFix\",\"id\":\"HEAD\"}}}",
   "solutionCommand": "git fetch",
@@ -29013,7 +29381,7 @@ exports.level = {
   }
 };
 
-},{}],92:[function(require,module,exports){
+},{}],94:[function(require,module,exports){
 exports.level = {
   "goalTreeString": "{\"branches\":{\"master\":{\"target\":\"C6\",\"id\":\"master\",\"remoteTrackingBranchID\":\"o/master\"},\"foo\":{\"target\":\"C7\",\"id\":\"foo\",\"remoteTrackingBranchID\":\"o/foo\"},\"o/master\":{\"target\":\"C1\",\"id\":\"o/master\",\"remoteTrackingBranchID\":null},\"o/foo\":{\"target\":\"C1\",\"id\":\"o/foo\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C2\"],\"id\":\"C3\"},\"C5\":{\"parents\":[\"C1\"],\"id\":\"C5\"},\"C6\":{\"parents\":[\"C5\"],\"id\":\"C6\"},\"C7\":{\"parents\":[\"C3\",\"C6\"],\"id\":\"C7\"}},\"HEAD\":{\"target\":\"foo\",\"id\":\"HEAD\"},\"originTree\":{\"branches\":{\"master\":{\"target\":\"C4\",\"id\":\"master\",\"remoteTrackingBranchID\":null},\"foo\":{\"target\":\"C6\",\"id\":\"foo\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C2\"],\"id\":\"C3\"},\"C4\":{\"parents\":[\"C3\"],\"id\":\"C4\"},\"C5\":{\"parents\":[\"C1\"],\"id\":\"C5\"},\"C6\":{\"parents\":[\"C5\"],\"id\":\"C6\"}},\"HEAD\":{\"target\":\"foo\",\"id\":\"HEAD\"}}}",
   "solutionCommand": "git fetch origin master~1:foo;git fetch origin foo:master;git checkout foo;git merge master",
@@ -29276,7 +29644,7 @@ exports.level = {
   }
 };
 
-},{}],93:[function(require,module,exports){
+},{}],95:[function(require,module,exports){
 exports.level = {
   "goalTreeString": "%7B%22branches%22%3A%7B%22master%22%3A%7B%22target%22%3A%22C3%27%22%2C%22id%22%3A%22master%22%2C%22remoteTrackingBranchID%22%3A%22o/master%22%2C%22localBranchesThatTrackThis%22%3Anull%7D%2C%22o/master%22%3A%7B%22target%22%3A%22C3%27%22%2C%22id%22%3A%22o/master%22%2C%22remoteTrackingBranchID%22%3Anull%2C%22localBranchesThatTrackThis%22%3A%5B%22master%22%5D%7D%7D%2C%22commits%22%3A%7B%22C0%22%3A%7B%22parents%22%3A%5B%5D%2C%22id%22%3A%22C0%22%2C%22rootCommit%22%3Atrue%7D%2C%22C1%22%3A%7B%22parents%22%3A%5B%22C0%22%5D%2C%22id%22%3A%22C1%22%7D%2C%22C3%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C3%22%7D%2C%22C2%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C2%22%7D%2C%22C3%27%22%3A%7B%22parents%22%3A%5B%22C2%22%5D%2C%22id%22%3A%22C3%27%22%7D%7D%2C%22HEAD%22%3A%7B%22target%22%3A%22master%22%2C%22id%22%3A%22HEAD%22%7D%2C%22originTree%22%3A%7B%22branches%22%3A%7B%22master%22%3A%7B%22target%22%3A%22C3%27%22%2C%22id%22%3A%22master%22%2C%22remoteTrackingBranchID%22%3Anull%2C%22localBranchesThatTrackThis%22%3Anull%7D%7D%2C%22commits%22%3A%7B%22C0%22%3A%7B%22parents%22%3A%5B%5D%2C%22id%22%3A%22C0%22%2C%22rootCommit%22%3Atrue%7D%2C%22C1%22%3A%7B%22parents%22%3A%5B%22C0%22%5D%2C%22id%22%3A%22C1%22%7D%2C%22C2%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C2%22%7D%2C%22C3%27%22%3A%7B%22parents%22%3A%5B%22C2%22%5D%2C%22id%22%3A%22C3%27%22%7D%7D%2C%22HEAD%22%3A%7B%22target%22%3A%22master%22%2C%22id%22%3A%22HEAD%22%7D%7D%7D",
   "solutionCommand": "git clone;git fakeTeamwork;git commit;git pull --rebase;git push",
@@ -29579,7 +29947,7 @@ exports.level = {
   }
 };
 
-},{}],94:[function(require,module,exports){
+},{}],96:[function(require,module,exports){
 exports.level = {
   "goalTreeString": "{\"branches\":{\"master\":{\"target\":\"C11\",\"id\":\"master\",\"remoteTrackingBranchID\":\"o/master\",\"localBranchesThatTrackThis\":null},\"o/master\":{\"target\":\"C11\",\"id\":\"o/master\",\"remoteTrackingBranchID\":null,\"localBranchesThatTrackThis\":[\"master\"]},\"side1\":{\"target\":\"C2\",\"id\":\"side1\",\"remoteTrackingBranchID\":null,\"localBranchesThatTrackThis\":null},\"side2\":{\"target\":\"C4\",\"id\":\"side2\",\"remoteTrackingBranchID\":null,\"localBranchesThatTrackThis\":null},\"side3\":{\"target\":\"C7\",\"id\":\"side3\",\"remoteTrackingBranchID\":null,\"localBranchesThatTrackThis\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C1\"],\"id\":\"C3\"},\"C4\":{\"parents\":[\"C3\"],\"id\":\"C4\"},\"C5\":{\"parents\":[\"C1\"],\"id\":\"C5\"},\"C6\":{\"parents\":[\"C5\"],\"id\":\"C6\"},\"C7\":{\"parents\":[\"C6\"],\"id\":\"C7\"},\"C8\":{\"parents\":[\"C1\"],\"id\":\"C8\"},\"C9\":{\"parents\":[\"C2\",\"C8\"],\"id\":\"C9\"},\"C10\":{\"parents\":[\"C4\",\"C9\"],\"id\":\"C10\"},\"C11\":{\"parents\":[\"C10\",\"C7\"],\"id\":\"C11\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"},\"originTree\":{\"branches\":{\"master\":{\"target\":\"C11\",\"id\":\"master\",\"remoteTrackingBranchID\":null,\"localBranchesThatTrackThis\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C8\":{\"parents\":[\"C1\"],\"id\":\"C8\"},\"C5\":{\"parents\":[\"C1\"],\"id\":\"C5\"},\"C3\":{\"parents\":[\"C1\"],\"id\":\"C3\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C6\":{\"parents\":[\"C5\"],\"id\":\"C6\"},\"C4\":{\"parents\":[\"C3\"],\"id\":\"C4\"},\"C9\":{\"parents\":[\"C2\",\"C8\"],\"id\":\"C9\"},\"C7\":{\"parents\":[\"C6\"],\"id\":\"C7\"},\"C10\":{\"parents\":[\"C4\",\"C9\"],\"id\":\"C10\"},\"C11\":{\"parents\":[\"C10\",\"C7\"],\"id\":\"C11\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"}}}",
   "solutionCommand": "git checkout master;git pull;git merge side1;git merge side2;git merge side3;git push",
@@ -29687,7 +30055,7 @@ exports.level = {
   }
 };
 
-},{}],95:[function(require,module,exports){
+},{}],97:[function(require,module,exports){
 exports.level = {
   "goalTreeString": "{\"branches\":{\"master\":{\"target\":\"C4\",\"id\":\"master\",\"remoteTrackingBranchID\":\"o/master\",\"localBranchesThatTrackThis\":null},\"o/master\":{\"target\":\"C3\",\"id\":\"o/master\",\"remoteTrackingBranchID\":null,\"localBranchesThatTrackThis\":[\"master\"]}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C1\"],\"id\":\"C3\"},\"C4\":{\"parents\":[\"C2\",\"C3\"],\"id\":\"C4\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"},\"originTree\":{\"branches\":{\"master\":{\"target\":\"C3\",\"id\":\"master\",\"remoteTrackingBranchID\":null,\"localBranchesThatTrackThis\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C3\":{\"parents\":[\"C1\"],\"id\":\"C3\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"}}}",
   "solutionCommand": "git pull",
@@ -29822,7 +30190,7 @@ exports.level = {
   }
 };
 
-},{}],96:[function(require,module,exports){
+},{}],98:[function(require,module,exports){
 exports.level = {
   "goalTreeString": "{\"branches\":{\"master\":{\"target\":\"C6\",\"id\":\"master\",\"remoteTrackingBranchID\":\"o/master\"},\"o/master\":{\"target\":\"C1\",\"id\":\"o/master\",\"remoteTrackingBranchID\":null},\"o/bar\":{\"target\":\"C1\",\"id\":\"o/bar\",\"remoteTrackingBranchID\":null},\"foo\":{\"target\":\"C3\",\"id\":\"foo\",\"remoteTrackingBranchID\":null},\"side\":{\"target\":\"C2\",\"id\":\"side\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C4\":{\"parents\":[\"C1\"],\"id\":\"C4\"},\"C3\":{\"parents\":[\"C1\"],\"id\":\"C3\"},\"C5\":{\"parents\":[\"C3\",\"C4\"],\"id\":\"C5\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C6\":{\"parents\":[\"C2\",\"C5\"],\"id\":\"C6\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"},\"originTree\":{\"branches\":{\"master\":{\"target\":\"C2\",\"id\":\"master\",\"remoteTrackingBranchID\":null},\"bar\":{\"target\":\"C3\",\"id\":\"bar\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C1\"],\"id\":\"C3\"}},\"HEAD\":{\"target\":\"bar\",\"id\":\"HEAD\"}}}",
   "solutionCommand": "git pull origin bar:foo;git pull origin master:side",
@@ -29987,7 +30355,7 @@ exports.level = {
   }
 };
 
-},{}],97:[function(require,module,exports){
+},{}],99:[function(require,module,exports){
 exports.level = {
   "goalTreeString": "{\"branches\":{\"master\":{\"target\":\"C3\",\"id\":\"master\",\"remoteTrackingBranchID\":\"o/master\",\"localBranchesThatTrackThis\":null},\"o/master\":{\"target\":\"C3\",\"id\":\"o/master\",\"remoteTrackingBranchID\":null,\"localBranchesThatTrackThis\":[\"master\"]}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C2\"],\"id\":\"C3\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"},\"originTree\":{\"branches\":{\"master\":{\"target\":\"C3\",\"id\":\"master\",\"remoteTrackingBranchID\":null,\"localBranchesThatTrackThis\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C2\"],\"id\":\"C3\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"}}}",
   "solutionCommand": "git clone;git commit;git commit;git push",
@@ -30086,7 +30454,7 @@ exports.level = {
   }
 };
 
-},{}],98:[function(require,module,exports){
+},{}],100:[function(require,module,exports){
 exports.level = {
   "goalTreeString": "{\"branches\":{\"master\":{\"target\":\"C2\",\"id\":\"master\",\"remoteTrackingBranchID\":\"o/master\"},\"foo\":{\"target\":\"C3\",\"id\":\"foo\",\"remoteTrackingBranchID\":\"o/foo\"},\"o/master\":{\"target\":\"C2\",\"id\":\"o/master\",\"remoteTrackingBranchID\":null},\"o/foo\":{\"target\":\"C3\",\"id\":\"o/foo\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C1\"],\"id\":\"C3\"}},\"HEAD\":{\"target\":\"C0\",\"id\":\"HEAD\"},\"originTree\":{\"branches\":{\"master\":{\"target\":\"C2\",\"id\":\"master\",\"remoteTrackingBranchID\":null},\"foo\":{\"target\":\"C3\",\"id\":\"foo\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C1\"],\"id\":\"C3\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"}}}",
   "solutionCommand": "git push origin master;git push origin foo",
@@ -30250,7 +30618,7 @@ exports.level = {
   }
 };
 
-},{}],99:[function(require,module,exports){
+},{}],101:[function(require,module,exports){
 exports.level = {
     "goalTreeString": "{\"branches\":{\"master\":{\"target\":\"C6\",\"id\":\"master\",\"remoteTrackingBranchID\":\"o/master\"},\"foo\":{\"target\":\"C4\",\"id\":\"foo\",\"remoteTrackingBranchID\":\"o/foo\"},\"o/master\":{\"target\":\"C4\",\"id\":\"o/master\",\"remoteTrackingBranchID\":null},\"o/foo\":{\"target\":\"C5\",\"id\":\"o/foo\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C1\"],\"id\":\"C3\"},\"C4\":{\"parents\":[\"C2\",\"C3\"],\"id\":\"C4\"},\"C5\":{\"parents\":[\"C2\"],\"id\":\"C5\"},\"C6\":{\"parents\":[\"C5\"],\"id\":\"C6\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"},\"originTree\":{\"branches\":{\"master\":{\"target\":\"C4\",\"id\":\"master\",\"remoteTrackingBranchID\":null},\"foo\":{\"target\":\"C5\",\"id\":\"foo\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C5\":{\"parents\":[\"C2\"],\"id\":\"C5\"},\"C3\":{\"parents\":[\"C1\"],\"id\":\"C3\"},\"C4\":{\"parents\":[\"C2\",\"C3\"],\"id\":\"C4\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"}}}",
   "solutionCommand": "git push origin master^:foo;git push origin foo:master",
@@ -30407,7 +30775,7 @@ exports.level = {
   }
 };
 
-},{}],100:[function(require,module,exports){
+},{}],102:[function(require,module,exports){
 exports.level = {
   "goalTreeString": "%7B%22branches%22%3A%7B%22master%22%3A%7B%22target%22%3A%22C7%27%22%2C%22id%22%3A%22master%22%2C%22remoteTrackingBranchID%22%3A%22o/master%22%2C%22localBranchesThatTrackThis%22%3Anull%7D%2C%22o/master%22%3A%7B%22target%22%3A%22C7%27%22%2C%22id%22%3A%22o/master%22%2C%22remoteTrackingBranchID%22%3Anull%2C%22localBranchesThatTrackThis%22%3A%5B%22master%22%5D%7D%2C%22side1%22%3A%7B%22target%22%3A%22C2%27%22%2C%22id%22%3A%22side1%22%2C%22remoteTrackingBranchID%22%3Anull%2C%22localBranchesThatTrackThis%22%3Anull%7D%2C%22side2%22%3A%7B%22target%22%3A%22C4%27%22%2C%22id%22%3A%22side2%22%2C%22remoteTrackingBranchID%22%3Anull%2C%22localBranchesThatTrackThis%22%3Anull%7D%2C%22side3%22%3A%7B%22target%22%3A%22C7%27%22%2C%22id%22%3A%22side3%22%2C%22remoteTrackingBranchID%22%3Anull%2C%22localBranchesThatTrackThis%22%3Anull%7D%7D%2C%22commits%22%3A%7B%22C0%22%3A%7B%22parents%22%3A%5B%5D%2C%22id%22%3A%22C0%22%2C%22rootCommit%22%3Atrue%7D%2C%22C1%22%3A%7B%22parents%22%3A%5B%22C0%22%5D%2C%22id%22%3A%22C1%22%7D%2C%22C2%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C2%22%7D%2C%22C3%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C3%22%7D%2C%22C4%22%3A%7B%22parents%22%3A%5B%22C3%22%5D%2C%22id%22%3A%22C4%22%7D%2C%22C5%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C5%22%7D%2C%22C6%22%3A%7B%22parents%22%3A%5B%22C5%22%5D%2C%22id%22%3A%22C6%22%7D%2C%22C7%22%3A%7B%22parents%22%3A%5B%22C6%22%5D%2C%22id%22%3A%22C7%22%7D%2C%22C8%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C8%22%7D%2C%22C2%27%22%3A%7B%22parents%22%3A%5B%22C8%22%5D%2C%22id%22%3A%22C2%27%22%7D%2C%22C3%27%22%3A%7B%22parents%22%3A%5B%22C2%27%22%5D%2C%22id%22%3A%22C3%27%22%7D%2C%22C4%27%22%3A%7B%22parents%22%3A%5B%22C3%27%22%5D%2C%22id%22%3A%22C4%27%22%7D%2C%22C5%27%22%3A%7B%22parents%22%3A%5B%22C4%27%22%5D%2C%22id%22%3A%22C5%27%22%7D%2C%22C6%27%22%3A%7B%22parents%22%3A%5B%22C5%27%22%5D%2C%22id%22%3A%22C6%27%22%7D%2C%22C7%27%22%3A%7B%22parents%22%3A%5B%22C6%27%22%5D%2C%22id%22%3A%22C7%27%22%7D%7D%2C%22HEAD%22%3A%7B%22target%22%3A%22master%22%2C%22id%22%3A%22HEAD%22%7D%2C%22originTree%22%3A%7B%22branches%22%3A%7B%22master%22%3A%7B%22target%22%3A%22C7%27%22%2C%22id%22%3A%22master%22%2C%22remoteTrackingBranchID%22%3Anull%2C%22localBranchesThatTrackThis%22%3Anull%7D%7D%2C%22commits%22%3A%7B%22C0%22%3A%7B%22parents%22%3A%5B%5D%2C%22id%22%3A%22C0%22%2C%22rootCommit%22%3Atrue%7D%2C%22C1%22%3A%7B%22parents%22%3A%5B%22C0%22%5D%2C%22id%22%3A%22C1%22%7D%2C%22C8%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C8%22%7D%2C%22C2%27%22%3A%7B%22parents%22%3A%5B%22C8%22%5D%2C%22id%22%3A%22C2%27%22%7D%2C%22C3%27%22%3A%7B%22parents%22%3A%5B%22C2%27%22%5D%2C%22id%22%3A%22C3%27%22%7D%2C%22C4%27%22%3A%7B%22parents%22%3A%5B%22C3%27%22%5D%2C%22id%22%3A%22C4%27%22%7D%2C%22C5%27%22%3A%7B%22parents%22%3A%5B%22C4%27%22%5D%2C%22id%22%3A%22C5%27%22%7D%2C%22C6%27%22%3A%7B%22parents%22%3A%5B%22C5%27%22%5D%2C%22id%22%3A%22C6%27%22%7D%2C%22C7%27%22%3A%7B%22parents%22%3A%5B%22C6%27%22%5D%2C%22id%22%3A%22C7%27%22%7D%7D%2C%22HEAD%22%3A%7B%22target%22%3A%22master%22%2C%22id%22%3A%22HEAD%22%7D%7D%7D",
   "solutionCommand": "git fetch;git rebase o/master side1;git rebase side1 side2;git rebase side2 side3;git rebase side3 master;git push",
@@ -30531,7 +30899,7 @@ exports.level = {
   }
 };
 
-},{}],101:[function(require,module,exports){
+},{}],103:[function(require,module,exports){
 exports.level = {
   "goalTreeString": "{\"branches\":{\"master\":{\"target\":\"C3\",\"id\":\"master\"},\"o/master\":{\"target\":\"C1\",\"id\":\"o/master\"}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C3\":{\"parents\":[\"C1\"],\"id\":\"C3\"},\"C4\":{\"parents\":[\"C1\"],\"id\":\"C4\"}},\"HEAD\":{\"target\":\"C4\",\"id\":\"HEAD\"},\"originTree\":{\"branches\":{\"master\":{\"target\":\"C2\",\"id\":\"master\"}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"}}}",
   "solutionCommand": "git commit;git checkout o/master;git commit",
@@ -30671,7 +31039,7 @@ exports.level = {
 };
 
 
-},{}],102:[function(require,module,exports){
+},{}],104:[function(require,module,exports){
 exports.level = {
   "goalTreeString": "{\"branches\":{\"master\":{\"target\":\"C1\",\"id\":\"master\",\"remoteTrackingBranchID\":\"o/master\"},\"o/master\":{\"target\":\"C1\",\"id\":\"o/master\",\"remoteTrackingBranchID\":null},\"bar\":{\"target\":\"C1\",\"id\":\"bar\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"},\"originTree\":{\"branches\":{\"master\":{\"target\":\"C1\",\"id\":\"master\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"}}}",
   "solutionCommand": "git push origin :foo;git fetch origin :bar",
@@ -30794,7 +31162,7 @@ exports.level = {
   }
 };
 
-},{}],103:[function(require,module,exports){
+},{}],105:[function(require,module,exports){
 exports.level = {
   "goalTreeString": "%7B%22branches%22%3A%7B%22master%22%3A%7B%22target%22%3A%22C1%22%2C%22id%22%3A%22master%22%2C%22remoteTrackingBranchID%22%3A%22o/master%22%7D%2C%22o/master%22%3A%7B%22target%22%3A%22C3%27%22%2C%22id%22%3A%22o/master%22%2C%22remoteTrackingBranchID%22%3Anull%7D%2C%22side%22%3A%7B%22target%22%3A%22C3%27%22%2C%22id%22%3A%22side%22%2C%22remoteTrackingBranchID%22%3A%22o/master%22%7D%7D%2C%22commits%22%3A%7B%22C0%22%3A%7B%22parents%22%3A%5B%5D%2C%22id%22%3A%22C0%22%2C%22rootCommit%22%3Atrue%7D%2C%22C1%22%3A%7B%22parents%22%3A%5B%22C0%22%5D%2C%22id%22%3A%22C1%22%7D%2C%22C3%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C3%22%7D%2C%22C2%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C2%22%7D%2C%22C3%27%22%3A%7B%22parents%22%3A%5B%22C2%22%5D%2C%22id%22%3A%22C3%27%22%7D%7D%2C%22HEAD%22%3A%7B%22target%22%3A%22side%22%2C%22id%22%3A%22HEAD%22%7D%2C%22originTree%22%3A%7B%22branches%22%3A%7B%22master%22%3A%7B%22target%22%3A%22C3%27%22%2C%22id%22%3A%22master%22%2C%22remoteTrackingBranchID%22%3Anull%7D%7D%2C%22commits%22%3A%7B%22C0%22%3A%7B%22parents%22%3A%5B%5D%2C%22id%22%3A%22C0%22%2C%22rootCommit%22%3Atrue%7D%2C%22C1%22%3A%7B%22parents%22%3A%5B%22C0%22%5D%2C%22id%22%3A%22C1%22%7D%2C%22C2%22%3A%7B%22parents%22%3A%5B%22C1%22%5D%2C%22id%22%3A%22C2%22%7D%2C%22C3%27%22%3A%7B%22parents%22%3A%5B%22C2%22%5D%2C%22id%22%3A%22C3%27%22%7D%7D%2C%22HEAD%22%3A%7B%22target%22%3A%22master%22%2C%22id%22%3A%22HEAD%22%7D%7D%7D",
   "solutionCommand": "git checkout -b side o/master;git commit;git pull --rebase;git push",
@@ -31041,4 +31409,4 @@ exports.level = {
   }
 };
 
-},{}]},{},[12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103])
+},{}]},{},[12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105])

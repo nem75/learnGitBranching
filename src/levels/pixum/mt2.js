@@ -4,11 +4,11 @@ exports.level = {
   "compareOnlyMasterHashAgnostic": false,
   "disabledMap": {},
   "name": {
-    "de_DE": "MT2: Issue-Branch reintegrieren"
+    "de_DE": "Kleine Änderung: Issue-Branch reintegrieren"
   },
   "startTree": "{\"branches\":{\"master\":{\"target\":\"C2\",\"id\":\"master\",\"remoteTrackingBranchID\":\"o/master\"},\"o/master\":{\"target\":\"C2\",\"id\":\"o/master\",\"remoteTrackingBranchID\":null},\"issue\":{\"target\":\"C4\",\"id\":\"issue\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C3\":{\"parents\":[\"C2\"],\"id\":\"C3\"},\"C4\":{\"parents\":[\"C3\"],\"id\":\"C4\"}},\"HEAD\":{\"target\":\"issue\",\"id\":\"HEAD\"},\"originTree\":{\"branches\":{\"master\":{\"target\":\"C5\",\"id\":\"master\",\"remoteTrackingBranchID\":null}},\"commits\":{\"C0\":{\"parents\":[],\"id\":\"C0\",\"rootCommit\":true},\"C1\":{\"parents\":[\"C0\"],\"id\":\"C1\"},\"C2\":{\"parents\":[\"C1\"],\"id\":\"C2\"},\"C5\":{\"parents\":[\"C2\"],\"id\":\"C5\"}},\"HEAD\":{\"target\":\"master\",\"id\":\"HEAD\"}}}",
   "hint": {
-    "de_DE": "Nicht vergessen: Optionen müssen ans Ende des Kommandos, also `git merge issue --no-ff` und nicht `git merge --no-ff issue`. Echtem Git ist das egal!"
+    "de_DE": "Nicht vergessen: Optionen müssen hier ans Ende des Kommandos, also `git merge issue --no-ff` und nicht `git merge --no-ff issue`. Echtem Git ist das egal!"
   },
   "startDialog": {
     "de_DE": {
@@ -17,14 +17,30 @@ exports.level = {
           "type": "ModalAlert",
           "options": {
             "markdowns": [
-              "## MT2: Issue-Branch reintegrieren",
+              "## Kleine Änderung: Issue-Branch reintegrieren",
               "",
-              "Ist ein Issue fertig bearbeitet, wird sein Branch in den `master` reintegriert und gepusht. Danach ist der Deploy möglich.",
+              "Wenn ein lokaler Branch in den `master` reintegriert ist, willst du ihn sicher auf den Server pushen. Sonst wird's mit dem Deploy schwierig. :)",
               "",
-              "Um Problemen beim `push` weitgehend vorzubeugen muss vorher ein `pull` auf dem `master` ausgeführt werden, um eventuelle Team-Änderungen vom Server zu holen.",
+              "Ein Push kann nur funktionieren, wenn man in dem lokalen Branch den man pushen will alle Änderungen hat, die auch auf dem Server in diesem Branch sind. Wenn du also `master` pushen willst und bei dir lokal besteht er aus den Commits `C1`, `C2` und `C3`, auf dem Server aber aus `C1`, `C2` und `C4`, dann wird Git dich deine Änderungen nicht pushen lassen, solange `C4` nicht auch Bestandteil deines lokalen `master` ist.",
+              ""
+            ]
+          }
+        },
+        {
+          "type": "ModalAlert",
+          "options": {
+            "markdowns": [
+              "## \"Boah ist das alles kompliziert ey\"",
               "",
-              "Wenn man einfach nur irgendwie solange `pull` ausführt bis man seinen Kram auf den Server gepusht bekommt, kommt es sonst zu unnötig unübersichtlichen Auswüchsen, die allen Kollegen den Tag vermiesen.",
+              "Naja, geht so. Nobelpreis kriegt man dafür keinen. Und: Git _irgendwie_ benutzen ist sogar sehr, sehr einfach.",
               "",
+              "Interessanter wird's dann, wenn man es so benutzen will, dass z.B. die History auf dem Server übersichtlich bleibt. Aber auch da kann man vielen (kleinen) Problemen, die entstehen können, einfach vorbeugen:",
+              "",
+              "1. Den lokalen `master` immer \"sauber\" halten. Wenn dein `master` in der Regel ein Abbild des `master` auf dem Server ist (also möglichst immer gleich mit deinem `origin/master`), vereinfacht das die Arbeit mit und Reintegration von anderen lokalen Branches enorm.",
+              "",
+              "1. `git pull` frühzeitig ausführen. Also _VOR_ dem Reintegrieren eines Branches, nicht erst wenn Git dir sagt: \"Push? Haha. Nö.\"",
+              "",
+              "Trotzdem kann einem manchmal noch ein Commit von Kollegen dazwischen kommen, aber das schauen wir uns dann in den nächsten Leveln an.",
               ""
             ]
           }
@@ -33,37 +49,43 @@ exports.level = {
           "type": "GitDemonstrationView",
           "options": {
             "beforeMarkdowns": [
-              "## Die History auf dem Server sauber halten",
+              "Lass uns mal anschauen wie man's möglichst nicht machen sollte.",
               "",
-              "In diesem Beispiel ist ein Issue-Branch in den `master` gemergt worden, obwohl auf dem Server bereits ein neuer Commit im `master` war.",
-              "",
-              "Ein `push` ist jetzt nicht mehr möglich, Git warnt entsprechend. Wenn man jetzt einfach nur `pull` ausführt und dann pusht ..."
+              "In diesem Beispiel hast du den Branch in den `master` gemerged, obwohl es schon einen neuen Commit auf dem Server gab. `git push` verweigert dir daher den Push, denn der Commit auf dem Server ist noch nicht Bestandteil deines `master`."
             ],
             "afterMarkdowns": [
-              "Hatten sie die Spaghetti bestellt? Na denn guten Appetit.",
-              "",
-              "Nur: hier müssen alle Kollegen mitessen. Schönen Dank auch dafür."
+              "Das war jetzt ein klassischer \"PushPull\". Das ist, wenn man versucht zu pushen, nicht darf, und dann einfach mal eben grad `git pull` macht. Macht nix kaputt, außer der Übersichtlichkeit, weil es _IMMER_ überflüssige (und je nach dem wie alt deine lokalen Branches sind auch sehr große) Merges verursacht."
             ],
             "command": "git pull; git push",
-            "beforeCommand": "git clone; git co -b issue; git ci; git fakeTeamwork; git co master; git merge issue --no-ff"
+            "beforeCommand": "git clone; git co -b feature; git ci; git fakeTeamwork; git ci; git co master; git merge feature --no-ff"
+          }
+        },
+        {
+          "type": "GitDemonstrationView",
+          "options": {
+            "beforeMarkdowns": [
+              "Jetzt befolgen wir stattdessen den zweiten Ratschlag: `git pull` VOR dem Merge."
+            ],
+            "afterMarkdowns": [
+              "Härrlisch. Einen Merge Commit gibt es immer noch (der Branch hat ja mehr als einen Commit -> `--no-ff` -> Merge erzwungen) aber eben nur einen, nicht zwei."
+            ],
+            "command": "git pull; git merge issue --no-ff; git push",
+            "beforeCommand": "git clone; git co -b issue; git ci; git ci; git fakeTeamwork; git co master"
           }
         },
         {
           "type": "ModalAlert",
           "options": {
             "markdowns": [
-              "## Dann lieber richtig",
+              "Alles klar? Na denn:",
               "",
-              "So also nicht. Deshalb bitte in diesem Level (und in Echt auch)",
+              "## Ziel des Levels",
               "",
               "* erst mal den `master` aktualisieren,",
-              "* dann `issue` in `master` mergen (`--no-ff` nicht vergessen; die Optionen müssen in dieser Lernumgebung immer ans Ende, es wäre also z.B. `git merge issue --no-ff`),",
+              "* dann `issue` in `master` mergen,",
               "* und erst dann `pushen`.",
               "",
-              "Das Ergebnis wird ersichtlich übersichtlicher. Der Rest der Firma dankt's.",
-              "",
-              "",
-              ""
+              "Viel Erfolg!"
             ]
           }
         }

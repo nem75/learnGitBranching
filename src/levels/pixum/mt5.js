@@ -5,10 +5,10 @@ exports.level = {
   "compareOnlyMasterHashAgnostic": false,
   "disabledMap": {"git rebase": true},
   "hint": {
-    "de_DE": "`--hard` ist NICHT der Default bei einem `git reset` sondern `--mixed`, auch wenn diese Lernumgebung anderes behauptet."
+    "de_DE": "Hier ist es egal, aber in echtem Git ist es ein großer Unterschied, ob du reset mit --hard oder ohne angibst."
   },
   "name": {
-    "de_DE": "MT5: Wenn das Team dreimal pusht"
+    "de_DE": "Wenn das Team dreimal pusht"
   },
   "startDialog": {
     "de_DE": {
@@ -17,15 +17,15 @@ exports.level = {
           "type": "ModalAlert",
           "options": {
             "markdowns": [
-              "## MT5: Wenn das Team dreimal pusht",
+              "## Wenn das Team dreimal pusht",
               "",
-              "Egal wie sorgfältig man arbeitet, natürlich passiert es einem trotzdem:",
+              "Ich hatte diese Situation in einem vorherigen Level schon mal in einem kleinen Beispiel gezeigt. Sie ist aber wichtig genug um ihr einen eigenen Level einzuräumen:",
               "",
-              "* man hat brav im `master` ein `git pull` gemacht,",
-              "* erst dann seinen Branch in den `master` reintegriert",
-              "* und trotzdem schlägt `git push` fehl, weil _GERADEBENMALKURZ_ ein Kollege ebenfalls etwas auf den Server gepusht hat.",
+              "Du hast alles richtig gemacht, vor dem Anlegen des Branch gepullt, den Branch immer wieder mit `git rebase` aktualisiert, vor dem Reintrgrieren in den `master` wieder gepullt usw. usf. Alles super.",
               "",
-              "Plöt.",
+              "Und dann: `git push`. Und dann: nix ist.",
+              "",
+              "... weil _GERADEBENMALKURZ_ ein Kollege ebenfalls etwas auf den Server gepusht hat. Gnarf!",
               "",
               "Und nun?"
             ]
@@ -35,35 +35,51 @@ exports.level = {
           "type": "GitDemonstrationView",
           "options": {
             "beforeMarkdowns": [
-              "## Na dann pull ich halt einfach",
-              "",
-              "Was soll da schon schief gehen?",
-              ""
+              "PushPull to the rescue! Was soll da schon schief gehen?"
             ],
             "afterMarkdowns": [
-              "Funktionell nichts, aber schön ist anders. So bekommt man einen zusätzlichen und unnötigen Merge-Commit, den man sich auch noch in den Branch holen wird, sollte man mal den `master` in den Branch mergen.",
-              "",
-              "Bäh."
+              "Naja, kaputt geht nichts. Außer der Übersichtlichkeit. Also wer ganz dubiose Änderungen gemacht hat und das verschleiern will, der kann so vorgehen. Aber wer nichts zu verbergen hat, der macht es lieber so:"
             ],
-            "command": "git pull; git push",
-            "beforeCommand": "git clone; git co -b issue; git ci; git co master; git merge issue --no-ff; git fakeTeamwork"
+            "command": "git push; git pull; git push",
+            "beforeCommand": "git clone; git co -b issue; git ci; git ci; git co master; git merge issue --no-ff; git fakeTeamwork"
+          }
+        },
+        {
+          "type": "GitDemonstrationView",
+          "options": {
+            "beforeMarkdowns": [
+              "Es gibt verschiedene Wege, wie du diese Situation sauber lösen kannst. Hier ist einer:"
+            ],
+            "afterMarkdowns": [
+              "Es sind drei simple Schritte: auf den Commit vor dem Merge zurückgehen (`git reset`), die Änderungen vom Server holen (`git pull`) und dann den Merge wiederholen."
+            ],
+            "command": "git reset master^ --hard; git pull; git merge issue --no-ff",
+            "beforeCommand": "git clone; git co -b issue; git ci; git ci; git co master; git merge issue --no-ff; git fakeTeamwork"
           }
         },
         {
           "type": "ModalAlert",
           "options": {
             "markdowns": [
-              "## Einen Schritt zurück",
+              "## Variationen",
               "",
-              "Ein sehr viel ansehnlicheres Ergebnis ergibt sich, wenn man im lokalen `master` einfach den Merge-Commit zurück nimmt, pullt und dann den Merge erneut vornimmt.",
+              "Wenn `issue` nur aus einem einzigen Commit besteht, ist die ideale Lösung der Situation aus dem letzten Beispiel eine andere. Schau ein paar Level vor diesem nach, falls du sie vergessen hast.",
               "",
-              "Das Zurücknehmen geht in diesem Fall mit",
+              "Eine andere Möglichkeit wäre ein `git pull --rebase` auszuführen. Aber Achtung! Falls du das tun willst, und dein Branch mehr als einen Commit hat, wie in diesem Beispiel der Fall, benutze **unbedingt** den zusätzlichen Schalter `--preserve-merges`. Sonst wird durch den Rebase der Merg-Commit \"zerstört\" und in die einzelnen Commits des Branches aufgeteilt, und das soll auf keinen Fall passieren!"
+            ]
+          }
+        },
+        {
+          "type": "ModalAlert",
+          "options": {
+            "markdowns": [
+              "## Ziel des Levels",
               "",
-              "`git reset --hard HEAD^`",
+              "* den Merge-Commit rückgängig machen,",
+              "* die Änderungen vom Server holen",
+              "* den Merge wiederholen",
               "",
-              "Das steht für: setze im aktuellen Branch den Zeiger `HEAD` (der zeigt auf den letzten Commit im aktuellen Branch) auf den Commit vor seiner aktuellen Position und verwerfe alle Änderungen, die dadurch verloren gehen (der Merge-Commit).",
-              "",
-              "Probier's aus!"
+              "Viel Erfolg!"
             ]
           }
         }
