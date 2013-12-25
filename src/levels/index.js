@@ -38,7 +38,8 @@ exports.levelSequences = {
     require('./pixum/keep_local_branch_current').level,
     require('./pixum/reset_pull_push').level
   ],
-  pixumRemote: [
+  pixumTips: [
+    require('./pixum/merge_to_rebase').level,
     require('./pixum/uc1').level
   ],
   remote: [
@@ -175,19 +176,19 @@ var sequenceInfo = exports.sequenceInfo = {
   pixumLocal: {
     tab: 'pixum',
     displayName: {
-      'de_DE': 'Workflows Lokale Branches / MT'
+      'de_DE': 'Grundlagen'
     },
     about: {
       'de_DE': 'Workflows für die Arbeit mit lokalen Branches'
     }
   },
-  pixumRemote: {
+  pixumTips: {
     tab: 'pixum',
     displayName: {
-      'de_DE': 'Undo und Cleanup'
+      'de_DE': 'Tipps und Tricks'
     },
     about: {
-      'de_DE': 'Workflows zum Rückgängigmachen und Aufräumen'
+      'de_DE': 'Hilfreiche Workflows für Sonderfälle'
     }
   }
 };
