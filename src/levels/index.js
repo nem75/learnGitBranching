@@ -29,18 +29,20 @@ exports.levelSequences = {
     require('./advanced/multipleParents').level,
     require('./rebase/selectiveRebase').level
   ],
-  pixumLocal: [
+  pixumBasics: [
     require('./pixum/create_local_branch').level,
     require('./pixum/reintegrate_multi_commit').level,
     require('./pixum/reintegrate_single_commit').level,
     require('./pixum/reintegrate_local_branch').level,
+  ],
+  pixumClarity: [
     require('./pixum/single_commit_rebase_push').level,
     require('./pixum/keep_local_branch_current').level,
-    require('./pixum/reset_pull_push').level
+    require('./pixum/reset_pull_push').level,
+    require('./pixum/add_to_branch_reset').level
   ],
   pixumTips: [
-    require('./pixum/merge_to_rebase').level,
-    require('./pixum/uc1').level
+    require('./pixum/merge_to_rebase').level
   ],
   remote: [
     require('./remote/clone').level,
@@ -173,13 +175,22 @@ var sequenceInfo = exports.sequenceInfo = {
       'zh_CN': '只为真正的勇士！'
     }
   },
-  pixumLocal: {
+  pixumBasics: {
     tab: 'pixum',
     displayName: {
       'de_DE': 'Grundlagen'
     },
     about: {
       'de_DE': 'Workflows für die Arbeit mit lokalen Branches'
+    }
+  },
+  pixumClarity: {
+    tab: 'pixum',
+    displayName: {
+      'de_DE': 'Mehr Übersichtlichkeit'
+    },
+    about: {
+      'de_DE': 'Für lesbare Historys und glückliche Kollegen'
     }
   },
   pixumTips: {

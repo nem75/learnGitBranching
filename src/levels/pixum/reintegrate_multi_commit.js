@@ -17,9 +17,11 @@ exports.level = {
             "markdowns": [
               "## Reintegration: mehrere Commits",
               "",
-              "Nachdem du deine Arbeit in einem lokalen Branch, zum Beispiel für ein Issue, abgeschlossen hast, kommt der große Moment wo du diese Änderungen deployen möchtest. Hört, hört!",
+              "Nachdem du deine Arbeit in einem lokalen Branch, zum Beispiel für ein Issue, abgeschlossen hast, kommt der große Moment wo du diese Änderungen deployen möchtest.",
               "",
-              "Dazu musst du die Änderungen",
+              "Soso.",
+              "",
+              "Dann musst du die Änderungen",
               "",
               "* in den lokalen `master` integrieren",
               "* und dann auf den Server pushen.",
@@ -52,7 +54,7 @@ exports.level = {
               "Die Arbeit ist abgeschlossen, wir sind in den `master` gewechselt und jetzt kommt der Merge:"
             ],
             "afterMarkdowns": [
-              "Denkste! Git schaut beim Merge, ob das Ziel der Aktion (hier: `master`) vielleicht ein direkter Vorfahr der Quelle (hier: `issue`) ist. Wenn ja, macht es keinen Merge sondern einen sogenannten `fast-forward`. Das heißt es \"spult\" das Ziel (`master`) einfach an die Stelle der Quelle (`issue`) vor. Schöner Mist.",
+              "Denkste! Git schaut beim Merge, ob das Ziel der Aktion (hier: `master`) vielleicht ein Vorfahr der Quelle (hier: `issue`) ist. Wenn ja, macht es keinen Merge sondern einen sogenannten `fast-forward`. Das heißt es \"spult\" das Ziel (`master`) einfach an die Stelle der Quelle (`issue`) vor. Schöner Mist.",
               ""
             ],
             "command": "git merge issue",
@@ -65,7 +67,7 @@ exports.level = {
             "markdowns": [
               "## 20 Reverts über der Schmerzgrenze",
               "",
-              "Ok, das ist jetzt nicht weiter schlimm, du machst damit nichts kaputt.",
+              "Ok, in diesem Beispiel war das jetzt kein Beinbruch, du machst damit auch niemals etwas kaputt.",
               "",
               "Es ist nur so: wenn dein `issue` aus 21 Commits bestand und irgendeiner davon macht den Kunden das Bestellen unmöglich muss jetzt ein Kollege alle 21 Commits einzeln per `git revert` beseitigen, anstatt einfach nur einen Merge-Commit.",
               "",

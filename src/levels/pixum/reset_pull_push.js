@@ -21,7 +21,7 @@ exports.level = {
               "",
               "Ich hatte diese Situation in einem vorherigen Level schon mal in einem kleinen Beispiel gezeigt. Sie ist aber wichtig genug um ihr einen eigenen Level einzuräumen:",
               "",
-              "Du hast alles richtig gemacht, vor dem Anlegen des Branch gepullt, den Branch immer wieder mit `git rebase` aktualisiert, vor dem Reintrgrieren in den `master` wieder gepullt usw. usf. Alles super.",
+              "Du hast alles richtig gemacht, vor dem Anlegen des Branch gepullt, den Branch immer wieder mit `git rebase` aktualisiert, vor dem Reintegrieren in den `master` wieder gepullt usw. usf. Alles super.",
               "",
               "Und dann: `git push`. Und dann: nix ist.",
               "",
@@ -65,7 +65,7 @@ exports.level = {
               "",
               "Wenn `issue` nur aus einem einzigen Commit besteht, ist die ideale Lösung der Situation aus dem letzten Beispiel eine andere. Schau ein paar Level vor diesem nach, falls du sie vergessen hast.",
               "",
-              "Eine andere Möglichkeit wäre ein `git pull --rebase` auszuführen. Aber Achtung! Falls du das tun willst, und dein Branch mehr als einen Commit hat, wie in diesem Beispiel der Fall, benutze **unbedingt** den zusätzlichen Schalter `--preserve-merges`. Sonst wird durch den Rebase der Merg-Commit \"zerstört\" und in die einzelnen Commits des Branches aufgeteilt, und das soll auf keinen Fall passieren!"
+              "Eine andere Möglichkeit wäre ein `git pull --rebase` auszuführen. Aber Achtung! Falls du das tun willst, und dein Branch mehr als einen Commit hat, wie in diesem Beispiel der Fall, benutze **unbedingt** den zusätzlichen Schalter `--preserve-merges`. Sonst wird durch den Rebase der Merge-Commit \"zerstört\" und in die einzelnen Commits des Branches aufgeteilt, und das soll auf keinen Fall passieren!"
             ]
           }
         },

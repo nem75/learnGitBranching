@@ -75,10 +75,12 @@ exports.level = {
           "type": "GitDemonstrationView",
           "options": {
             "beforeMarkdowns": [
-              "Um den fast-forward zu bekommen, muss nach dem Pull der `master` wieder zu einem direkten Vorfahr von `issue` werden. Wie wir das hinkriegen? Mit einem Rebase!"
+              "Um den fast-forward zu bekommen, muss nach dem Pull der `master` wieder zu einem direkten Vorfahr von `issue` werden. Wie wir das hinkriegen? Mit einem Rebase!",
+              "",
+              "Hier haben wir alles so gemacht wie beim zweiten Versuch: vor dem Merge erst mal ein `git pull` auf dem `master`. Und weil wir sehen, das Änderungen vom Server kamen und wir wissen, dass die noch nicht in unserem Branch sein können, bringen wir sie dort jetzt erst mal rein:"
             ],
             "afterMarkdowns": [
-              "Und da ist er endlich! Wenn man jetzt pusht, haben wir eine wunderbar übersichtliche History. Aber was, wenn ausgerechnet nach dem Merge noch eine neue Änderung auf den Server kommt?"
+              "Und da ist er endlich: Fast-Forward, alte Säge! Wenn man jetzt pusht, haben wir eine wunderbar übersichtliche History. Aber was, wenn ausgerechnet nach dem Merge noch eine neue Änderung auf den Server kommt?"
             ],
             "command": "git rebase master issue; git co master; git merge issue",
             "beforeCommand": "git clone; git fakeTeamwork; git co -b issue; git co issue; git ci; git co master; git pull"

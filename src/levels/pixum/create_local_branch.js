@@ -36,7 +36,7 @@ exports.level = {
             "markdowns": [
               "## Branchen: gratis und schnell, Merge: fast umsonst dabei",
               "",
-              "SVN ist nicht schlecht weil das Anlegen von Branches schlimm wäre. Es ist schlecht, weil das Mergen eines Branch in was auch immer meistens kompliziert ist. Bei Git ist das nicht so. Es lohnt sich deshalb bei der Arbeit mit Git die alte \"das ist doch eine viele zu kleine Änderung, als dass sich da ein Branch lohne würde\"-Attitüde abzulegen.",
+              "SVN ist nicht schlecht weil das Anlegen von Branches schlimm wäre. Es ist schlecht, weil das Mergen eines Branch in was auch immer meistens kompliziert ist. Bei Git ist das nicht so. Es lohnt sich deshalb bei der Arbeit mit Git die alte \"das ist doch eine viel zu kleine Änderung, als dass sich da ein Branch lohnen würde\"-Attitüde abzulegen. Mergen mit Git kostet fast nichts, und Branchen die Hälfte. ;)",
               "",
               "Der erste Schritt vor dem Anlegen eines neuen Branch, wenn er von einem auf `git.pixum.dev` vorhandenen Branch wie `master` abzweigt, sollte immer ein `git pull` auf dem Eltern-Branch sein. So arbeitest du auf dem neuesten Stand und minimierst das Risiko von Problemen bei der Reintegration.",
               "",
@@ -52,7 +52,7 @@ exports.level = {
               ""
             ],
             "afterMarkdowns": [
-              "Fertig. Je nach Tageszeit hat dieser Schritt auch noch den Vorteil, dass vielleicht kein `git pull` mehr nötig ist bevor wir den Branch reintegrieren und pushen.",
+              "Fertig.",
               "",
               "(`o/master` ist hier eine verkürzte Schreibweise, in echtem Git heißt der Remote Branch des `master` üblicherweise `origin/master`.)"
             ],
